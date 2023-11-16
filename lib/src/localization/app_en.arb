@@ -1,0 +1,6 @@
+{
+  "appTitle": "danuras_web_service_editor",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
