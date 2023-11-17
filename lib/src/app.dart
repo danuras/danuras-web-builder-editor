@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'menu/pages/web_information.dart';
 import 'menu/sample_item_details_view.dart';
 import 'menu/list_menu.dart';
 import 'settings/settings_controller.dart';
@@ -71,6 +72,8 @@ class MyApp extends StatelessWidget {
                     return SettingsView(controller: settingsController);
                   case SampleItemDetailsView.routeName:
                     return const SampleItemDetailsView();
+                  case WebInformation.routeName:
+                    return const WebInformation();
                   case ListMenu.routeName:
                   default:
                     return const ListMenu();

@@ -1,6 +1,9 @@
-import 'package:flutter/material.dart';
+import 'dart:developer';
 
-import '../settings/settings_view.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_information.dart';
+import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+
 import 'sample_item.dart';
 import 'sample_item_details_view.dart';
 
@@ -8,63 +11,271 @@ import 'sample_item_details_view.dart';
 class ListMenu extends StatelessWidget {
   const ListMenu({
     super.key,
-    this.items = const [SampleItem(1), SampleItem(2), SampleItem(3)],
   });
 
   static const routeName = '/';
 
-  final List<SampleItem> items;
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Daftar Menu'),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.settings),
-            onPressed: () {
-              // Navigate to the settings page. If the user leaves and returns
-              // to the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(context, SettingsView.routeName);
-            },
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Daftar Menu'),
+          backgroundColor: const Color(0xff110011),
+        ),
+
+        body: Container(
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              image: AssetImage(
+                'assets/images/background.jpeg',
+              ),
+              fit: BoxFit.cover,
+            ),
+            color: Colors.black,
+          ),
+          child: ListView(
+            // Providing a restorationId allows the ListView to restore the
+            // scroll position when a user leaves and returns to the app after it
+            // has been killed while running in the background.
+            restorationId: 'listMenu',
+            children: [
+              TileMenu(
+                title1: 'Kerangka Web',
+                title2: 'Informasi Web',
+                icon1: Icons.web,
+                icon2: Icons.info_outlined,
+                action1: () {
+                  Navigator.restorablePushNamed(
+                    context,
+                    SampleItemDetailsView.routeName,
+                  );
+                },
+                action2: () {
+                  // Navigate to the details page. If the user leaves and returns to
+                  // the app after it has been killed while running in the
+                  // background, the navigation stack is restored.
+                  Navigator.restorablePushNamed(
+                    context,
+                    WebInformation.routeName,
+                  );
+                },
+              ),
+              TileMenu(
+                title1: 'Pengguna',
+                title2: 'Email Web',
+                icon1: Icons.person,
+                icon2: Icons.email_outlined,
+                action1: () {
+                  Navigator.restorablePushNamed(
+                    context,
+                    SampleItemDetailsView.routeName,
+                  );
+                },
+                action2: () {
+                  // Navigate to the details page. If the user leaves and returns to
+                  // the app after it has been killed while running in the
+                  // background, the navigation stack is restored.
+                  Navigator.restorablePushNamed(
+                    context,
+                    SampleItemDetailsView.routeName,
+                  );
+                },
+              ),
+              TileMenu(
+                title1: 'Kontak',
+                title2: 'Profil Perusahaan',
+                icon1: Icons.contact_page_rounded,
+                icon2: Icons.factory_outlined,
+                action1: () {
+                  Navigator.restorablePushNamed(
+                    context,
+                    SampleItemDetailsView.routeName,
+                  );
+                },
+                action2: () {
+                  // Navigate to the details page. If the user leaves and returns to
+                  // the app after it has been killed while running in the
+                  // background, the navigation stack is restored.
+                  Navigator.restorablePushNamed(
+                    context,
+                    SampleItemDetailsView.routeName,
+                  );
+                },
+              ),
+              TileMenu(
+                title1: 'Warna web',
+                title2: '',
+                icon1: Icons.color_lens_rounded,
+                icon2: Icons.cabin,
+                is2null: true,
+                action1: () {
+                  Navigator.restorablePushNamed(
+                    context,
+                    SampleItemDetailsView.routeName,
+                  );
+                },
+                action2: () {
+                  
+                },
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class TileMenu extends StatelessWidget {
+  const TileMenu({
+    super.key,
+    required this.title1,
+    required this.title2,
+    required this.icon1,
+    required this.icon2,
+    required this.action1,
+    required this.action2,
+    this.is2null = false,
+  });
+  final Function() action1, action2;
+  final IconData icon1, icon2;
+  final String title1, title2;
+  final bool is2null;
+
+  @override
+  Widget build(BuildContext context) {
+    ValueNotifier isHover1 = ValueNotifier(false);
+    ValueNotifier isHover2 = ValueNotifier(false);
+    return SizedBox(
+      width: double.infinity,
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Padding(
+              padding: const EdgeInsets.only(
+                top: 8.0,
+                left: 8.0,
+                right: 8.0,
+              ),
+              child: ValueListenableBuilder(
+                  valueListenable: isHover1,
+                  builder: (context, ih, child) {
+                    return Container(
+                      decoration: BoxDecoration(
+                        color: (ih)
+                            ? const Color(0xee220022)
+                            : const Color(0xbb220022),
+                        border: Border.all(
+                          color: Colors.white,
+                          width: 2,
+                        ),
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
+                        ),
+                      ),
+                      child: InkWell(
+                        onTap: action1,
+                        onTapDown: (value) {
+                          isHover1.value = true;
+                        },
+                        onTapCancel: () {
+                          isHover1.value = false;
+                        },
+                          onTapUp: (v) {
+                            isHover2.value = false;
+                          },
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Column(
+                            children: [
+                              Icon(
+                                icon1,
+                                color: Colors.white,
+                                size: (MediaQuery.of(context).size.width) / 3,
+                              ),
+                              Text(
+                                title1,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Builder(builder: (context) {
+              if (is2null) {
+                return const SizedBox.shrink();
+              } else {
+                return Padding(
+                  padding: const EdgeInsets.only(
+                    top: 8.0,
+                    left: 8.0,
+                    right: 8.0,
+                  ),
+                  child: ValueListenableBuilder(
+                    valueListenable: isHover2,
+                    builder: (context, ih, child) {
+                      return Container(
+                        decoration: BoxDecoration(
+                          color: (ih)
+                              ? const Color(0xee220022)
+                              : const Color(0xbb220022),
+                          border: Border.all(
+                            color: Colors.white,
+                            width: 2,
+                          ),
+                          borderRadius: const BorderRadius.all(
+                            Radius.circular(8),
+                          ),
+                        ),
+                        child: InkWell(
+                          onTap: action2,
+                          onTapDown: (value) {
+                            isHover2.value = true;
+                          },
+                          onTapCancel: () {
+                            isHover2.value = false;
+                          },
+                          onTapUp: (v) {
+                            isHover2.value = false;
+                          },
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Column(
+                              children: [
+                                Icon(
+                                  icon2,
+                                  color: Colors.white,
+                                  size: (MediaQuery.of(context).size.width) / 3,
+                                ),
+                                Text(
+                                  title2,
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      );
+                    },
+                  ),
+                );
+              }
+            }),
           ),
         ],
-      ),
-
-      // To work with lists that may contain a large number of items, it’s best
-      // to use the ListView.builder constructor.
-      //
-      // In contrast to the default ListView constructor, which requires
-      // building all Widgets up front, the ListView.builder constructor lazily
-      // builds Widgets as they’re scrolled into view.
-      body: ListView.builder(
-        // Providing a restorationId allows the ListView to restore the
-        // scroll position when a user leaves and returns to the app after it
-        // has been killed while running in the background.
-        restorationId: 'sampleItemListView',
-        itemCount: items.length,
-        itemBuilder: (BuildContext context, int index) {
-          final item = items[index];
-
-          return ListTile(
-            title: Text('SampleItem ${item.id}'),
-            leading: const CircleAvatar(
-              // Display the Flutter Logo image asset.
-              foregroundImage: AssetImage('assets/images/flutter_logo.png'),
-            ),
-            onTap: () {
-              // Navigate to the details page. If the user leaves and returns to
-              // the app after it has been killed while running in the
-              // background, the navigation stack is restored.
-              Navigator.restorablePushNamed(
-                context,
-                SampleItemDetailsView.routeName,
-              );
-            }
-          );
-        },
       ),
     );
   }

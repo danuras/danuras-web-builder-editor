@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
 
 import 'settings_service.dart';
 
@@ -26,7 +27,14 @@ class SettingsController with ChangeNotifier {
   /// local database or the internet. The controller only knows it can load the
   /// settings from the service.
   Future<void> loadSettings() async {
-    _themeMode = await _settingsService.themeMode();
+    var box = await Hive.openBox('settings');
+
+    String savedTheme = box.get('theme') ?? 'light';
+    if (savedTheme == 'dark') {
+      _themeMode = ThemeMode.dark;
+    } else {
+      _themeMode = ThemeMode.light;
+    }
 
     // Important! Inform listeners a change has occurred.
     notifyListeners();
@@ -35,9 +43,12 @@ class SettingsController with ChangeNotifier {
   /// Update and persist the ThemeMode based on the user's selection.
   Future<void> updateThemeMode(ThemeMode? newThemeMode) async {
     if (newThemeMode == null) return;
-
-    log('message');
-
+    var box = await Hive.openBox('settings');
+    if (newThemeMode == ThemeMode.dark) {
+      box.put('theme', 'dark');
+    } else if (newThemeMode == ThemeMode.light) {
+      box.put('theme', 'light');
+    }
     // Do not perform any work if new and old ThemeMode are identical
     if (newThemeMode == _themeMode) return;
 
