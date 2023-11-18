@@ -1,6 +1,6 @@
 import 'dart:io';
 
-import 'package:danuras_web_service_editor/src/controller/upload_file/pick_image.dart';
+import 'package:danuras_web_service_editor/src/view_controller/upload_file/pick_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';

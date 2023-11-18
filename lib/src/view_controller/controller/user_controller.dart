@@ -33,8 +33,8 @@ class UserController extends BaseController {
         action400(result);
       } 
       else if (response.statusCode == 401) {
-        if (context.mounted) {
-          Navigator.of(context).pushReplacementNamed('/');
+      if (context.mounted) {
+          revoke(context);
         }
       } else {
         if (context.mounted) {
