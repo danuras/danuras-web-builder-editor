@@ -6,9 +6,9 @@ import 'package:danuras_web_service_editor/src/menu/components/widget/input_type
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_icon.dart';
 import 'package:flutter/material.dart';
 
-class WebInformation extends StatelessWidget {
-  const WebInformation({super.key});
-  static const routeName = '/web-information';
+class CompanyProfile extends StatelessWidget {
+  const CompanyProfile({super.key});
+  static const routeName = '/company-profile';
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class WebInformation extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Informasi Web'),
+          title: const Text('Profil Perusahaan'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(
@@ -50,63 +50,22 @@ class WebInformation extends StatelessWidget {
               ),
               child: ListView(
                 children: [
-                  Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      InputTypeIcon(
-                        action: (ico) {
-                          icon = ico;
-                        },
-                        label: 'Ikon',
-                        icon: icon,
-                      ),
-                      const SizedBox(
-                        width: 8.0,
-                      ),
-                      Expanded(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            InputTypeBar(
-                              labelText: 'Nama Brand',
-                              errorText: titleError,
-                              tooltip:
-                                  'Nama brand adalah identitas usaha anda. Pastikan nama ini mencerminkan nilai, visi, dan kesan yang ingin Anda sampaikan kepada pelanggan anda.',
-                              controller: titleController,
-                            ),
-                            const SizedBox(
-                              height: 20,
-                            ),
-                            InputTypeBar(
-                              labelText: 'Nama Panjang Brand',
-                              errorText: longTitleError,
-                              controller: longTitleController,
-                              tooltip:
-                                  'Nama panjang brand atau usaha anda yang akan ditampilkan di footer',
-                              maxLines: 2,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
                   InputTypeBar(
-                    labelText: 'Heading Utama',
+                    labelText: 'Deskripsi singkat',
                     tooltip:
-                        'Judul ini menjadi penanda utama bagi website Anda. Pastikan untuk membuatnya menarik dan informatif agar pengunjung tertarik untuk menjelajah lebih lanjut!',
+                        'Deskripsikan secara singkat usaha anda.',
                     errorText: headingError,
+                    maxLines: 2,
                     controller: headingController,
                   ),
                   const SizedBox(
                     height: 8.0,
                   ),
                   InputTypeBar(
-                    labelText: 'Sub Heading',
+                    labelText: 'Deskripsi',
                     tooltip:
-                        'Sub heading adalah kesempatan untuk memberikan informasi tambahan yang menarik perhatian. Gunakan dengan bijak untuk menjelaskan lebih lanjut tentang konten utama website anda.',
+                        'Jelaskan usaha anda (bisa dengan menceritakan riwayat perusahaan anda)',
+                        maxLines: 4,
                     errorText: subHeadingError,
                     controller: subHeadingController,
                   ),
@@ -117,16 +76,49 @@ class WebInformation extends StatelessWidget {
                     action: (image) {
                       backgroundImage = image;
                     },
-                    label: 'Gambar Background Header',
+                    label: 'Gambar Perusahaan',
                   ),
                   const SizedBox(
                     height: 8.0,
                   ),
-                  InputSquareImage(
-                    action: (image) {
-                      backgroundTestimony = image;
-                    },
-                    label: 'Gambar Background Testimoni',
+                  InputTypeBar(
+                    labelText: 'Deskripsi',
+                    tooltip:
+                        'Jelaskan usaha anda (bisa dengan menceritakan riwayat perusahaan anda)',
+                    errorText: subHeadingError,
+                    controller: subHeadingController,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  InputTypeBar(
+                    labelText: 'Pesan instan',
+                    tooltip:
+                        'Masukan pesan instan yang dapat otomatis dimasukan ketika pengunjung ingin menghubungi anda lewat whatsapp',
+                    errorText: subHeadingError,
+                    controller: subHeadingController,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  InputTypeBar(
+                    labelText: 'Visi Perusahaan',
+                    tooltip:
+                        'Ceritakan visi perusahaan Anda yang menjadikan perusahaan anda sumber daya yang tak tergantikan dan mendorong inovasi demi mewujudkan masa depan yang lebih baik.',
+                    errorText: headingError,
+                    maxLines: 2,
+                    controller: headingController,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  InputTypeBar(
+                    labelText: 'Misi Perusahaan',
+                    tooltip:
+                        'Ceritakan misi perusahaan Anda yang menggambarkan komitmen perusahaan untuk mencapai tujuan, layanan yang perusahaan tawarkan, dan dampak positif yang ingin perusahaan ciptakan dalam masyarakat.',
+                    errorText: headingError,
+                    maxLines: 2,
+                    controller: headingController,
                   ),
                   const SizedBox(
                     height: 8.0,

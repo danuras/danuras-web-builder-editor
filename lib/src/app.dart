@@ -1,7 +1,16 @@
+import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/add_section.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/contact.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/list_user.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
+import 'menu/pages/email_web.dart';
 import 'menu/pages/web_information.dart';
 import 'menu/sample_item_details_view.dart';
 import 'menu/list_menu.dart';
@@ -74,6 +83,22 @@ class MyApp extends StatelessWidget {
                     return const SampleItemDetailsView();
                   case WebInformation.routeName:
                     return const WebInformation();
+                  case EmailWeb.routeName:
+                    return const EmailWeb();
+                  case Contact.routeName:
+                    return const Contact();
+                  case CompanyProfile.routeName:
+                    return const CompanyProfile();
+                  case WebColor.routeName:
+                    return const WebColor();
+                  case SocialMedia.routeName:
+                    return const SocialMedia();
+                  case ListUser.routeName:
+                    return const ListUser();
+                  case WebSkeleton.routeName:
+                    return const WebSkeleton();
+                  case AddSection.routeName:
+                    return const AddSection();
                   case ListMenu.routeName:
                   default:
                     return const ListMenu();

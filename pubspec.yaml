@@ -19,7 +19,10 @@ dependencies:
   flutter_spinkit: ^5.2.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  html_editor_enhanced: ^2.5.1
+  http: ^0.13.6
   path_provider: ^2.1.1
+  quill_html_editor: ^2.1.9
 
 dev_dependencies:
   flutter_test:
@@ -37,3 +40,11 @@ flutter:
   assets:
     # Add assets from the images directory to the application.
     - assets/images/
+    - assets/images/kerangka/
+    - assets/images/kerangka/advantage/
+    - assets/images/kerangka/blog/
+    - assets/images/kerangka/card/
+    - assets/images/kerangka/footer/
+    - assets/images/kerangka/header/
+    - assets/images/kerangka/location/
+    - assets/images/kerangka/testimony/

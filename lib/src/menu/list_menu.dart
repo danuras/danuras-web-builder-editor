@@ -1,6 +1,13 @@
 import 'dart:developer';
 
+import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/contact.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/email_web.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/list_user.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_information.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -49,7 +56,7 @@ class ListMenu extends StatelessWidget {
                 action1: () {
                   Navigator.restorablePushNamed(
                     context,
-                    SampleItemDetailsView.routeName,
+                    WebSkeleton.routeName,
                   );
                 },
                 action2: () {
@@ -70,7 +77,7 @@ class ListMenu extends StatelessWidget {
                 action1: () {
                   Navigator.restorablePushNamed(
                     context,
-                    SampleItemDetailsView.routeName,
+                    ListUser.routeName,
                   );
                 },
                 action2: () {
@@ -79,7 +86,7 @@ class ListMenu extends StatelessWidget {
                   // background, the navigation stack is restored.
                   Navigator.restorablePushNamed(
                     context,
-                    SampleItemDetailsView.routeName,
+                    EmailWeb.routeName,
                   );
                 },
               ),
@@ -91,7 +98,7 @@ class ListMenu extends StatelessWidget {
                 action1: () {
                   Navigator.restorablePushNamed(
                     context,
-                    SampleItemDetailsView.routeName,
+                    Contact.routeName,
                   );
                 },
                 action2: () {
@@ -100,24 +107,26 @@ class ListMenu extends StatelessWidget {
                   // background, the navigation stack is restored.
                   Navigator.restorablePushNamed(
                     context,
-                    SampleItemDetailsView.routeName,
+                    CompanyProfile.routeName,
                   );
                 },
               ),
               TileMenu(
                 title1: 'Warna web',
-                title2: '',
+                title2: 'Link Media Sosial',
                 icon1: Icons.color_lens_rounded,
-                icon2: Icons.cabin,
-                is2null: true,
+                icon2: Icons.link,
                 action1: () {
                   Navigator.restorablePushNamed(
                     context,
-                    SampleItemDetailsView.routeName,
+                    WebColor.routeName,
                   );
                 },
                 action2: () {
-                  
+                   Navigator.restorablePushNamed(
+                    context,
+                    SocialMedia.routeName,
+                  );
                 },
               ),
             ],
