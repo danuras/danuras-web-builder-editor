@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
@@ -19,11 +20,11 @@ class CardBoxApiController extends BaseController {
         'Content-Type': 'application/json; charset-UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
-      body: <String, dynamic> {
+      body: jsonEncode(<String, dynamic> {
         'card_type': cardType,
         'title': title,
         'info': info,
-      }
+      })
     );
     return response;
   }
@@ -40,11 +41,11 @@ class CardBoxApiController extends BaseController {
         'Content-Type': 'application/json; charset-UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
-      body: <String, dynamic> {
+      body: jsonEncode(<String, dynamic> {
         'card_box_id': cardBoxId,
         'title': title,
         'info': info,
-      }
+      })
     );
     return response;
   }

@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:danuras_web_service_editor/src/model/color_model.dart';
 import 'package:danuras_web_service_editor/src/model/social_media.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
@@ -17,14 +19,14 @@ class ColorApiController extends BaseController {
         'Content-Type': 'application/json; charset-UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
-      body: <String, dynamic> {
+      body: jsonEncode(<String, dynamic> {
         'header_text_color': colorModel.headerTextColor,
         'common_text_color': colorModel.commonTextColor,
         'background_color_1': colorModel.backgroundColor1,
         'background_color_2': colorModel.backgroundColor2,
         'card_color': colorModel.cardColor,
         'highlight_color': colorModel.highlightColor,
-      }
+      })
     );
     return response;
   }

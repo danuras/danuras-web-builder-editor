@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
@@ -19,11 +20,11 @@ class WebContentApiController extends BaseController {
         'Content-Type': 'application/json; charset-UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
-      body: <String, dynamic> {
+      body: jsonEncode(<String, dynamic> {
         'content_type': contentType,
         'card_box_id': cardBoxId,
         'rank': rank,
-      }
+      })
     );
     return response;
   }
@@ -39,10 +40,10 @@ class WebContentApiController extends BaseController {
         'Content-Type': 'application/json; charset-UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
-      body: <String, dynamic> {
+      body: jsonEncode(<String, dynamic> {
         'web_content_id': webContentId,
         'rank': rank,
-      }
+      })
     );
     return response;
   }

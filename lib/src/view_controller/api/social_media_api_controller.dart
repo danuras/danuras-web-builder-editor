@@ -1,4 +1,6 @@
 
+import 'dart:convert';
+
 import 'package:danuras_web_service_editor/src/model/social_media.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
@@ -16,14 +18,14 @@ class SocialMediaApiController extends BaseController {
         'Content-Type': 'application/json; charset-UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
-      body: <String, dynamic> {
+      body: jsonEncode(<String, dynamic> {
         'facebook': socialMedia.facebook,
         'twitter': socialMedia.twitter,
         'linkedin': socialMedia.linkedin,
         'instagram': socialMedia.instagram,
         'google_plus': socialMedia.googlePlus,
         'youtube': socialMedia.youtube,
-      }
+      })
     );
     return response;
   }

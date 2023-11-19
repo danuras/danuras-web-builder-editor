@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/model/company_profile.dart';
@@ -126,13 +127,14 @@ class OrderFlowController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        return successOutput(OrderFlow.fromJson(result['data']));
+        return successOutput(List.generate(result['data'].length, (index)=>OrderFlow.fromJson(result['data'][index])));
       } else if (response.statusCode == 401) {
         return needAuthentication();
       } else {
         return failOutput();
       }
     } catch (e) {
+      log(e.toString());
       return checkError(e);
     }
   }

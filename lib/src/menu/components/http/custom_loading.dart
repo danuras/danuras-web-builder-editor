@@ -12,10 +12,11 @@ class _CustomLoadingState extends State<CustomLoading> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      backgroundColor: Colors.blue,
+      backgroundColor: Color(0x66000000),
       body: Center(
-        child: SpinKitRotatingCircle(
+        child: SpinKitCircle(
           color: Colors.white,
+          
           size: 50,
         ),
       ),

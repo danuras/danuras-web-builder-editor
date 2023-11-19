@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/auth_api_controller.dart';
@@ -7,7 +8,7 @@ import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-class UserController extends BaseController {
+class AuthController extends BaseController {
   final _aac = AuthApiController();
   Future<void> login({
     required String email,
@@ -20,6 +21,7 @@ class UserController extends BaseController {
         password,
       );
 
+
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
@@ -27,7 +29,7 @@ class UserController extends BaseController {
         box.put('access_token', result['data']['api_token']);
         box.put('is_primary', result['data']['user']['is_primary']);
         Auth.accessToken = result['data']['api_token'];
-        Auth.isPrimary = result['data']['user']['is_primary'];
+        Auth.isPrimary = result['data']['user']['is_primary'] == 1;
         if (context.mounted) {
           Navigator.of(context).pushReplacementNamed('/');
         }
@@ -41,6 +43,7 @@ class UserController extends BaseController {
         // menangani koneksi timeout
         timeout(context);
       } else {
+        log(e.toString());
         error(context, 'Error: $e');
       }
     }

@@ -4,6 +4,7 @@ import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/contact.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/email_web.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/list_user.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_information.dart';
@@ -22,7 +23,6 @@ class ListMenu extends StatelessWidget {
 
   static const routeName = '/';
 
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -31,7 +31,6 @@ class ListMenu extends StatelessWidget {
           title: const Text('Daftar Menu'),
           backgroundColor: const Color(0xff110011),
         ),
-
         body: Container(
           decoration: const BoxDecoration(
             image: DecorationImage(
@@ -123,10 +122,29 @@ class ListMenu extends StatelessWidget {
                   );
                 },
                 action2: () {
-                   Navigator.restorablePushNamed(
+                  Navigator.restorablePushNamed(
                     context,
                     SocialMedia.routeName,
                   );
+                },
+              ),
+              TileMenu(
+                title1: 'Langkah Pemesanan',
+                title2: 'Link Media Sosial',
+                icon1: Icons.follow_the_signs,
+                icon2: Icons.link,
+                is2null: true,
+                action1: () {
+                  Navigator.restorablePushNamed(
+                    context,
+                    OrderFlowView.routeName,
+                  );
+                },
+                action2: () {
+                  /* Navigator.restorablePushNamed(
+                    context,
+                    SocialMedia.routeName,
+                  ); */
                 },
               ),
             ],
@@ -193,9 +211,9 @@ class TileMenu extends StatelessWidget {
                         onTapCancel: () {
                           isHover1.value = false;
                         },
-                          onTapUp: (v) {
-                            isHover2.value = false;
-                          },
+                        onTapUp: (v) {
+                          isHover2.value = false;
+                        },
                         child: Padding(
                           padding: const EdgeInsets.all(16.0),
                           child: Column(

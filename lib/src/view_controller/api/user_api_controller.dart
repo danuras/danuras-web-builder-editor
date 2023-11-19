@@ -20,10 +20,10 @@ class UserApiController extends BaseController {
         'Content-Type': 'application/json; charset-UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
-      body: <String,dynamic>{
+      body: jsonEncode(<String,dynamic>{
         'email': email,
         'password': password,
-      }
+      })
     );
     return response;
   }
@@ -38,9 +38,9 @@ class UserApiController extends BaseController {
         'Content-Type': 'application/json; charset-UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
-      body: <String,dynamic>{
+      body: jsonEncode(<String,dynamic>{
         'email': email,
-      }
+      })
     );
     return response;
   }
@@ -55,9 +55,9 @@ class UserApiController extends BaseController {
         'Content-Type': 'application/json; charset-UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
-      body: <String,dynamic>{
+      body: jsonEncode(<String,dynamic>{
         'email': email,
-      }
+      })
     );
     return response;
   }

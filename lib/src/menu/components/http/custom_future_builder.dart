@@ -21,15 +21,15 @@ class CustomFutureBuilder extends StatelessWidget {
             if (snapshot.data!['status_code'] == 200) {
               return widgetResult(snapshot.data!);
             } else if (snapshot.data!['status_code'] == 404 && name != null) {
-              return CustomErrorWidget.notFound(name!);
+              return CustomErrorWidget.notFound(name!, context);
             } else if (snapshot.data!['status_code'] == 502) {
-              return CustomErrorWidget.lostConnection;
+              return CustomErrorWidget.lostConnection(context);
             } else if (snapshot.data!['status_code'] == 401) {
               return CustomErrorWidget.needAuthentication(context);
             } else if (snapshot.data!['status_code'] == 403) {
               return CustomErrorWidget.needVerification(context);
             } else {
-              return CustomErrorWidget.dynamicError;
+              return CustomErrorWidget.dynamicError(context);
             }
           } else {
             return const CustomLoading();

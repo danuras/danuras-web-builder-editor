@@ -3,6 +3,8 @@ import 'package:danuras_web_service_editor/src/menu/pages/add_section.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/contact.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/list_user.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/login.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton.dart';
@@ -99,6 +101,10 @@ class MyApp extends StatelessWidget {
                     return const WebSkeleton();
                   case AddSection.routeName:
                     return const AddSection();
+                  case OrderFlowView.routeName:
+                    return const OrderFlowView();
+                  case Login.routeName:
+                    return const Login();
                   case ListMenu.routeName:
                   default:
                     return const ListMenu();
