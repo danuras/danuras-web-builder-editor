@@ -12,9 +12,11 @@ class InputTypeIcon extends StatefulWidget {
     super.key,
     required this.action,
     required this.label,
+    required this.iconError,
     this.icon,
     this.iconUrl,
   });
+  final ValueNotifier<String?> iconError;
   final String? iconUrl;
   final File? icon;
   final Function(File icon) action;
@@ -76,56 +78,75 @@ class _InputTypeIconState extends State<InputTypeIcon> {
                     },
                   ),
                 ),
-                ValueListenableBuilder(
-                  valueListenable: refreshInput,
-                  builder: (context, ri, child) {
-                    return GestureDetector(
-                      onTap: () async {
-                        FilePickerResult? result = await PickImage.pickImage();
+                Column(
+                  children: [
+                    ValueListenableBuilder(
+                      valueListenable: refreshInput,
+                      builder: (context, ri, child) {
+                        return GestureDetector(
+                          onTap: () async {
+                            FilePickerResult? result =
+                                await PickImage.pickImage();
 
-                        if (result != null) {
-                          iconPath = result.files.single.path!;
+                            if (result != null) {
+                              iconPath = result.files.single.path!;
 
-                          icon = File(iconPath);
-                          refreshInput.value = !refreshInput.value;
+                              icon = File(iconPath);
+                              widget.action(icon!);
+                              refreshInput.value = !refreshInput.value;
+                            }
+                          },
+                          child: Builder(
+                            builder: (context) {
+                              if (widget.iconUrl == null && icon == null) {
+                                return DottedBorder(
+                                  borderType: BorderType.Circle,
+                                  color: Colors.white,
+                                  strokeWidth: 3,
+                                  dashPattern: const [7, 7, 7],
+                                  child: const SizedBox(
+                                    height: 100,
+                                    width: 100,
+                                  ),
+                                );
+                              } else {
+                                return Container(
+                                  height: 100,
+                                  width: 100,
+                                  decoration: const BoxDecoration(
+                                    borderRadius:
+                                        BorderRadius.all(Radius.circular(50)),
+                                    color: Colors.transparent,
+                                  ),
+                                  child: Builder(
+                                    builder: (context) {
+                                      if (icon == null) {
+                                        return Image.network(
+                                          EndPoint.simple + widget.iconUrl!,
+                                        );
+                                      } else {
+                                        return Image.file(icon!);
+                                      }
+                                    },
+                                  ),
+                                );
+                              }
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    ValueListenableBuilder(
+                      valueListenable: widget.iconError,
+                      builder: (context, ie, child) {
+                        if(ie != null){
+                          return Text(ie, style: const TextStyle(color: Colors.red),);
+                        } else {
+                          return const SizedBox.shrink();
                         }
                       },
-                      child: Builder(
-                        builder: (context) {
-                          if (widget.iconUrl == null && icon == null) {
-                            return DottedBorder(
-                              borderType: BorderType.Circle,
-                              color: Colors.white,
-                              strokeWidth: 3,
-                              dashPattern: const [7, 7, 7],
-                              child: const SizedBox(
-                                height: 100,
-                                width: 100,
-                              ),
-                            );
-                          } else {
-                            return Container(
-                              height: 100,
-                              width: 100,
-                              decoration: const BoxDecoration(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(50)),
-                                color: Colors.transparent,
-                              ),
-                              child: Builder(builder: (context){
-                                if(icon == null){
-                                  return Image.network(EndPoint.simple + widget.iconUrl!,
-                                  );
-                                } else{
-                                  return Image.file(icon!);
-                                }
-                              }),
-                            );
-                          }
-                        },
-                      ),
-                    );
-                  },
+                    ),
+                  ],
                 ),
               ],
             ),

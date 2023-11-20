@@ -20,7 +20,7 @@ class WebAttributeApiController extends BaseController {
     File? backgroundImage,
     File? backgroundTestimonies,
   ) async {
-    var uri = Uri.parse('${EndPoint.value}web-attribute/create-or-delete');
+    var uri = Uri.parse('${EndPoint.value}web-attribute/create-or-update');
     var request = http.MultipartRequest('POST', uri);
     request.headers['Authorization'] = 'Bearer ${Auth.accessToken}';
     request.fields['title'] = title;

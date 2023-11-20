@@ -27,6 +27,8 @@ class _EmailWebState extends State<EmailWeb> {
   ValueNotifier<String?> passwordError = ValueNotifier(null);
   ValueNotifier<String?> receiverError = ValueNotifier(null);
 
+  ValueNotifier<bool> refresher = ValueNotifier(false);
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -48,90 +50,102 @@ class _EmailWebState extends State<EmailWeb> {
           ),
           child: Container(
             color: const Color(0x88110011),
-            child: Padding(
-              padding: const EdgeInsets.only(
-                left: 8.0,
-                right: 8.0,
-              ),
-              child: CustomFutureBuilder(
-                future: esc.show(),
-                widgetResult: (result) {
-                  if (result['data'] != null) {
-                    emailService = result['data'];
-                    nameController.text = emailService.name;
-                    senderController.text = emailService.emailSender;
-                    passwordController.text = emailService.password;
-                    receiverController.text = emailService.emailReceiver;
-                  }
-                  return ListView(
-                    children: [
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      InputTypeBar(
-                        labelText: 'Nama Email Pengirim',
-                        tooltip: 'Nama yang dipakai oleh email pengirim',
-                        errorText: nameError,
-                        controller: nameController,
-                      ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      InputTypeBar(
-                        labelText: 'Email Pengirim',
-                        tooltip:
-                            'Alamat email yang digunakan untuk mengirimkan pesan email dari website',
-                        errorText: senderError,
-                        controller: senderController,
-                      ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      InputTypeBar(
-                        labelText: 'Password Email Pengirim',
-                        tooltip:
-                            'Password aplikasi dari alamat email yang digunakan untuk mengirim pesan',
-                        errorText: passwordError,
-                        controller: passwordController,
-                      ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      InputTypeBar(
-                        labelText: 'Email Penerima',
-                        tooltip:
-                            'Alamat email yang digunakan untuk menerima pesan yang dikirim dari website https://support.google.com/mail/answer/185833?hl=en',
-                        errorText: receiverError,
-                        controller: receiverController,
-                      ),
-                      const SizedBox(
-                        height: 8.0,
-                      ),
-                      CustomButton(
-                        text: 'Simpan',
-                        action: () async {
-                          resetError();
-                          await esc.createOrUpdate(
-                            emailService: EmailService.fromJson({
-                              'name': nameController.text,
-                              'email_sender': senderController.text,
-                              'password': passwordController.text,
-                              'email_receiver': receiverController.text,
-                            }),
-                            context: context,
-                            action: () {},
-                            action400: (errors) {
-                              checkError(errors);
-                            },
-                          );
-                        },
-                      ),
-                      const SizedBox(
-                        height: 32.0,
-                      ),
-                    ],
+            child: RefreshIndicator(
+              onRefresh: () async {
+                refresher.value = !refresher.value;
+              },
+              color: const Color(0xffffffff),
+              backgroundColor: const Color(0xff110011),
+              child: ValueListenableBuilder(
+                valueListenable: refresher,
+                builder: (context, r, child) {
+                  return CustomFutureBuilder(
+                    future: esc.show(),
+                    widgetResult: (result) {
+                      if (result['data'] != null) {
+                        emailService = result['data'];
+                        nameController.text = emailService.name;
+                        senderController.text = emailService.emailSender;
+                        passwordController.text = emailService.password;
+                        receiverController.text = emailService.emailReceiver;
+                      }
+                      return Padding(
+                        padding: const EdgeInsets.only(
+                          left: 8.0,
+                          right: 8.0,
+                        ),
+                        child: ListView(
+                          children: [
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            InputTypeBar(
+                              labelText: 'Nama Email Pengirim',
+                              tooltip: 'Nama yang dipakai oleh email pengirim',
+                              errorText: nameError,
+                              controller: nameController,
+                            ),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            InputTypeBar(
+                              labelText: 'Email Pengirim',
+                              tooltip:
+                                  'Alamat email yang digunakan untuk mengirimkan pesan email dari website',
+                              errorText: senderError,
+                              controller: senderController,
+                            ),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            InputTypeBar(
+                              labelText: 'Password Email Pengirim',
+                              tooltip:
+                                  'Password aplikasi dari alamat email yang digunakan untuk mengirim pesan',
+                              errorText: passwordError,
+                              controller: passwordController,
+                            ),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            InputTypeBar(
+                              labelText: 'Email Penerima',
+                              tooltip:
+                                  'Alamat email yang digunakan untuk menerima pesan yang dikirim dari website https://support.google.com/mail/answer/185833?hl=en',
+                              errorText: receiverError,
+                              controller: receiverController,
+                            ),
+                            const SizedBox(
+                              height: 8.0,
+                            ),
+                            CustomButton(
+                              text: 'Simpan',
+                              action: () async {
+                                resetError();
+                                await esc.createOrUpdate(
+                                  emailService: EmailService.fromJson({
+                                    'name': nameController.text,
+                                    'email_sender': senderController.text,
+                                    'password': passwordController.text,
+                                    'email_receiver': receiverController.text,
+                                  }),
+                                  context: context,
+                                  action: () {},
+                                  action400: (errors) {
+                                    checkError(errors);
+                                  },
+                                );
+                              },
+                            ),
+                            const SizedBox(
+                              height: 32.0,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
                   );
-                },
+                }
               ),
             ),
           ),
@@ -139,6 +153,7 @@ class _EmailWebState extends State<EmailWeb> {
       ),
     );
   }
+
   void resetError() {
     nameError.value = null;
     senderError.value = null;

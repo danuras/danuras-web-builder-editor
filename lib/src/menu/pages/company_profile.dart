@@ -68,6 +68,8 @@ class _CompanyProfileState extends State<CompanyProfile> {
               onRefresh: () async {
                 refresher.value = !refresher.value;
               },
+              color: const Color(0xffffffff),
+              backgroundColor: const Color(0xff110011),
               child: ValueListenableBuilder(
                   valueListenable: refresher,
                   builder: (context, r, child) {
