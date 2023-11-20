@@ -4,7 +4,7 @@ import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/contact.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/email_web.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/list_user.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/order_flow_view.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/order_flow/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_information.dart';

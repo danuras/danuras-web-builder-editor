@@ -3,11 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
-import 'package:danuras_web_service_editor/src/model/company_profile.dart';
-import 'package:danuras_web_service_editor/src/model/contact.dart';
 import 'package:danuras_web_service_editor/src/model/order_flow.dart';
-import 'package:danuras_web_service_editor/src/view_controller/api/company_profile_api_controller.dart';
-import 'package:danuras_web_service_editor/src/view_controller/api/contact_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/order_flow_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
 import 'package:flutter/material.dart';
@@ -27,12 +23,13 @@ class OrderFlowController extends BaseController {
         icon,
       );
 
+
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         action(OrderFlow.fromJson(result['data']));
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);
@@ -53,6 +50,7 @@ class OrderFlowController extends BaseController {
   }
 
   Future<void> update({
+    required int orderFlowId,
     required String value,
     required File? icon,
     required BuildContext context,
@@ -61,16 +59,18 @@ class OrderFlowController extends BaseController {
   }) async {
     try {
       var response = await _ofac.update(
+        orderFlowId,
         value,
         icon,
       );
+      log(response.body.substring(0,200));
 
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         action(OrderFlow.fromJson(result['data']));
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);

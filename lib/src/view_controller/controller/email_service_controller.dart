@@ -12,7 +12,7 @@ import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
-class UserController extends BaseController {
+class EmailServiceController extends BaseController {
   final _esac = EmailServiceApiController();
   Future<void> createOrUpdate({
     required EmailService emailService,
@@ -29,8 +29,11 @@ class UserController extends BaseController {
 
       if (response.statusCode == 200) {
         action();
+        if (context.mounted) {
+          success(context, null);
+        }
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);
@@ -56,13 +59,18 @@ class UserController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        return successOutput(EmailService.fromJson(result['data']));
+        if (result['data'] != null) {
+          return successOutput(EmailService.fromJson(result['data']));
+        } else {
+          return successOutput(null);
+        }
       } else if (response.statusCode == 401) {
         return needAuthentication();
       } else {
         return failOutput();
       }
     } catch (e) {
+      log(e.toString());
       return checkError(e);
     }
   }

@@ -10,12 +10,14 @@ class InputHtmlEditor extends StatefulWidget {
     Key? key,
     required this.title,
     required this.tooltip,
+    this.initialString,
     required this.changeText,
   }) : super(key: key);
 
   final String title;
   final String tooltip;
   final Function(String? changed) changeText;
+  final String? initialString;
 
   @override
   State<InputHtmlEditor> createState() => _InputHtmlEditorState();
@@ -29,17 +31,22 @@ class _InputHtmlEditorState extends State<InputHtmlEditor> {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: const Color(0xff110011),
-        border: Border.all(color: Colors.white, width: 2,),
-        borderRadius: const BorderRadius.all(Radius.circular(4))
-      ),
+          color: const Color(0xff110011),
+          border: Border.all(
+            color: Colors.white,
+            width: 2,
+          ),
+          borderRadius: const BorderRadius.all(Radius.circular(4))),
       child: Column(
         children: [
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Row(
               children: [
-                Text(widget.title, style: const TextStyle(color: Colors.white),),
+                Text(
+                  widget.title,
+                  style: const TextStyle(color: Colors.white),
+                ),
                 const Spacer(),
                 Tooltip(
                   message: widget.tooltip,
@@ -64,10 +71,10 @@ class _InputHtmlEditorState extends State<InputHtmlEditor> {
           ),
           HtmlEditor(
             controller: controller,
-            htmlEditorOptions: const HtmlEditorOptions(
+            htmlEditorOptions: HtmlEditorOptions(
               hint: 'Masukan Teks',
               shouldEnsureVisible: true,
-              //initialText: "<p>text content initial, if any</p>",
+              initialText: widget.initialString,
             ),
             htmlToolbarOptions: HtmlToolbarOptions(
               defaultToolbarButtons: [
@@ -81,7 +88,7 @@ class _InputHtmlEditorState extends State<InputHtmlEditor> {
                   textDirection: false,
                 ),
               ],
-    
+
               toolbarPosition: ToolbarPosition.aboveEditor, //by default
               toolbarType: ToolbarType.nativeScrollable, //by default
               onButtonPressed:
@@ -99,12 +106,13 @@ class _InputHtmlEditorState extends State<InputHtmlEditor> {
             otherOptions: OtherOptions(
               height: 400,
               decoration: BoxDecoration(
-                  color: Colors.white,
-                  border: Border.all(
-                    width: 2,
-                    color: Colors.black,
-                  ),
-                  borderRadius: const BorderRadius.all(Radius.circular(5))),
+                color: Colors.white,
+                border: Border.all(
+                  width: 2,
+                  color: Colors.black,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(5)),
+              ),
             ),
             callbacks: Callbacks(
               onChangeCodeview: (String? changed) {

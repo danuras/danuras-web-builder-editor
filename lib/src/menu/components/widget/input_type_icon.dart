@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:danuras_web_service_editor/src/view_controller/upload_file/pick_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -106,23 +107,19 @@ class _InputTypeIconState extends State<InputTypeIcon> {
                             return Container(
                               height: 100,
                               width: 100,
-                              decoration: BoxDecoration(
+                              decoration: const BoxDecoration(
                                 borderRadius:
-                                    const BorderRadius.all(Radius.circular(50)),
-                                image: (icon == null)
-                                    ? DecorationImage(
-                                        image: NetworkImage(
-                                          widget.iconUrl!,
-                                        ),
-                                      )
-                                    : DecorationImage(
-                                        image: FileImage(
-                                          icon!,
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
+                                    BorderRadius.all(Radius.circular(50)),
                                 color: Colors.transparent,
                               ),
+                              child: Builder(builder: (context){
+                                if(icon == null){
+                                  return Image.network(EndPoint.simple + widget.iconUrl!,
+                                  );
+                                } else{
+                                  return Image.file(icon!);
+                                }
+                              }),
                             );
                           }
                         },

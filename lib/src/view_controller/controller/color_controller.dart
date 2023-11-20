@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/model/color_model.dart';
@@ -17,7 +18,6 @@ class ColorController extends BaseController {
   }) async {
     try {
       var response = await _cac.createOrUpdate(colorModel);
-
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
@@ -25,7 +25,7 @@ class ColorController extends BaseController {
           success(context, null);
         }
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);

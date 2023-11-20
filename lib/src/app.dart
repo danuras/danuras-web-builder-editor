@@ -4,10 +4,13 @@ import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/contact.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/list_user.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/login.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/order_flow_view.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/order_flow/add_order_flow.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/order_flow/edit_order_flow.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/order_flow/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/order_flow_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -78,6 +81,8 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute<void>(
               settings: routeSettings,
               builder: (BuildContext context) {
+                Map<String, dynamic>? args =
+                    routeSettings.arguments as Map<String, dynamic>?;
                 switch (routeSettings.name) {
                   case SettingsView.routeName:
                     return SettingsView(controller: settingsController);
@@ -105,6 +110,17 @@ class MyApp extends StatelessWidget {
                     return const OrderFlowView();
                   case Login.routeName:
                     return const Login();
+                  case AddOrderFlow.routeName:
+                    return AddOrderFlow(
+                      ofc: args!['ofc'] as OrderFlowController,
+                      action: args['action'],
+                    );
+                  case EditOrderFlow.routeName:
+                    return EditOrderFlow(
+                      ofc: args!['ofc'] as OrderFlowController,
+                      action: args['action'],
+                      orderFlow: args['order_flow'],
+                    );
                   case ListMenu.routeName:
                   default:
                     return const ListMenu();

@@ -27,7 +27,7 @@ class AuthController extends BaseController {
       if (response.statusCode == 200) {
         var box = await Hive.openBox('auth');
         box.put('access_token', result['data']['api_token']);
-        box.put('is_primary', result['data']['user']['is_primary']);
+        box.put('is_primary', result['data']['user']['is_primary']==1);
         Auth.accessToken = result['data']['api_token'];
         Auth.isPrimary = result['data']['user']['is_primary'] == 1;
         if (context.mounted) {
@@ -113,7 +113,7 @@ class AuthController extends BaseController {
       if (response.statusCode == 200) {
         action();
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 402) {
         if (context.mounted) {
           failed(context, result['message']);
@@ -186,7 +186,7 @@ class AuthController extends BaseController {
       if (response.statusCode == 200) {
         action();
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else {
         if (context.mounted) {
           failed(context, null);

@@ -21,7 +21,7 @@ class ContactApiController extends BaseController {
     String infoLocation,
     File? backgroundContact,
   ) async {
-    var uri = Uri.parse('${EndPoint.value}contact/create-or-delete');
+    var uri = Uri.parse('${EndPoint.value}contact/create-or-update');
     var request = http.MultipartRequest('POST', uri);
     request.headers['Authorization'] = 'Bearer ${Auth.accessToken}';
     request.fields['whatsapp'] = whatsapp;

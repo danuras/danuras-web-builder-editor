@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:danuras_web_service_editor/src/model/contact.dart';
+import 'package:danuras_web_service_editor/src/model/contact_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/advantage_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
 import 'package:flutter/material.dart';
@@ -31,9 +31,9 @@ class AdvantageController extends BaseController {
           success(context, null);
         }
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
-         if (context.mounted) {
+        if (context.mounted) {
           revoke(context);
         }
       } else {
@@ -57,7 +57,11 @@ class AdvantageController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        return successOutput(Contact.fromJson(result['data']));
+        if (result['data'] != null) {
+          return successOutput(ContactModel.fromJson(result['data']));
+        } else {
+          return successOutput(null);
+        }
       } else if (response.statusCode == 401) {
         return needAuthentication();
       } else {

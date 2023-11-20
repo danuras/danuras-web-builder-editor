@@ -1,6 +1,6 @@
-class SocialMedia {
+class SocialMediaModel {
   late String? facebook, twitter, linkedin, instagram, googlePlus, youtube;
-  SocialMedia.fromJson(Map<String, dynamic> json) {
+  SocialMediaModel.fromJson(Map<String, dynamic> json) {
     facebook = json['facebook'];
     twitter = json['twitter'];
     linkedin = json['linkedin'];

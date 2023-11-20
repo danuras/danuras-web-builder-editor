@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:danuras_web_service_editor/src/model/company_profile.dart';
-import 'package:danuras_web_service_editor/src/model/contact.dart';
+import 'package:danuras_web_service_editor/src/model/company_profile_model.dart';
+import 'package:danuras_web_service_editor/src/model/contact_model.dart';
 import 'package:danuras_web_service_editor/src/model/order_flow.dart';
 import 'package:danuras_web_service_editor/src/model/web_content.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/company_profile_api_controller.dart';
@@ -35,7 +35,7 @@ class WebContentController extends BaseController {
       if (response.statusCode == 200) {
         action(WebContent.fromJson(result['data']));
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);
@@ -73,7 +73,7 @@ class WebContentController extends BaseController {
       if (response.statusCode == 200) {
         action(WebContent.fromJson(result['data']));
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);
@@ -130,7 +130,12 @@ class WebContentController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        return successOutput(WebContent.fromJson(result['data']));
+        return successOutput(
+          List.generate(
+            result['data'].length,
+            (index) => WebContent.fromJson(result['data'][index]),
+          ),
+        );
       } else if (response.statusCode == 401) {
         return needAuthentication();
       } else {

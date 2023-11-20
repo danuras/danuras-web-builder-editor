@@ -17,7 +17,7 @@ class CompanyProfileApiController extends BaseController {
     String vision,
     File? imageUrl,
   ) async {
-    var uri = Uri.parse('${EndPoint.value}company-profile/create-or-delete');
+    var uri = Uri.parse('${EndPoint.value}company-profile/create-or-update');
     var request = http.MultipartRequest('POST', uri);
     request.headers['Authorization'] = 'Bearer ${Auth.accessToken}';
     request.fields['description'] = description;

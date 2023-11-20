@@ -1,9 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:danuras_web_service_editor/src/model/company_profile.dart';
-import 'package:danuras_web_service_editor/src/model/contact.dart';
+import 'package:danuras_web_service_editor/src/model/company_profile_model.dart';
+import 'package:danuras_web_service_editor/src/model/contact_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/company_profile_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/contact_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
@@ -37,9 +38,9 @@ class CompanyProfileController extends BaseController {
           success(context, null);
         }
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
-         if (context.mounted) {
+        if (context.mounted) {
           revoke(context);
         }
       } else {
@@ -63,7 +64,11 @@ class CompanyProfileController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        return successOutput(CompanyProfile.fromJson(result['data']));
+        if (result['data'] != null) {
+          return successOutput(CompanyProfileModel.fromJson(result['data']));
+        } else {
+          return successOutput(null);
+        }
       } else if (response.statusCode == 401) {
         return needAuthentication();
       } else {

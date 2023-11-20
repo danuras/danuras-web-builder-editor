@@ -117,6 +117,7 @@ class WebInformation extends StatelessWidget {
                     action: (image) {
                       backgroundImage = image;
                     },
+                    imageError: subHeadingError,
                     label: 'Gambar Background Header',
                   ),
                   const SizedBox(
@@ -126,6 +127,7 @@ class WebInformation extends StatelessWidget {
                     action: (image) {
                       backgroundTestimony = image;
                     },
+                    imageError: subHeadingError,
                     label: 'Gambar Background Testimoni',
                   ),
                   const SizedBox(

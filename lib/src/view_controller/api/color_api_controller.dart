@@ -2,7 +2,7 @@
 import 'dart:convert';
 
 import 'package:danuras_web_service_editor/src/model/color_model.dart';
-import 'package:danuras_web_service_editor/src/model/social_media.dart';
+import 'package:danuras_web_service_editor/src/model/social_media_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
@@ -16,7 +16,7 @@ class ColorApiController extends BaseController {
     final response = await http.post(
       uri,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset-UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
       body: jsonEncode(<String, dynamic> {

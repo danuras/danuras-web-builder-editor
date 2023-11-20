@@ -25,6 +25,7 @@ class InputTypeBar extends StatelessWidget {
           maxLines: maxLines,
           textAlignVertical: TextAlignVertical.top,
           style: const TextStyle(color: Colors.white),
+          
           decoration: InputDecoration(
             labelText: labelText,
             suffixIcon: Padding(
@@ -52,6 +53,9 @@ class InputTypeBar extends StatelessWidget {
               color: Colors.white,
             ),
             errorText: error,
+            errorStyle: const TextStyle(color: Colors.red),
+            errorBorder: const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2)),
             enabledBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.white, width: 2)),
             focusedBorder: const OutlineInputBorder(

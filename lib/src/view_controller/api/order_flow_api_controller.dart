@@ -40,12 +40,14 @@ class OrderFlowApiController extends BaseController {
   }
 
   Future<http.Response> update(
+    int orderFlowId,
     String value,
     File? icon,
   ) async {
     var uri = Uri.parse('${EndPoint.value}order-flow/update');
     var request = http.MultipartRequest('POST', uri);
     request.headers['Authorization'] = 'Bearer ${Auth.accessToken}';
+    request.fields['order_flow_id'] = orderFlowId.toString();
     request.fields['value'] = value;
     if (icon != null) {
       var streamLi = http.ByteStream.fromBytes(

@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:danuras_web_service_editor/src/view_controller/upload_file/pick_image.dart';
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
@@ -11,11 +12,15 @@ class InputSquareImage extends StatefulWidget {
     super.key,
     required this.action,
     required this.label,
+    required this.imageError,
+    this.height = 200,
     this.image,
     this.imageUrl,
   });
   final String? imageUrl;
   final File? image;
+  final double height;
+  final ValueNotifier<String?> imageError;
   final Function(File imaghe) action;
   final String label;
 
@@ -55,7 +60,6 @@ class _InputSquareImageState extends State<InputSquareImage> {
             Stack(
               children: [
                 SizedBox(
-                  height: 200,
                   child: ValueListenableBuilder(
                     valueListenable: refreshInput,
                     builder: (context, ri, child) {
@@ -84,6 +88,7 @@ class _InputSquareImageState extends State<InputSquareImage> {
                           imagePath = result.files.single.path!;
 
                           image = File(imagePath);
+                          widget.action(image!);
                           refreshInput.value = !refreshInput.value;
                         }
                       },
@@ -94,28 +99,31 @@ class _InputSquareImageState extends State<InputSquareImage> {
                               color: Colors.white,
                               strokeWidth: 3,
                               dashPattern: const [7, 7, 7],
-                              child: const SizedBox(
-                                height: 200,
+                              child: SizedBox(
+                                height: widget.height,
                                 width: double.infinity,
                               ),
                             );
                           } else {
                             return Container(
-                              height: 200,
-                              decoration: BoxDecoration(
-                                image: (image == null)
-                                    ? DecorationImage(
-                                        image: NetworkImage(
-                                          widget.imageUrl!,
-                                        ),
-                                      )
-                                    : DecorationImage(
-                                        image: FileImage(
-                                          image!,
-                                        ),
-                                        fit: BoxFit.cover,
-                                      ),
+                              width: double.infinity,
+                              decoration: const BoxDecoration(
                                 color: Colors.transparent,
+                              ),
+                              child: Builder(
+                                builder: (context) {
+                                  if (image == null) {
+                                    return Image.network(
+                                      EndPoint.simple + widget.imageUrl!,
+                                      fit: BoxFit.fill,
+                                    );
+                                  } else {
+                                    return Image.file(
+                                      image!,
+                                      fit: BoxFit.fill,
+                                    );
+                                  }
+                                },
                               ),
                             );
                           }
@@ -125,6 +133,19 @@ class _InputSquareImageState extends State<InputSquareImage> {
                   },
                 ),
               ],
+            ),
+            ValueListenableBuilder(
+              valueListenable: widget.imageError,
+              builder: (context, ie, child) {
+                if (ie != null) {
+                  return Text(
+                    ie,
+                    style: const TextStyle(color: Colors.red),
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
             ),
             const Divider(
               color: Colors.white,

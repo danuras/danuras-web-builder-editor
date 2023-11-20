@@ -6,6 +6,8 @@ import 'package:danuras_web_service_editor/src/menu/components/widget/input_squa
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_icon.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/order_flow_widget.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/order_flow/add_order_flow.dart';
+import 'package:danuras_web_service_editor/src/model/order_flow.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/order_flow_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -18,11 +20,12 @@ class OrderFlowView extends StatefulWidget {
 }
 
 class _OrderFlowViewState extends State<OrderFlowView> {
+  List<OrderFlow> lof = [];
+  OrderFlowController ofc = OrderFlowController();
+  ValueNotifier<bool> refresher = ValueNotifier(false);
+  ValueNotifier<bool> refresherResult = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
-    OrderFlowController ofc = OrderFlowController();
-    ValueNotifier<bool> refresher = ValueNotifier(false);
-
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
@@ -31,7 +34,18 @@ class _OrderFlowViewState extends State<OrderFlowView> {
           backgroundColor: const Color(0xff110011),
         ),
         floatingActionButton: GestureDetector(
-          onTap: () {},
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              AddOrderFlow.routeName,
+              arguments: <String, dynamic>{
+                'ofc': ofc,
+                'action': (orderFlow) {
+                  lof.add(orderFlow);
+                  refresherResult.value = !refresherResult.value;
+                }
+              },
+            );
+          },
           child: Container(
             width: 70,
             height: 70,
@@ -71,27 +85,42 @@ class _OrderFlowViewState extends State<OrderFlowView> {
                   return CustomFutureBuilder(
                     future: ofc.show(),
                     widgetResult: (Map<String, dynamic> result) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          left: 8.0,
-                          right: 8.0,
-                          top: 16.0,
-                        ),
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                          ),
-                          itemCount: result['data'].length,
-                          itemBuilder: (context, index) {
-                            return OrderFlowWidget(
-                              orderFlow: result['data'][index],
-                              index: index,
-                            );
-                          },
-                        ),
+                      lof = result['data'];
+                      return ValueListenableBuilder(
+                        valueListenable: refresherResult,
+                        builder: (context, rr, child) {
+                          return Padding(
+                            padding: const EdgeInsets.only(
+                              left: 8.0,
+                              right: 8.0,
+                              top: 16.0,
+                            ),
+                            child: GridView.builder(
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                mainAxisSpacing: 10,
+                                crossAxisSpacing: 10,
+                              ),
+                              itemCount: lof.length,
+                              itemBuilder: (context, index) {
+                                return OrderFlowWidget(
+                                  orderFlow: lof[index],
+                                  index: index,
+                                  ofc: ofc,
+                                  updateComplete: (OrderFlow orderFlow) {
+                                    lof[index] = orderFlow;
+                                    refresherResult.value = !refresherResult.value;
+                                  },
+                                  deleteComplete: () {
+                                    lof.removeAt(index);
+                                    refresherResult.value = !refresherResult.value;
+                                  },
+                                );
+                              },
+                            ),
+                          );
+                        },
                       );
                     },
                   );

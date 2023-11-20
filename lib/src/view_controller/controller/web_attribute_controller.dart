@@ -48,7 +48,7 @@ class WebAttributeController extends BaseController {
           success(context, null);
         }
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);
@@ -74,7 +74,11 @@ class WebAttributeController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        return successOutput(WebAttribute.fromJson(result['data']));
+        if (result['data'] != null) {
+          return successOutput(WebAttribute.fromJson(result['data']));
+        } else {
+          return successOutput(null);
+        }
       } else if (response.statusCode == 401) {
         return needAuthentication();
       } else {

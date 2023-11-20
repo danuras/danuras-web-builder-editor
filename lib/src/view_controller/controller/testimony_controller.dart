@@ -31,7 +31,7 @@ class TestimonyController extends BaseController {
       if (response.statusCode == 200) {
         action(Testimony.fromJson(result['data']));
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);
@@ -75,7 +75,7 @@ class TestimonyController extends BaseController {
       if (response.statusCode == 200) {
         action(Testimony.fromJson(result['data']));
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);
@@ -132,7 +132,12 @@ class TestimonyController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        return successOutput(Testimony.fromJson(result['data']));
+        return successOutput(
+          List.generate(
+            result['data'].length,
+            (index) => Testimony.fromJson(result['data'][index]),
+          ),
+        );
       } else if (response.statusCode == 401) {
         return needAuthentication();
       } else {

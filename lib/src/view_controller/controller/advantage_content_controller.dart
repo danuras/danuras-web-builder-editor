@@ -29,7 +29,7 @@ class AdvantageContentController extends BaseController {
       if (response.statusCode == 200) {
         action(AdvantageContent.fromJson(result['data']));
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);
@@ -71,7 +71,7 @@ class AdvantageContentController extends BaseController {
       if (response.statusCode == 200) {
         action(AdvantageContent.fromJson(result['data']));
       } else if (response.statusCode == 400) {
-        action400(result);
+        action400(result['errors']);
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);

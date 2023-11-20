@@ -46,7 +46,43 @@ class InputTypeColor extends StatelessWidget {
                   labelStyle: const TextStyle(
                     color: Colors.white,
                   ),
+                  suffixIcon: Container(
+                    width: 50,
+                    height: 50,
+                    decoration: const BoxDecoration(
+                      color: Colors.transparent,
+                      /* borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(4),
+                        bottomRight: Radius.circular(3),
+                      ),
+                      border: Border(
+                        left: BorderSide(color: Colors.white, width: 2),
+                        right: BorderSide(color: Colors.white, width: 2),
+                      ), */
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: ValueListenableBuilder(
+                          valueListenable: isError,
+                          builder: (context, ie, child) {
+                            return Container(
+                              width: 30,
+                              height: 30,
+                              color: (ie)
+                                  ? Colors.transparent
+                                  : hexToColor(controller.text),
+                            );
+                          }),
+                    ),
+                  ),
                   errorText: error,
+                  errorBorder: const OutlineInputBorder(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(4),
+                      bottomLeft: Radius.circular(4),
+                    ),
+                    borderSide: BorderSide(color: Colors.red, width: 2),
+                  ),
                   enabledBorder: const OutlineInputBorder(
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(4),
@@ -64,33 +100,6 @@ class InputTypeColor extends StatelessWidget {
                   fillColor: const Color(0xff110011),
                   filled: true,
                   alignLabelWithHint: true,
-                ),
-              ),
-            ),
-            Container(
-              width: 59,
-              height: 59,
-              decoration: BoxDecoration(
-                color: const Color(0xff110011),
-                borderRadius: const BorderRadius.only(
-                  topRight: Radius.circular(4),
-                  bottomRight: Radius.circular(3),
-                ),
-                border: Border.all(color: Colors.white, width: 2),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: ValueListenableBuilder(
-                  valueListenable: isError,
-                  builder: (context, ie, child) {
-                    return Container(
-                      width: 30,
-                      height: 30,
-                      color: (ie)
-                          ? Colors.transparent
-                          : hexToColor(controller.text),
-                    );
-                  }
                 ),
               ),
             ),

@@ -1,7 +1,7 @@
 
 import 'dart:convert';
 
-import 'package:danuras_web_service_editor/src/model/social_media.dart';
+import 'package:danuras_web_service_editor/src/model/social_media_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
@@ -9,13 +9,13 @@ import 'package:http/http.dart' as http;
 
 class SocialMediaApiController extends BaseController {
   Future<http.Response> createOrUpdate(
-    SocialMedia socialMedia,
+    SocialMediaModel socialMedia,
   ) async {
     var uri = Uri.parse('${EndPoint.value}social-media/create-or-update');
     final response = await http.post(
       uri,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset-UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
       body: jsonEncode(<String, dynamic> {
