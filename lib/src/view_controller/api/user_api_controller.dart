@@ -12,17 +12,19 @@ class UserApiController extends BaseController {
   Future<http.Response> registerUser(
     String email,
     String password,
+    String passwordConfirmation
   ) async {
     var uri = Uri.parse('${EndPoint.value}user/register-user');
     final response = await http.post(
       uri,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset-UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
       body: jsonEncode(<String,dynamic>{
         'email': email,
         'password': password,
+        'password_confirmation': passwordConfirmation,
       })
     );
     return response;
@@ -31,11 +33,11 @@ class UserApiController extends BaseController {
   Future<http.Response> delete(
     String email,
   ) async {
-    var uri = Uri.parse('${EndPoint.value}user/register-user');
+    var uri = Uri.parse('${EndPoint.value}user/delete');
     final response = await http.post(
       uri,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset-UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
       body: jsonEncode(<String,dynamic>{
@@ -52,7 +54,7 @@ class UserApiController extends BaseController {
     final response = await http.post(
       uri,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset-UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
       body: jsonEncode(<String,dynamic>{
@@ -62,5 +64,15 @@ class UserApiController extends BaseController {
     return response;
   }
 
-  
+  Future<http.Response> show() async {
+    var uri = Uri.parse('${EndPoint.value}user/show');
+    final response = await http.get(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset-UTF-8',
+        'Authorization': 'Bearer ${Auth.accessToken}',
+      },
+    );
+    return response;
+  }
 }

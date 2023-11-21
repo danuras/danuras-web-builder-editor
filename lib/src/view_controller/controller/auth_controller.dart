@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:danuras_web_service_editor/src/menu/list_menu.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/auth_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
@@ -14,6 +15,8 @@ class AuthController extends BaseController {
     required String email,
     required String password,
     required BuildContext context,
+    required Function() loginFail,
+    required Function(dynamic result) action400,
   }) async {
     try {
       var response = await _aac.login(
@@ -31,12 +34,15 @@ class AuthController extends BaseController {
         Auth.accessToken = result['data']['api_token'];
         Auth.isPrimary = result['data']['user']['is_primary'] == 1;
         if (context.mounted) {
-          Navigator.of(context).pushReplacementNamed('/');
+          Navigator.of(context).popUntil(ModalRoute.withName('/'));
+          Navigator.of(context).pushReplacementNamed(ListMenu.routeName);
         }
-      } else {
-        if (context.mounted) {
-          failed(context, null);
-        }
+      } else if (response.statusCode == 400){
+        action400(result['errors']);
+      } 
+      
+      else {
+        loginFail();
       }
     } catch (e) {
       if (e is TimeoutException) {
@@ -136,7 +142,7 @@ class AuthController extends BaseController {
   Future<void> sendTokenVerification({
     required String email,
     required BuildContext context,
-    required Function() action,
+    required Function(dynamic result) action400,
   }) async {
     try {
       var response = await _aac.sendTokenVerification(
@@ -145,11 +151,11 @@ class AuthController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        action();
-      } else if (response.statusCode == 402) {
-        if (context.mounted) {
-          failed(context, result['message']);
+        if(context.mounted){
+          success(context, null);
         }
+      } else if (response.statusCode == 400) {
+        action400(result['errors']);
       } else {
         if (context.mounted) {
           failed(context, null);

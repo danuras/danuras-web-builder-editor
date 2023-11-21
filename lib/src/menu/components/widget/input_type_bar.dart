@@ -8,12 +8,14 @@ class InputTypeBar extends StatelessWidget {
     required this.errorText,
     required this.controller,
     required this.tooltip,
+    this.obscureText = false,
   });
   final ValueNotifier errorText;
   final TextEditingController controller;
   final int maxLines;
   final String labelText;
   final String tooltip;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +27,7 @@ class InputTypeBar extends StatelessWidget {
           maxLines: maxLines,
           textAlignVertical: TextAlignVertical.top,
           style: const TextStyle(color: Colors.white),
-          
+          obscureText: obscureText,
           decoration: InputDecoration(
             labelText: labelText,
             suffixIcon: Padding(
@@ -53,7 +55,11 @@ class InputTypeBar extends StatelessWidget {
               color: Colors.white,
             ),
             errorText: error,
+            focusedErrorBorder:  const OutlineInputBorder(
+                borderSide: BorderSide(color: Colors.red, width: 2)),
+                
             errorStyle: const TextStyle(color: Colors.red),
+            
             errorBorder: const OutlineInputBorder(
                 borderSide: BorderSide(color: Colors.red, width: 2)),
             enabledBorder: const OutlineInputBorder(

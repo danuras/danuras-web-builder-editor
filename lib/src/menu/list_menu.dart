@@ -3,12 +3,14 @@ import 'dart:developer';
 import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/contact.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/email_web.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/list_user.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/user/list_user.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/order_flow/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_information.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton.dart';
+import 'package:danuras_web_service_editor/src/model/auth.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:hive/hive.dart';
 
@@ -30,6 +32,48 @@ class ListMenu extends StatelessWidget {
         appBar: AppBar(
           title: const Text('Daftar Menu'),
           backgroundColor: const Color(0xff110011),
+          actions: [
+            IconButton(
+              onPressed: () async {
+                showDialog<String>(
+                  context: context,
+                  builder: (BuildContext context) => AlertDialog(
+                    backgroundColor: const Color(0xff110011),
+                    title: const Text(
+                      'Anda yakin ingin logout?',
+                      style: TextStyle(color: Colors.white),
+                    ),
+                    actions: <Widget>[
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Tidak'),
+                        child: const Text(
+                          'Tidak',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () async {
+                          AuthController au = AuthController();
+                          await au.logout(context: context);
+                          if (context.mounted) {
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        child: const Text(
+                          'Ya',
+                          style: TextStyle(color: Colors.white),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              icon: const Icon(
+                Icons.logout,
+                color: Colors.white,
+              ),
+            ),
+          ],
         ),
         body: Container(
           decoration: const BoxDecoration(
@@ -68,27 +112,29 @@ class ListMenu extends StatelessWidget {
                   );
                 },
               ),
-              TileMenu(
-                title1: 'Pengguna',
-                title2: 'Email Web',
-                icon1: Icons.person,
-                icon2: Icons.email_outlined,
-                action1: () {
-                  Navigator.restorablePushNamed(
-                    context,
-                    ListUser.routeName,
-                  );
-                },
-                action2: () {
-                  // Navigate to the details page. If the user leaves and returns to
-                  // the app after it has been killed while running in the
-                  // background, the navigation stack is restored.
-                  Navigator.restorablePushNamed(
-                    context,
-                    EmailWeb.routeName,
-                  );
-                },
-              ),
+              (Auth.isPrimary)
+                  ? TileMenu(
+                      title1: 'Pengguna',
+                      title2: 'Email Web',
+                      icon1: Icons.person,
+                      icon2: Icons.email_outlined,
+                      action1: () {
+                        Navigator.restorablePushNamed(
+                          context,
+                          ListUser.routeName,
+                        );
+                      },
+                      action2: () {
+                        // Navigate to the details page. If the user leaves and returns to
+                        // the app after it has been killed while running in the
+                        // background, the navigation stack is restored.
+                        Navigator.restorablePushNamed(
+                          context,
+                          EmailWeb.routeName,
+                        );
+                      },
+                    )
+                  : const SizedBox(),
               TileMenu(
                 title1: 'Kontak',
                 title2: 'Profil Perusahaan',

@@ -134,7 +134,6 @@ class OrderFlowController extends BaseController {
         return failOutput();
       }
     } catch (e) {
-      log(e.toString());
       return checkError(e);
     }
   }

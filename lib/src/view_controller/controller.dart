@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:developer';
 
+import 'package:danuras_web_service_editor/src/menu/list_menu.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:flutter/material.dart';
@@ -48,7 +49,8 @@ class BaseController {
     Auth.accessToken = null;
     Auth.isPrimary = false;
     if (context.mounted) {
-      Navigator.of(context).pushReplacementNamed('/');
+          Navigator.of(context).popUntil(ModalRoute.withName('/'));
+          Navigator.of(context).pushReplacementNamed(ListMenu.routeName);
     }
   }
 

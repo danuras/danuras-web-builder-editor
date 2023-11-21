@@ -1,5 +1,5 @@
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/login.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/auth/login.dart';
 import 'package:flutter/material.dart'; /* 
 import 'package:virture/view/auth/login.dart';
 import 'package:virture/view/auth/verify_email.dart'; */

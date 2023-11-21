@@ -1,15 +1,19 @@
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/add_section.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/auth/input_token.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/contact.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/list_user.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/login.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/user/add_user.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/user/list_user.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/auth/login.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/order_flow/add_order_flow.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/order_flow/edit_order_flow.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/order_flow/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton.dart';
+import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/order_flow_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -110,6 +114,20 @@ class MyApp extends StatelessWidget {
                     return const OrderFlowView();
                   case Login.routeName:
                     return const Login();
+                  case InputEmail.routeName:
+                    return InputEmail(
+                      authController: args!['ac'],
+                    );
+                  case SaveNewPassword.routeName:
+                    return SaveNewPassword(
+                      authController: args!['ac'],
+                      email: args['email'],
+                    );
+                  case AddUser.routeName:
+                    return AddUser(
+                      uc: args!['uc'],
+                      action: args['action'],
+                    );
                   case AddOrderFlow.routeName:
                     return AddOrderFlow(
                       ofc: args!['ofc'] as OrderFlowController,
@@ -123,6 +141,9 @@ class MyApp extends StatelessWidget {
                     );
                   case ListMenu.routeName:
                   default:
+                    if(Auth.accessToken ==null){
+                      return const Login();
+                    }
                     return const ListMenu();
                 }
               },

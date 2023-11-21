@@ -7,10 +7,12 @@ class CustomButton extends StatelessWidget {
     required this.action,
     this.width,
     this.height,
+    this.fontSize = 20,
   });
   final String text;
   final Function() action;
-  final double? width, height;
+  final double? width, height, fontSize;
+
 
   @override
   Widget build(BuildContext context) {
@@ -47,9 +49,9 @@ class CustomButton extends StatelessWidget {
                 padding: const EdgeInsets.all(16.0),
                 child: Text(
                   text,
-                  style: const TextStyle(
+                  style: TextStyle(
                     color: Colors.white,
-                    fontSize: 20
+                    fontSize: fontSize
                   ),
                 ),
               ),

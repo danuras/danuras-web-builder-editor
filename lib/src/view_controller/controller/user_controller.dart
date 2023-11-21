@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 
+import 'package:danuras_web_service_editor/src/menu/list_menu.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/auth/login.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/model/user.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/user_api_controller.dart';
@@ -15,6 +17,7 @@ class UserController extends BaseController {
   Future<void> registerUser({
     required String email,
     required String password,
+    required String passwordConfirmation,
     required BuildContext context,
     required Function(User result) action,
     required Function(dynamic errors) action400,
@@ -23,17 +26,17 @@ class UserController extends BaseController {
       var response = await _uac.registerUser(
         email,
         password,
+        passwordConfirmation,
       );
 
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         action(User.fromJson(result['data']));
-      } else if (response.statusCode == 400){
+      } else if (response.statusCode == 400) {
         action400(result['errors']);
-      } 
-      else if (response.statusCode == 401) {
-      if (context.mounted) {
+      } else if (response.statusCode == 401) {
+        if (context.mounted) {
           revoke(context);
         }
       } else {
@@ -90,14 +93,14 @@ class UserController extends BaseController {
       );
 
       if (response.statusCode == 200) {
-        
         var box = await Hive.openBox('auth');
         box.put('access_token', null);
         box.put('is_primary', null);
         Auth.accessToken = null;
         Auth.isPrimary = false;
-        if(context.mounted){
-          Navigator.of(context).pushReplacementNamed('/');
+        if (context.mounted) {
+          Navigator.of(context).popUntil(ModalRoute.withName('/'));
+          Navigator.of(context).pushReplacementNamed(ListMenu.routeName);          
         }
       } else {
         if (context.mounted) {
@@ -111,6 +114,24 @@ class UserController extends BaseController {
       } else {
         error(context, 'Error: $e');
       }
+    }
+  }
+
+  Future<Map<String, dynamic>?> show() async {
+    try {
+      var response = await _uac.show();
+      var result = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return successOutput(List.generate(result['data'].length,
+            (index) => User.fromJson(result['data'][index])));
+      } else if (response.statusCode == 401) {
+        return needAuthentication();
+      } else {
+        return failOutput();
+      }
+    } catch (e) {
+      return checkError(e);
     }
   }
 
