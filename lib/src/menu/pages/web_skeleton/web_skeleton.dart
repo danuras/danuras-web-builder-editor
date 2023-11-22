@@ -6,6 +6,11 @@ import 'package:danuras_web_service_editor/src/menu/components/widget/input_html
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_advantage.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_blog.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_card.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_location.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_testimony.dart';
 import 'package:danuras_web_service_editor/src/model/web_content.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/web_content_controller.dart';
 import 'package:flutter/material.dart';
@@ -88,7 +93,10 @@ class _WebSkeletonState extends State<WebSkeleton> {
                                               AddSection.routeName,
                                               arguments: {
                                                 'rank': (index / 2 + 1).round(),
-                                                'lwc': lwc.map((element) => element.contentType).toList(),
+                                                'lwc': lwc
+                                                    .map((element) =>
+                                                        element.contentType)
+                                                    .toList(),
                                               },
                                             );
                                           },
@@ -108,7 +116,11 @@ class _WebSkeletonState extends State<WebSkeleton> {
                                           imagePath:
                                               'assets/images/kerangka/advantage/advantage-1.png',
                                           title: 'Keunggulan',
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.of(context).pushNamed(
+                                              EditSectionAdvantage.routeName,
+                                            );
+                                          },
                                         );
                                       } else if (lwc[((index - 1) / 2).round()]
                                               .contentType ==
@@ -118,7 +130,25 @@ class _WebSkeletonState extends State<WebSkeleton> {
                                               'assets/images/kerangka/card/${lwc[((index - 1) / 2).round()].cardType}.png',
                                           title: lwc[((index - 1) / 2).round()]
                                               .title!,
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.of(context).pushNamed(
+                                              EditSectionCard.routeName,
+                                              arguments: {
+                                                'card_box_id': lwc[
+                                                        ((index - 1) / 2)
+                                                            .round()]
+                                                    .cardBoxId,
+                                                'card_type': lwc[
+                                                        ((index - 1) / 2)
+                                                            .round()]
+                                                    .cardType,
+                                                'action': (cardBox) {
+                                                  lwc[((index - 1) / 2)
+                                                      .round()] = cardBox;
+                                                }
+                                              },
+                                            );
+                                          },
                                         );
                                       } else if (lwc[((index - 1) / 2).round()]
                                               .contentType ==
@@ -127,7 +157,11 @@ class _WebSkeletonState extends State<WebSkeleton> {
                                           imagePath:
                                               'assets/images/kerangka/testimony/testimony-1.png',
                                           title: 'Testimoni',
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.of(context).pushNamed(
+                                              EditSectionTestimony.routeName,
+                                            );
+                                          },
                                         );
                                       } else if (lwc[((index - 1) / 2).round()]
                                               .contentType ==
@@ -135,8 +169,12 @@ class _WebSkeletonState extends State<WebSkeleton> {
                                         return WebContentCard(
                                           imagePath:
                                               'assets/images/kerangka/blog/blog-1.png',
-                                          title: 'Testimoni',
-                                          onTap: () {},
+                                          title: 'Blog',
+                                          onTap: () {
+                                            Navigator.of(context).pushNamed(
+                                              EditSectionBlog.routeName,
+                                            );
+                                          },
                                         );
                                       } else if (lwc[((index - 1) / 2).round()]
                                               .contentType ==
@@ -145,7 +183,11 @@ class _WebSkeletonState extends State<WebSkeleton> {
                                           imagePath:
                                               'assets/images/kerangka/location/location-1.png',
                                           title: 'Lokasi',
-                                          onTap: () {},
+                                          onTap: () {
+                                            Navigator.of(context).pushNamed(
+                                              EditSectionLocation.routeName,
+                                            );
+                                          },
                                         );
                                       }
 

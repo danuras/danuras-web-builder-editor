@@ -18,7 +18,6 @@ class WebAttributeApiController extends BaseController {
     String subHeading,
     File? icon,
     File? backgroundImage,
-    File? backgroundTestimonies,
   ) async {
     var uri = Uri.parse('${EndPoint.value}web-attribute/create-or-update');
     var request = http.MultipartRequest('POST', uri);
@@ -59,23 +58,6 @@ class WebAttributeApiController extends BaseController {
 
       // add file to multipart
       request.files.add(multipartFile2);
-    }
-    if (backgroundTestimonies != null) {
-
-      var streamLi3 = http.ByteStream.fromBytes(
-        await backgroundTestimonies.readAsBytes(),
-      );
-      // get file length
-      var lengthLi3 = await backgroundTestimonies.length();
-      var multipartFile3 = http.MultipartFile(
-        'background_testimonies',
-        streamLi3,
-        lengthLi3,
-        filename: basename(backgroundTestimonies.path),
-      );
-
-      // add file to multipart
-      request.files.add(multipartFile3);
     }
 
     var hasil = await request.send();

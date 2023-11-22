@@ -15,7 +15,7 @@ class AdvantageApiController extends BaseController {
     String description,
     File? imageUrl,
   ) async {
-    var uri = Uri.parse('${EndPoint.value}advantage/create-or-delete');
+    var uri = Uri.parse('${EndPoint.value}advantage/create-or-update');
     var request = http.MultipartRequest('POST', uri);
     request.headers['Authorization'] = 'Bearer ${Auth.accessToken}';
     request.fields['title'] = title;

@@ -12,6 +12,11 @@ import 'package:danuras_web_service_editor/src/menu/pages/order_flow/edit_order_
 import 'package:danuras_web_service_editor/src/menu/pages/order_flow/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_advantage.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_blog.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_card.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_location.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_testimony.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/web_skeleton.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/order_flow_controller.dart';
@@ -111,7 +116,7 @@ class MyApp extends StatelessWidget {
                   case AddSection.routeName:
                     return AddSection(
                       rank: args!['rank'],
-                      lwc: args!['lwc'],
+                      lwc: args['lwc'],
                     );
                   case OrderFlowView.routeName:
                     return const OrderFlowView();
@@ -142,6 +147,20 @@ class MyApp extends StatelessWidget {
                       action: args['action'],
                       orderFlow: args['order_flow'],
                     );
+                  case EditSectionCard.routeName:
+                    return EditSectionCard(
+                      cardBoxId: args!['card_box_id'],
+                      cardType: args['card_type'],
+                      action: args['action'],
+                    );
+                  case EditSectionAdvantage.routeName:
+                    return const EditSectionAdvantage();
+                  case EditSectionTestimony.routeName:
+                    return const EditSectionTestimony();
+                  case EditSectionBlog.routeName:
+                    return const EditSectionBlog();
+                  case EditSectionLocation.routeName:
+                    return const EditSectionLocation();
                   case ListMenu.routeName:
                   default:
                     if (Auth.accessToken == null) {

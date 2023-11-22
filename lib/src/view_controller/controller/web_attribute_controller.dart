@@ -24,7 +24,6 @@ class WebAttributeController extends BaseController {
     required String subHeading,
     required File? icon,
     required File? backgroundImage,
-    File? backgroundTestimonies,
     required BuildContext context,
     required Function() action,
     required Function(dynamic errors) action400,
@@ -38,7 +37,6 @@ class WebAttributeController extends BaseController {
         subHeading,
         icon,
         backgroundImage,
-        backgroundTestimonies,
       );
 
       var result = jsonDecode(response.body);

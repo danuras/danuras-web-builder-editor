@@ -81,6 +81,36 @@ class TestimonyApiController extends BaseController {
     return response;
   }
 
+  Future<http.Response> updateBackground(
+    File? backgrouund,
+  ) async {
+    var uri = Uri.parse('${EndPoint.value}testimony/update-background');
+    var request = http.MultipartRequest('POST', uri);
+    request.headers['Authorization'] = 'Bearer ${Auth.accessToken}';
+    if (backgrouund != null) {
+      var streamLi = http.ByteStream.fromBytes(
+        await backgrouund.readAsBytes(),
+      );
+      // get file length
+      var lengthLi = await backgrouund.length();
+      var multipartFile = http.MultipartFile(
+        'background_testimonies',
+        streamLi,
+        lengthLi,
+        filename: basename(backgrouund.path),
+      );
+
+      // add file to multipart
+      request.files.add(multipartFile);
+    }
+
+    var hasil = await request.send();
+
+    http.Response response = await http.Response.fromStream(hasil);
+
+    return response;
+  }
+
   Future<http.Response> delete(int id) async {
     var uri = Uri.parse('${EndPoint.value}testimony/delete/$id');
     final response = await http.delete(

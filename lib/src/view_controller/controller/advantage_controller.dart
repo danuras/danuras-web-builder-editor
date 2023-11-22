@@ -1,7 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:danuras_web_service_editor/src/model/advantage.dart';
+import 'package:danuras_web_service_editor/src/model/advantage_content.dart';
 import 'package:danuras_web_service_editor/src/model/contact_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/advantage_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
@@ -58,7 +61,19 @@ class AdvantageController extends BaseController {
 
       if (response.statusCode == 200) {
         if (result['data'] != null) {
-          return successOutput(ContactModel.fromJson(result['data']));
+          return successOutput(
+            {
+              'advantage': Advantage.fromJson(
+                result['data']['advantage'],
+              ),
+              'advantage_contents': List.generate(
+                result['data']['advantage_contents'].length,
+                (index) => AdvantageContent.fromJson(
+                  result['data']['advantage_contents'][index],
+                ),
+              ),
+            },
+          );
         } else {
           return successOutput(null);
         }

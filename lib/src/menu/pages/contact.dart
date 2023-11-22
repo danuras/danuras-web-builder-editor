@@ -25,10 +25,7 @@ class _ContactState extends State<Contact> {
   TextEditingController callNumberController = TextEditingController(text: '');
   TextEditingController addressController = TextEditingController(text: '');
   TextEditingController emailController = TextEditingController(text: '');
-  TextEditingController embededMapUrlController =
-      TextEditingController(text: '');
-  TextEditingController infoLocationController =
-      TextEditingController(text: '');
+  TextEditingController infoContactController = TextEditingController(text: '');
   TextEditingController backgroundContactController =
       TextEditingController(text: '');
 
@@ -38,8 +35,6 @@ class _ContactState extends State<Contact> {
   ValueNotifier<String?> addressError = ValueNotifier(null);
   ValueNotifier<String?> emailError = ValueNotifier(null);
   ValueNotifier<String?> infoContactError = ValueNotifier(null);
-  ValueNotifier<String?> embededMapUrlError = ValueNotifier(null);
-  ValueNotifier<String?> infoLocationError = ValueNotifier(null);
   ValueNotifier<String?> backgroundContactError = ValueNotifier(null);
 
   ValueNotifier<bool> refresher = ValueNotifier(false);
@@ -92,8 +87,6 @@ class _ContactState extends State<Contact> {
                         addressController.text = cm.address;
                         emailController.text = cm.email;
                         infoContact = cm.infoContact;
-                        infoLocationController.text = cm.infoLocation;
-                        embededMapUrlController.text = cm.embededMapUrl;
                         backgroundImageUrl = cm.backgroundContact;
                       }
                       return Padding(
@@ -165,28 +158,6 @@ class _ContactState extends State<Contact> {
                             const SizedBox(
                               height: 8.0,
                             ),
-                            InputTypeBar(
-                              labelText: 'Link Embeded Map',
-                              tooltip:
-                                  'Masukan link embeded map dari google map sesuai dengan lokasi usaha anda.',
-                              maxLines: 3,
-                              errorText: embededMapUrlError,
-                              controller: embededMapUrlController,
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            InputTypeBar(
-                              labelText: 'Info lokasi',
-                              tooltip:
-                                  'Masukan keterangan tambahan lokasi usaha anda.',
-                              maxLines: 3,
-                              errorText: infoLocationError,
-                              controller: infoLocationController,
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
                             InputSquareImage(
                               action: (image) {
                                 backgroundImageContact = image;
@@ -209,15 +180,13 @@ class _ContactState extends State<Contact> {
                                     callNumber: callNumberController.text,
                                     address: addressController.text,
                                     email: emailController.text,
-                                    infoContact: infoContact!,
-                                    embededMapUrl: embededMapUrlController.text,
-                                    infoLocation: infoLocationController.text,
                                     backgroundContact: backgroundImageContact,
                                     context: context,
                                     action: () {},
                                     action400: (errors) {
                                       checkError(errors);
                                     },
+                                    infoContact: infoContactController.text,
                                   );
                                 }),
                             const SizedBox(
@@ -244,8 +213,6 @@ class _ContactState extends State<Contact> {
     addressError.value = null;
     emailError.value = null;
     infoContactError.value = null;
-    infoLocationError.value = null;
-    embededMapUrlError.value = null;
     backgroundContactError.value = null;
   }
 
@@ -267,12 +234,6 @@ class _ContactState extends State<Contact> {
     }
     if (errors.containsKey('info_contact')) {
       infoContactError.value = errors['info_contact'][0];
-    }
-    if (errors.containsKey('info_location')) {
-      infoLocationError.value = errors['info_location'][0];
-    }
-    if (errors.containsKey('embeded_map_url')) {
-      embededMapUrlError.value = errors['embeded_map_url'][0];
     }
     if (errors.containsKey('background_contact')) {
       backgroundContactError.value = errors['background_contact'][0];

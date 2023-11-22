@@ -1,8 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
-import 'package:danuras_web_service_editor/src/model/card.dart' as c;
+import 'package:danuras_web_service_editor/src/model/card_model.dart' as c;
 import 'package:danuras_web_service_editor/src/model/card_box.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/blog_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/card_box_api_controller.dart';
@@ -42,6 +43,7 @@ class CardBoxController extends BaseController {
         }
       }
     } catch (e) {
+
       if (e is TimeoutException) {
         // menangani koneksi timeout
         timeout(context);
@@ -102,7 +104,7 @@ class CardBoxController extends BaseController {
             'card_box': CardBox.fromJson(result['data']['card_box']),
             'cards': List.generate(
               result['data']['cards'].length,
-              (index) => c.Card.fromJson(
+              (index) => c.CardModel.fromJson(
                 result['data']['cards'][index],
               ),
             ),
@@ -114,6 +116,8 @@ class CardBoxController extends BaseController {
         return failOutput();
       }
     } catch (e) {
+        log(e.toString());
+
       return checkError(e);
     }
   }

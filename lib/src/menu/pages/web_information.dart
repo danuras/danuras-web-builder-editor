@@ -24,8 +24,8 @@ class _WebInformationState extends State<WebInformation> {
   TextEditingController longTitleController = TextEditingController(text: '');
   TextEditingController mainHeadingController = TextEditingController(text: '');
   TextEditingController subHeadingController = TextEditingController(text: '');
-  File? icon, backgroundImage, backgroundTestimony;
-  String? iconUrl, backgroundImageUrl, backgroundTestimonyUrl;
+  File? icon, backgroundImage;
+  String? iconUrl, backgroundImageUrl;
 
   WebAttributeController wac = WebAttributeController();
 
@@ -36,7 +36,6 @@ class _WebInformationState extends State<WebInformation> {
   ValueNotifier<String?> subHeadingError = ValueNotifier(null);
   ValueNotifier<String?> iconError = ValueNotifier(null);
   ValueNotifier<String?> backgroundImageError = ValueNotifier(null);
-  ValueNotifier<String?> backgroundTestimonyError = ValueNotifier(null);
   ValueNotifier<bool> refresher = ValueNotifier(false);
 
   late WebAttribute wa;
@@ -83,7 +82,6 @@ class _WebInformationState extends State<WebInformation> {
                         subHeadingController.text = wa.subHeading;
                         backgroundImageUrl = wa.backgroundImage;
                         iconUrl = wa.icon;
-                        backgroundTestimonyUrl = wa.backgroundTestimonies;
                       }
                       return Padding(
                         padding: const EdgeInsets.only(
@@ -171,17 +169,6 @@ class _WebInformationState extends State<WebInformation> {
                             const SizedBox(
                               height: 8.0,
                             ),
-                            InputSquareImage(
-                              action: (image) {
-                                backgroundTestimony = image;
-                              },
-                              imageError: backgroundTestimonyError,
-                              imageUrl: backgroundTestimonyUrl,
-                              label: 'Gambar Background Testimoni',
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
                             CustomButton(
                               text: 'Simpan',
                               action: () async {
@@ -227,7 +214,6 @@ class _WebInformationState extends State<WebInformation> {
     subHeadingError.value = null;
     backgroundImageError.value = null;
     iconError.value = null;
-    backgroundTestimonyError.value = null;
   }
 
   void checkError(errors) {
@@ -253,7 +239,6 @@ class _WebInformationState extends State<WebInformation> {
       iconError.value = errors['icon'][0];
     }
     if (errors.containsKey('background_testimonies')) {
-      backgroundTestimonyError.value = errors['background_testimonies'][0];
     }
   }
 }

@@ -2,7 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
-import 'package:danuras_web_service_editor/src/model/card.dart' as c;
+import 'package:danuras_web_service_editor/src/model/card_model.dart' as c;
 import 'package:danuras_web_service_editor/src/model/card_box.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/blog_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/card_api_controller.dart';
@@ -13,10 +13,10 @@ import 'package:flutter/material.dart';
 class CardController extends BaseController {
   final _cac = CardApiController();
   Future<void> create({
-    required c.Card card,
+    required c.CardModel card,
     required File? imageUrl,
     required BuildContext context,
-    required Function(c.Card card) action,
+    required Function(c.CardModel card) action,
     required Function(dynamic errors) action400,
   }) async {
     try {
@@ -28,7 +28,7 @@ class CardController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        action(c.Card.fromJson(result['data']));
+        action(c.CardModel.fromJson(result['data']));
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -51,10 +51,10 @@ class CardController extends BaseController {
   }
 
   Future<void> update({
-    required c.Card card,
+    required c.CardModel card,
     required File? imageUrl,
     required BuildContext context,
-    required Function(c.Card card) action,
+    required Function(c.CardModel card) action,
     required Function(dynamic errors) action400,
   }) async {
     try {
@@ -66,7 +66,7 @@ class CardController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        action(c.Card.fromJson(result['data']));
+        action(c.CardModel.fromJson(result['data']));
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {

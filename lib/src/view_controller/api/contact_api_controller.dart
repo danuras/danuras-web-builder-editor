@@ -16,8 +16,6 @@ class ContactApiController extends BaseController {
     String callNumber,
     String address,
     String email,
-    String infoContact,
-    String embededMapUrl,
     String infoLocation,
     File? backgroundContact,
   ) async {
@@ -29,8 +27,6 @@ class ContactApiController extends BaseController {
     request.fields['call_number'] = callNumber;
     request.fields['address'] = address;
     request.fields['email'] = email;
-    request.fields['info_contact'] = infoContact;
-    request.fields['embeded_map_url'] = embededMapUrl;
     request.fields['info_location'] = infoLocation;
     if (backgroundContact != null) {
       var streamLi = http.ByteStream.fromBytes(
@@ -53,6 +49,22 @@ class ContactApiController extends BaseController {
 
     http.Response response = await http.Response.fromStream(hasil);
 
+    return response;
+  }
+
+  Future<http.Response> updateLocation(String infoLocation, String embededMapUrl,) async {
+    var uri = Uri.parse('${EndPoint.value}contact/update-location');
+    final response = await http.post(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ${Auth.accessToken}',
+      },
+      body: jsonEncode(<String, dynamic>{
+        'info_location': infoLocation,
+        'embeded_map_url': embededMapUrl,
+      }),
+    );
     return response;
   }
 
