@@ -15,19 +15,159 @@ import 'package:flutter/material.dart';
 
 class WebContentController extends BaseController {
   final _wcac = WebContentApiController();
-  Future<void> create({
+  Future<void> createCard({
     required String contentType,
-    required int? cardBoxId,
     required int rank,
+    required String cardType,
+    required String title,
+    required String info,
     required BuildContext context,
     required Function(WebContent webContent) action,
     required Function(dynamic errors) action400,
   }) async {
     try {
-      var response = await _wcac.create(
+      var response = await _wcac.createCard(
         contentType,
-        cardBoxId,
         rank,
+        cardType,
+        title,
+        info,
+      );
+
+      var result = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        action(WebContent.fromJson(result['data']));
+      } else if (response.statusCode == 400) {
+        action400(result['errors']);
+      } else if (response.statusCode == 401) {
+        if (context.mounted) {
+          revoke(context);
+        }
+      } else {
+        if (context.mounted) {
+          failed(context, null);
+        }
+      }
+    } catch (e) {
+      if (e is TimeoutException) {
+        // menangani koneksi timeout
+        timeout(context);
+      } else {
+        error(context, 'Error: $e');
+      }
+    }
+  }
+
+  Future<void> createAdvantage({
+    required String contentType,
+    required int rank,
+    required String description,
+    required String title,
+    required File imageUrl,
+    required BuildContext context,
+    required Function(WebContent webContent) action,
+    required Function(dynamic errors) action400,
+  }) async {
+    try {
+      var response = await _wcac.createAdvantage(
+        contentType,
+        rank,
+        description,
+        title,
+        imageUrl,
+      );
+
+      var result = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        action(WebContent.fromJson(result['data']));
+      } else if (response.statusCode == 400) {
+        action400(result['errors']);
+      } else if (response.statusCode == 401) {
+        if (context.mounted) {
+          revoke(context);
+        }
+      } else {
+        if (context.mounted) {
+          failed(context, null);
+        }
+      }
+    } catch (e) {
+      if (e is TimeoutException) {
+        // menangani koneksi timeout
+        timeout(context);
+      } else {
+        error(context, 'Error: $e');
+      }
+    }
+  }
+
+  Future<void> createMaps({
+    required String contentType,
+    required int rank,
+    required String infoLocation,
+    required String embededMapUrl,
+    required BuildContext context,
+    required Function(WebContent webContent) action,
+    required Function(dynamic errors) action400,
+  }) async {
+    try {
+      var response = await _wcac.createMaps(
+        contentType,
+        rank,
+        infoLocation,
+        embededMapUrl,
+      );
+
+      var result = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        action(WebContent.fromJson(result['data']));
+      } else if (response.statusCode == 400) {
+        action400(result['errors']);
+      } else if (response.statusCode == 401) {
+        if (context.mounted) {
+          revoke(context);
+        }
+      } else {
+        if (context.mounted) {
+          failed(context, null);
+        }
+      }
+    } catch (e) {
+      if (e is TimeoutException) {
+        // menangani koneksi timeout
+        timeout(context);
+      } else {
+        error(context, 'Error: $e');
+      }
+    }
+  }
+
+  Future<void> createBlog({
+    required String contentType,
+    required int rank,
+    required String datePublished,
+    required String title,
+    required String author,
+    required String text,
+    required String link,
+    required File imageUrl,
+    required BuildContext context,
+    required Function(WebContent webContent) action,
+    required Function(dynamic errors) action400,
+  }) async {
+    try {
+      var response = await _wcac.createBlog(
+        contentType,
+        rank,
+        datePublished,
+        title,
+        author,
+        text,
+        link,
+        imageUrl,
       );
 
       var result = jsonDecode(response.body);
@@ -93,13 +233,137 @@ class WebContentController extends BaseController {
     }
   }
 
-  Future<void> delete({
+  Future<void> deleteCard({
     required int id,
     required BuildContext context,
     required Function() action,
   }) async {
     try {
-      var response = await _wcac.delete(
+      var response = await _wcac.deleteCard(
+        id,
+      );
+
+      if (response.statusCode == 200) {
+        action();
+      } else if (response.statusCode == 401) {
+        if (context.mounted) {
+          revoke(context);
+        }
+      } else {
+        if (context.mounted) {
+          failed(context, null);
+        }
+      }
+    } catch (e) {
+      if (e is TimeoutException) {
+        // menangani koneksi timeout
+        timeout(context);
+      } else {
+        error(context, 'Error: $e');
+      }
+    }
+  }
+
+  Future<void> deleteAdvantage({
+    required int id,
+    required BuildContext context,
+    required Function() action,
+  }) async {
+    try {
+      var response = await _wcac.deleteAdvantage(
+        id,
+      );
+
+      if (response.statusCode == 200) {
+        action();
+      } else if (response.statusCode == 401) {
+        if (context.mounted) {
+          revoke(context);
+        }
+      } else {
+        if (context.mounted) {
+          failed(context, null);
+        }
+      }
+    } catch (e) {
+      if (e is TimeoutException) {
+        // menangani koneksi timeout
+        timeout(context);
+      } else {
+        error(context, 'Error: $e');
+      }
+    }
+  }
+
+  Future<void> deleteMaps({
+    required int id,
+    required BuildContext context,
+    required Function() action,
+  }) async {
+    try {
+      var response = await _wcac.deleteMaps(
+        id,
+      );
+
+      if (response.statusCode == 200) {
+        action();
+      } else if (response.statusCode == 401) {
+        if (context.mounted) {
+          revoke(context);
+        }
+      } else {
+        if (context.mounted) {
+          failed(context, null);
+        }
+      }
+    } catch (e) {
+      if (e is TimeoutException) {
+        // menangani koneksi timeout
+        timeout(context);
+      } else {
+        error(context, 'Error: $e');
+      }
+    }
+  }
+
+  Future<void> deleteTestimony({
+    required int id,
+    required BuildContext context,
+    required Function() action,
+  }) async {
+    try {
+      var response = await _wcac.deleteTestimony(
+        id,
+      );
+
+      if (response.statusCode == 200) {
+        action();
+      } else if (response.statusCode == 401) {
+        if (context.mounted) {
+          revoke(context);
+        }
+      } else {
+        if (context.mounted) {
+          failed(context, null);
+        }
+      }
+    } catch (e) {
+      if (e is TimeoutException) {
+        // menangani koneksi timeout
+        timeout(context);
+      } else {
+        error(context, 'Error: $e');
+      }
+    }
+  }
+
+  Future<void> deleteBlog({
+    required int id,
+    required BuildContext context,
+    required Function() action,
+  }) async {
+    try {
+      var response = await _wcac.deleteBlog(
         id,
       );
 

@@ -8,7 +8,7 @@ import 'package:danuras_web_service_editor/src/menu/pages/order_flow/order_flow_
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_information.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/web_skeleton.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/auth_controller.dart';
 import 'package:flutter/material.dart';

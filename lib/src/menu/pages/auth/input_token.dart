@@ -1,5 +1,5 @@
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
+import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_bar.dart';
 import 'package:danuras_web_service_editor/src/menu/list_menu.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
@@ -111,6 +111,7 @@ class _SaveNewPasswordState extends State<SaveNewPassword> {
                     tooltip: 'Masukan password baru!',
                     errorText: passwordError,
                     controller: passwordController,
+                    obscureText: true,
                   ),
                   const SizedBox(
                     height: 8.0,
@@ -120,6 +121,7 @@ class _SaveNewPasswordState extends State<SaveNewPassword> {
                     tooltip: 'Masukan password konfirmasi!',
                     errorText: passwordConfirmationError,
                     controller: passwordConfirmationController,
+                    obscureText: true,
                   ),
                   const SizedBox(
                     height: 8.0,

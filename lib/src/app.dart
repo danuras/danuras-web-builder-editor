@@ -1,5 +1,5 @@
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/add_section.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_token.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
@@ -12,7 +12,7 @@ import 'package:danuras_web_service_editor/src/menu/pages/order_flow/edit_order_
 import 'package:danuras_web_service_editor/src/menu/pages/order_flow/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/web_skeleton.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/order_flow_controller.dart';
 import 'package:flutter/material.dart';
@@ -109,7 +109,10 @@ class MyApp extends StatelessWidget {
                   case WebSkeleton.routeName:
                     return const WebSkeleton();
                   case AddSection.routeName:
-                    return const AddSection();
+                    return AddSection(
+                      rank: args!['rank'],
+                      lwc: args!['lwc'],
+                    );
                   case OrderFlowView.routeName:
                     return const OrderFlowView();
                   case Login.routeName:
@@ -141,7 +144,7 @@ class MyApp extends StatelessWidget {
                     );
                   case ListMenu.routeName:
                   default:
-                    if(Auth.accessToken ==null){
+                    if (Auth.accessToken == null) {
                       return const Login();
                     }
                     return const ListMenu();
