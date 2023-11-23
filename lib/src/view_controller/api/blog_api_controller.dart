@@ -59,7 +59,7 @@ class BlogApiController extends BaseController {
     var uri = Uri.parse('${EndPoint.value}blog/update');
     var request = http.MultipartRequest('POST', uri);
     request.headers['Authorization'] = 'Bearer ${Auth.accessToken}';
-    request.fields['advantage_id'] = blogId.toString();
+    request.fields['blog_id'] = blogId.toString();
     request.fields['title'] = title;
     request.fields['date_published'] = datePublished;
     request.fields['author'] = author;
@@ -94,7 +94,7 @@ class BlogApiController extends BaseController {
     final response = await http.delete(
       uri,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset-UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
     );
@@ -106,7 +106,7 @@ class BlogApiController extends BaseController {
     final response = await http.get(
       uri,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset-UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
     );

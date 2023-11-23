@@ -1,6 +1,8 @@
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_testimony.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:danuras_web_service_editor/src/model/testimony.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/testimony_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
@@ -8,8 +10,14 @@ class TestimonyCard extends StatelessWidget {
   const TestimonyCard({
     super.key,
     required this.t,
+    required this.tc,
+    required this.delete,
+    required this.updateComplete,
   });
   final Testimony t;
+  final TestimonyController tc;
+  final Function() delete;
+  final Function(Testimony t) updateComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -28,7 +36,9 @@ class TestimonyCard extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                const SizedBox(height: 40,),
+                const SizedBox(
+                  height: 40,
+                ),
                 Row(
                   children: [
                     CircleAvatar(
@@ -67,14 +77,14 @@ class TestimonyCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  /* Navigator.of(context).pushNamed(
-                    EditCard1.routeName,
+                  Navigator.of(context).pushNamed(
+                    EditCardTestimony.routeName,
                     arguments: <String, dynamic>{
-                      'ofc': ofc,
+                      't': t,
+                      'tc': tc,
                       'action': updateComplete,
-                      'order_flow': orderFlow,
                     },
-                  ); */
+                  ); 
                 },
                 child: Container(
                   width: 35,
@@ -113,10 +123,11 @@ class TestimonyCard extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () async {
-                            /* await ofc.delete(
-                                id: orderFlow.id,
-                                context: context,
-                                action: deleteComplete); */
+                            await tc.delete(
+                              id: t.id,
+                              context: context,
+                              action: delete,
+                            );
                             if (context.mounted) {
                               Navigator.of(context).pop();
                             }

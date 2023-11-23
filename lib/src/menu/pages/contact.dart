@@ -153,6 +153,7 @@ class _ContactState extends State<Contact> {
                               tooltip:
                                   'Masukan informasi tambahan untuk kontak misal jadwal kerja untuk membalas kontak atau lainnya',
                               initialString: infoContact,
+                              error: infoContactError,
                               changeText: ((changed) => infoContact = changed),
                             ),
                             const SizedBox(

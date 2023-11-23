@@ -95,12 +95,14 @@ class _WebInformationState extends State<WebInformation> {
                             ),
                             Row(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
                               children: [
                                 InputTypeIcon(
                                   action: (ico) {
                                     icon = ico;
                                   },
                                   label: 'Ikon',
+                                  tooltip: 'Ikon Perusahaan',
                                   iconError: iconError,
                                   iconUrl: iconUrl,
                                   icon: icon,
@@ -132,7 +134,7 @@ class _WebInformationState extends State<WebInformation> {
                                       ),
                                     ],
                                   ),
-                                ),
+                                ), 
                               ],
                             ),
                             const SizedBox(

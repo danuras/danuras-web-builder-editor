@@ -10,6 +10,7 @@ class InputHtmlEditor extends StatefulWidget {
     Key? key,
     required this.title,
     required this.tooltip,
+    required this.error,
     this.initialString,
     required this.changeText,
   }) : super(key: key);
@@ -17,6 +18,7 @@ class InputHtmlEditor extends StatefulWidget {
   final String title;
   final String tooltip;
   final Function(String? changed) changeText;
+  final ValueNotifier<String?> error;
   final String? initialString;
 
   @override
@@ -120,6 +122,19 @@ class _InputHtmlEditorState extends State<InputHtmlEditor> {
               },
             ),
           ),
+          ValueListenableBuilder(
+              valueListenable: widget.error,
+              builder: (context, e, child) {
+                if (e != null) {
+                  return Text(
+                    e,
+                    style: const TextStyle(color: Colors.red),
+                  );
+                } else {
+                  return const SizedBox.shrink();
+                }
+              },
+            ),
         ],
       ),
     );

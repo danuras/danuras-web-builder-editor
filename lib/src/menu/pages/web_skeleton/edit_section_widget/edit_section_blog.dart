@@ -1,6 +1,6 @@
-
 import 'package:danuras_web_service_editor/src/menu/components/http/custom_future_builder.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/card/list_card.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_blog.dart';
 import 'package:danuras_web_service_editor/src/model/blog.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/blog_controller.dart';
 import 'package:flutter/material.dart';
@@ -16,8 +16,8 @@ class EditSectionBlog extends StatefulWidget {
 }
 
 class _EditSectionBlogState extends State<EditSectionBlog> {
-
   ValueNotifier<bool> refresher = ValueNotifier(false);
+  ValueNotifier<bool> refresherResult = ValueNotifier(false);
 
   BlogController bc = BlogController();
   List<Blog> lb = [];
@@ -35,6 +35,34 @@ class _EditSectionBlogState extends State<EditSectionBlog> {
         appBar: AppBar(
           title: const Text('Edit Bagian Blog'),
           backgroundColor: const Color(0xff110011),
+        ),
+        floatingActionButton: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+              AddCardBlog.routeName,
+              arguments: <String, dynamic>{
+                'bc': bc,
+                'action': (b) {
+                  lb.add(b);
+                  refresherResult.value = !refresherResult.value;
+                },
+              },
+            );
+          },
+          child: Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              color: const Color(0xff110011),
+              borderRadius: const BorderRadius.all(Radius.circular(35)),
+              border: Border.all(width: 2, color: Colors.white),
+            ),
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 50,
+            ),
+          ),
         ),
         body: Container(
           decoration: const BoxDecoration(
@@ -66,8 +94,16 @@ class _EditSectionBlogState extends State<EditSectionBlog> {
                         ),
                         child: ListView(
                           children: [
-                            
-                            ListCard(lcm: lb, cardType: '', contentType: 'blog'),
+                            ValueListenableBuilder(
+                                valueListenable: refresherResult,
+                                builder: (context, rr, child) {
+                                  return ListCard(
+                                    lcm: lb,
+                                    cardType: '',
+                                    contentType: 'blog',
+                                    controller: bc,
+                                  );
+                                }),
                           ],
                         ),
                       );

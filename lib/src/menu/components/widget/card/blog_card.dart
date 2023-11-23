@@ -1,15 +1,23 @@
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_blog.dart';
 import 'package:danuras_web_service_editor/src/model/advantage_content.dart';
 import 'package:danuras_web_service_editor/src/model/blog.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/blog_controller.dart';
 import 'package:flutter/material.dart';
 
 class BlogCard extends StatelessWidget {
   const BlogCard({
     super.key,
     required this.b,
+    required this.bc,
+    required this.delete,
+    required this.updateComplete,
   });
   final Blog b;
+  final BlogController bc;
+  final Function() delete;
+  final Function(Blog b) updateComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -62,14 +70,14 @@ class BlogCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  /* Navigator.of(context).pushNamed(
-                    EditCard1.routeName,
+                  Navigator.of(context).pushNamed(
+                    EditCardBlog.routeName,
                     arguments: <String, dynamic>{
-                      'ofc': ofc,
+                      'b': b,
                       'action': updateComplete,
-                      'order_flow': orderFlow,
+                      'bc': bc,
                     },
-                  ); */
+                  ); 
                 },
                 child: Container(
                   width: 35,
@@ -108,10 +116,10 @@ class BlogCard extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () async {
-                            /* await ofc.delete(
-                                id: orderFlow.id,
+                            await bc.delete(
+                                id: b.id,
                                 context: context,
-                                action: deleteComplete); */
+                                action: delete);
                             if (context.mounted) {
                               Navigator.of(context).pop();
                             }

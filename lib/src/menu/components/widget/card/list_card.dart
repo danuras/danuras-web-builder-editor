@@ -7,18 +7,27 @@ import 'package:danuras_web_service_editor/src/menu/components/widget/card/card_
 import 'package:danuras_web_service_editor/src/menu/components/widget/card/card_3.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/card/testimony_card.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/card_controller.dart';
 import 'package:flutter/material.dart';
 
-class ListCard extends StatelessWidget {
+class ListCard extends StatefulWidget {
   const ListCard({
     super.key,
     required this.lcm,
     required this.cardType,
     required this.contentType,
+    this.controller,
   });
   final List<dynamic> lcm;
+  final dynamic controller;
   final String cardType, contentType;
 
+  @override
+  State<ListCard> createState() => _ListCardState();
+}
+
+class _ListCardState extends State<ListCard> {
+  ValueNotifier<bool> refresherResult = ValueNotifier(false);
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -47,14 +56,15 @@ class ListCard extends StatelessWidget {
           const SizedBox(
             height: 10,
           ),
-          Builder(
-            builder: (context) {
-              if (contentType == 'card') {
-                if (cardType == 'card-1') {
+          ValueListenableBuilder(
+            valueListenable: refresherResult,
+            builder: (context, rr, child) {
+              if (widget.contentType == 'card') {
+                if (widget.cardType == 'card-1') {
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: lcm.length,
+                    itemCount: widget.lcm.length,
                     itemBuilder: (context, index) {
                       return Padding(
                         padding: const EdgeInsets.only(
@@ -62,16 +72,25 @@ class ListCard extends StatelessWidget {
                           bottom: 4.0,
                         ),
                         child: Card1(
-                          cm: lcm[index],
+                          cm: widget.lcm[index],
+                          cc: widget.controller,
+                          delete: () {
+                            widget.lcm.removeAt(index);
+                            refresherResult.value = !refresherResult.value;
+                          },
+                          updateComplete: (cm) {
+                            widget.lcm[index] = cm;
+                            refresherResult.value = !refresherResult.value;
+                          },
                         ),
                       );
                     },
                   );
-                } else if (cardType == 'card-2') {
+                } else if (widget.cardType == 'card-2') {
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: (lcm.length / 2).ceil(),
+                    itemCount: (widget.lcm.length / 2).ceil(),
                     itemBuilder: (context, index) {
                       return SizedBox(
                         width: double.infinity,
@@ -86,11 +105,22 @@ class ListCard extends StatelessWidget {
                                   top: 4.0,
                                 ),
                                 child: Card2(
-                                  cm: lcm[index * 2],
+                                  cm: widget.lcm[index * 2],
+                                  cc: widget.controller,
+                                  delete: () {
+                                    widget.lcm.removeAt(index);
+                                    refresherResult.value =
+                                        !refresherResult.value;
+                                  },
+                                  updateComplete: (cm) {
+                                    widget.lcm[index] = cm;
+                                    refresherResult.value =
+                                        !refresherResult.value;
+                                  },
                                 ),
                               ),
                             ),
-                            (lcm.length > index * 2 + 1)
+                            (widget.lcm.length > index * 2 + 1)
                                 ? Expanded(
                                     flex: 1,
                                     child: Padding(
@@ -100,7 +130,18 @@ class ListCard extends StatelessWidget {
                                         top: 2.0,
                                       ),
                                       child: Card2(
-                                        cm: lcm[index * 2 + 1],
+                                        cm: widget.lcm[index * 2 + 1],
+                                        cc: widget.controller,
+                                        delete: () {
+                                          widget.lcm.removeAt(index * 2 + 1);
+                                          refresherResult.value =
+                                              !refresherResult.value;
+                                        },
+                                        updateComplete: (cm) {
+                                          widget.lcm[index * 2 + 1] = cm;
+                                          refresherResult.value =
+                                              !refresherResult.value;
+                                        },
                                       ),
                                     ),
                                   )
@@ -113,11 +154,11 @@ class ListCard extends StatelessWidget {
                       );
                     },
                   );
-                } else if (cardType == 'card-3') {
+                } else if (widget.cardType == 'card-3') {
                   return ListView.builder(
                     shrinkWrap: true,
                     physics: const NeverScrollableScrollPhysics(),
-                    itemCount: (lcm.length / 2).ceil(),
+                    itemCount: (widget.lcm.length / 2).ceil(),
                     itemBuilder: (context, index) {
                       return SizedBox(
                         width: double.infinity,
@@ -132,11 +173,22 @@ class ListCard extends StatelessWidget {
                                   top: 4.0,
                                 ),
                                 child: Card3(
-                                  cm: lcm[index * 2],
+                                  cm: widget.lcm[index * 2],
+                                  cc: widget.controller,
+                                  delete: () {
+                                    widget.lcm.removeAt(index * 2);
+                                    refresherResult.value =
+                                        !refresherResult.value;
+                                  },
+                                  updateComplete: (cm) {
+                                    widget.lcm[index * 2] = cm;
+                                    refresherResult.value =
+                                        !refresherResult.value;
+                                  },
                                 ),
                               ),
                             ),
-                            (lcm.length > index * 2 + 1)
+                            (widget.lcm.length > index * 2 + 1)
                                 ? Expanded(
                                     flex: 1,
                                     child: Padding(
@@ -146,7 +198,18 @@ class ListCard extends StatelessWidget {
                                         top: 2.0,
                                       ),
                                       child: Card3(
-                                        cm: lcm[index * 2 + 1],
+                                        cm: widget.lcm[index * 2 + 1],
+                                        cc: widget.controller,
+                                        delete: () {
+                                          widget.lcm.removeAt(index * 2 + 1);
+                                          refresherResult.value =
+                                              !refresherResult.value;
+                                        },
+                                        updateComplete: (cm) {
+                                          widget.lcm[index * 2 + 1] = cm;
+                                          refresherResult.value =
+                                              !refresherResult.value;
+                                        },
                                       ),
                                     ),
                                   )
@@ -160,57 +223,79 @@ class ListCard extends StatelessWidget {
                     },
                   );
                 }
-              } else if (contentType == 'advantage') {
-                return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: (lcm.length / 2).ceil(),
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        width: double.infinity,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  right: 4.0,
-                                  bottom: 4.0,
-                                  top: 4.0,
-                                ),
-                                child: AdvantageCard(
-                                  ac: lcm[index * 2],
-                                ),
-                              ),
-                            ),
-                            (lcm.length > index * 2 + 1)
-                                ? Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        right: 2.0,
-                                        bottom: 2.0,
-                                        top: 2.0,
-                                      ),
-                                      child: AdvantageCard(
-                                        ac: lcm[index * 2 + 1],
-                                      ),
-                                    ),
-                                  )
-                                : const Expanded(
-                                    flex: 1,
-                                    child: SizedBox(),
-                                  ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-              } else if (contentType == 'testimony') {
+              } else if (widget.contentType == 'advantage') {
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: lcm.length,
+                  itemCount: (widget.lcm.length / 2).ceil(),
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                right: 4.0,
+                                bottom: 4.0,
+                                top: 4.0,
+                              ),
+                              child: AdvantageCard(
+                                ac: widget.lcm[index * 2],
+                                acc: widget.controller,
+                                delete: () {
+                                  widget.lcm.removeAt(index * 2);
+                                  refresherResult.value =
+                                      !refresherResult.value;
+                                },
+                                updateComplete: (out) {
+                                  widget.lcm[index * 2] = out;
+                                  refresherResult.value =
+                                      !refresherResult.value;
+                                },
+                              ),
+                            ),
+                          ),
+                          (widget.lcm.length > index * 2 + 1)
+                              ? Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: 2.0,
+                                      bottom: 2.0,
+                                      top: 2.0,
+                                    ),
+                                    child: AdvantageCard(
+                                      ac: widget.lcm[index * 2 + 1],
+                                      acc: widget.controller,
+                                      delete: () {
+                                        widget.lcm.removeAt(index * 2 + 1);
+                                        refresherResult.value =
+                                            !refresherResult.value;
+                                      },
+                                      updateComplete: (out) {
+                                        widget.lcm[index * 2 + 1] = out;
+                                        refresherResult.value =
+                                            !refresherResult.value;
+                                      },
+                                    ),
+                                  ),
+                                )
+                              : const Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
+                                ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              } else if (widget.contentType == 'testimony') {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: widget.lcm.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(
@@ -218,58 +303,89 @@ class ListCard extends StatelessWidget {
                         bottom: 4.0,
                       ),
                       child: TestimonyCard(
-                        t: lcm[index],
+                        t: widget.lcm[index],
+                        tc: widget.controller,
+                        delete: () {
+                          widget.lcm.removeAt(index);
+                          refresherResult.value = !refresherResult.value;
+                        },
+                        updateComplete: (out) {
+                          widget.lcm[index] = out;
+                          refresherResult.value = !refresherResult.value;
+                        },
                       ),
                     );
                   },
                 );
-              } else if (contentType == 'blog') {
+              } else if (widget.contentType == 'blog') {
                 return ListView.builder(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemCount: (lcm.length / 2).ceil(),
-                    itemBuilder: (context, index) {
-                      return SizedBox(
-                        width: double.infinity,
-                        child: Row(
-                          children: [
-                            Expanded(
-                              flex: 1,
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                  right: 4.0,
-                                  bottom: 4.0,
-                                  top: 4.0,
-                                ),
-                                child: BlogCard(
-                                  b: lcm[index * 2],
-                                ),
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: (widget.lcm.length / 2).ceil(),
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      width: double.infinity,
+                      child: Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                right: 4.0,
+                                bottom: 4.0,
+                                top: 4.0,
+                              ),
+                              child: BlogCard(
+                                b: widget.lcm[index * 2],
+                                bc: widget.controller,
+                                delete: () {
+                                  widget.lcm.removeAt(index * 2);
+                                  refresherResult.value =
+                                      !refresherResult.value;
+                                },
+                                updateComplete: (out) {
+                                  widget.lcm[index * 2] = out;
+                                  refresherResult.value =
+                                      !refresherResult.value;
+                                },
                               ),
                             ),
-                            (lcm.length > index * 2 + 1)
-                                ? Expanded(
-                                    flex: 1,
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                        right: 2.0,
-                                        bottom: 2.0,
-                                        top: 2.0,
-                                      ),
-                                      child: BlogCard(
-                                        b: lcm[index * 2 + 1],
-                                      ),
+                          ),
+                          (widget.lcm.length > index * 2 + 1)
+                              ? Expanded(
+                                  flex: 1,
+                                  child: Padding(
+                                    padding: const EdgeInsets.only(
+                                      right: 2.0,
+                                      bottom: 2.0,
+                                      top: 2.0,
                                     ),
-                                  )
-                                : const Expanded(
-                                    flex: 1,
-                                    child: SizedBox(),
+                                    child: BlogCard(
+                                      b: widget.lcm[index * 2 + 1],
+                                      bc: widget.controller,
+                                      delete: () {
+                                        widget.lcm.removeAt(index * 2 + 1);
+                                        refresherResult.value =
+                                            !refresherResult.value;
+                                      },
+                                      updateComplete: (out) {
+                                        widget.lcm[index * 2 + 1] = out;
+                                        refresherResult.value =
+                                            !refresherResult.value;
+                                      },
+                                    ),
                                   ),
-                          ],
-                        ),
-                      );
-                    },
-                  );
-              } 
+                                )
+                              : const Expanded(
+                                  flex: 1,
+                                  child: SizedBox(),
+                                ),
+                        ],
+                      ),
+                    );
+                  },
+                );
+              }
 
               return const SizedBox();
             },

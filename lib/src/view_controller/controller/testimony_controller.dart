@@ -30,6 +30,9 @@ class TestimonyController extends BaseController {
 
       if (response.statusCode == 200) {
         action(Testimony.fromJson(result['data']));
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -74,6 +77,9 @@ class TestimonyController extends BaseController {
 
       if (response.statusCode == 200) {
         action(Testimony.fromJson(result['data']));
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {

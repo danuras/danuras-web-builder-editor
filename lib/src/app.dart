@@ -1,4 +1,16 @@
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_1.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_2.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_3.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_advantage.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_blog.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_testimony.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_1.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_2.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_3.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_advantage.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_blog.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_testimony.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_token.dart';
@@ -198,6 +210,75 @@ class MyApp extends StatelessWidget {
                       action: args!['action'],
                       wcc: args['wcc'],
                       rank: args['rank'],
+                    );
+                  case AddCard1.routeName:
+                    return AddCard1(
+                      action: args!['action'],
+                      cardBoxId: args['card_box_id'],
+                      cc: args['cc'],
+                    );
+                  case EditCard1.routeName:
+                    return EditCard1(
+                      action: args!['action'],
+                      cm: args['cm'],
+                      cc: args['cc'],
+                    );
+                  case AddCard2.routeName:
+                    return AddCard2(
+                      action: args!['action'],
+                      cardBoxId: args['card_box_id'],
+                      cc: args['cc'],
+                    );
+                  case EditCard2.routeName:
+                    return EditCard2(
+                      action: args!['action'],
+                      cm: args['cm'],
+                      cc: args['cc'],
+                    );
+                  case AddCard3.routeName:
+                    return AddCard3(
+                      action: args!['action'],
+                      cardBoxId: args['card_box_id'],
+                      cc: args['cc'],
+                    );
+                  case EditCard3.routeName:
+                    return EditCard3(
+                      action: args!['action'],
+                      cm: args['cm'],
+                      cc: args['cc'],
+                    );
+                  case AddCardAdvantage.routeName:
+                    return AddCardAdvantage(
+                      action: args!['action'],
+                      acc: args['acc'],
+                    );
+                  case EditCardAdvantage.routeName:
+                    return EditCardAdvantage(
+                      action: args!['action'],
+                      acc: args['acc'],
+                      ac: args['ac'],
+                    );
+                  case AddCardTestimony.routeName:
+                    return AddCardTestimony(
+                      action: args!['action'],
+                      tc: args['tc'],
+                    );
+                  case EditCardTestimony.routeName:
+                    return EditCardTestimony(
+                      action: args!['action'],
+                      tc: args['tc'],
+                      t: args['t'],
+                    );
+                  case AddCardBlog.routeName:
+                    return AddCardBlog(
+                      action: args!['action'],
+                      bc: args['bc'],
+                    );
+                  case EditCardBlog.routeName:
+                    return EditCardBlog(
+                      action: args!['action'],
+                      bc: args['bc'],
+                      b: args['b'],
                     );
                   case ListMenu.routeName:
                   default:

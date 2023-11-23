@@ -1,14 +1,22 @@
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_advantage.dart';
 import 'package:danuras_web_service_editor/src/model/advantage_content.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/advantage_content_controller.dart';
 import 'package:flutter/material.dart';
 
 class AdvantageCard extends StatelessWidget {
   const AdvantageCard({
     super.key,
     required this.ac,
+    required this.acc,
+    required this.delete,
+    required this.updateComplete,
   });
   final AdvantageContent ac;
+  final AdvantageContentController acc;
+  final Function() delete;
+  final Function(AdvantageContent ac) updateComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +40,7 @@ class AdvantageCard extends StatelessWidget {
                 ),
                 CircleAvatar(
                   backgroundImage: NetworkImage(EndPoint.simple + ac.icon),
-                  radius: MediaQuery.of(context).size.width/8,
+                  radius: MediaQuery.of(context).size.width / 8,
                 ),
                 const Divider(
                   color: Colors.white,
@@ -61,14 +69,14 @@ class AdvantageCard extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  /* Navigator.of(context).pushNamed(
-                    EditCard1.routeName,
+                  Navigator.of(context).pushNamed(
+                    EditCardAdvantage.routeName,
                     arguments: <String, dynamic>{
-                      'ofc': ofc,
+                      'acc': acc,
                       'action': updateComplete,
-                      'order_flow': orderFlow,
+                      'ac': ac,
                     },
-                  ); */
+                  ); 
                 },
                 child: Container(
                   width: 35,
@@ -107,10 +115,11 @@ class AdvantageCard extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () async {
-                            /* await ofc.delete(
-                                id: orderFlow.id,
-                                context: context,
-                                action: deleteComplete); */
+                            await acc.delete(
+                              id: ac.id,
+                              context: context,
+                              action: delete,
+                            );
                             if (context.mounted) {
                               Navigator.of(context).pop();
                             }

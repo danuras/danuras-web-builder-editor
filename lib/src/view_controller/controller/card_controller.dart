@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_card.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart' as c;
 import 'package:danuras_web_service_editor/src/model/card_box.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/blog_api_controller.dart';
@@ -29,6 +30,9 @@ class CardController extends BaseController {
 
       if (response.statusCode == 200) {
         action(c.CardModel.fromJson(result['data']));
+        if(context.mounted){
+          Navigator.of(context).popUntil(ModalRoute.withName(EditSectionCard.routeName));
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -67,6 +71,9 @@ class CardController extends BaseController {
 
       if (response.statusCode == 200) {
         action(c.CardModel.fromJson(result['data']));
+        if(context.mounted){
+          Navigator.of(context).pop();
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {

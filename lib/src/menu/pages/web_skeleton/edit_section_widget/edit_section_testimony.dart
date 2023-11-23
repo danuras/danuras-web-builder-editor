@@ -6,6 +6,7 @@ import 'package:danuras_web_service_editor/src/menu/components/widget/custom_but
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_bar.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_testimony.dart';
 import 'package:danuras_web_service_editor/src/model/advantage.dart';
 import 'package:danuras_web_service_editor/src/model/card_box.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
@@ -33,6 +34,7 @@ class _EditSectionTestimonyState extends State<EditSectionTestimony> {
   ValueNotifier<String?> imageError = ValueNotifier(null);
 
   ValueNotifier<bool> refresher = ValueNotifier(false);
+  ValueNotifier<bool> refresherResult = ValueNotifier(false);
 
   TestimonyController tc = TestimonyController();
   late String backgroundUrl;
@@ -51,6 +53,34 @@ class _EditSectionTestimonyState extends State<EditSectionTestimony> {
         appBar: AppBar(
           title: const Text('Edit Bagian Testimoni'),
           backgroundColor: const Color(0xff110011),
+        ),
+        floatingActionButton: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+                AddCardTestimony.routeName,
+                arguments: <String, dynamic>{
+                  'tc': tc,
+                  'action': (t) {
+                    lt.add(t);
+                    refresherResult.value = !refresherResult.value;
+                  },
+                },
+              );
+          },
+          child: Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              color: const Color(0xff110011),
+              borderRadius: const BorderRadius.all(Radius.circular(35)),
+              border: Border.all(width: 2, color: Colors.white),
+            ),
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 50,
+            ),
+          ),
         ),
         body: Container(
           decoration: const BoxDecoration(
@@ -113,10 +143,16 @@ class _EditSectionTestimonyState extends State<EditSectionTestimony> {
                                 );
                               },
                             ),
-                            ListCard(
-                              lcm: lt,
-                              contentType: 'testimony',
-                              cardType: '',
+                            ValueListenableBuilder(
+                              valueListenable: refresherResult,
+                              builder: (context,rr, child) {
+                                return ListCard(
+                                  lcm: lt,
+                                  contentType: 'testimony',
+                                  controller: tc,
+                                  cardType: '',
+                                );
+                              }
                             ),
                           ],
                         ),

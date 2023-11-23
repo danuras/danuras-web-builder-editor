@@ -6,10 +6,12 @@ import 'package:danuras_web_service_editor/src/menu/components/widget/custom_but
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_bar.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_advantage.dart';
 import 'package:danuras_web_service_editor/src/model/advantage.dart';
 import 'package:danuras_web_service_editor/src/model/advantage_content.dart';
 import 'package:danuras_web_service_editor/src/model/card_box.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/advantage_content_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/advantage_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/auth_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/card_box_controller.dart';
@@ -35,8 +37,10 @@ class _EditSectionAdvantageState extends State<EditSectionAdvantage> {
   ValueNotifier<String?> imageError = ValueNotifier(null);
 
   ValueNotifier<bool> refresher = ValueNotifier(false);
+  ValueNotifier<bool> refresherResult = ValueNotifier(false);
 
   AdvantageController ac = AdvantageController();
+  AdvantageContentController acc = AdvantageContentController();
   late Advantage a;
   List<AdvantageContent> lac = [];
 
@@ -53,6 +57,34 @@ class _EditSectionAdvantageState extends State<EditSectionAdvantage> {
         appBar: AppBar(
           title: const Text('Edit Bagian Keunggulan'),
           backgroundColor: const Color(0xff110011),
+        ),
+        floatingActionButton: GestureDetector(
+          onTap: () {
+            Navigator.of(context).pushNamed(
+                AddCardAdvantage.routeName,
+                arguments: <String, dynamic>{
+                  'acc': acc,
+                  'action': (ac) {
+                    lac.add(ac);
+                    refresherResult.value = !refresherResult.value;
+                  },
+                },
+              );
+          },
+          child: Container(
+            width: 70,
+            height: 70,
+            decoration: BoxDecoration(
+              color: const Color(0xff110011),
+              borderRadius: const BorderRadius.all(Radius.circular(35)),
+              border: Border.all(width: 2, color: Colors.white),
+            ),
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+              size: 50,
+            ),
+          ),
         ),
         body: Container(
           decoration: const BoxDecoration(
@@ -138,7 +170,12 @@ class _EditSectionAdvantageState extends State<EditSectionAdvantage> {
                                 );
                               },
                             ),
-                            ListCard(lcm: lac, cardType: '', contentType: 'advantage'),
+                            ValueListenableBuilder(
+                              valueListenable: refresherResult,
+                              builder: (context, rr, child) {
+                                return ListCard(lcm: lac, cardType: '', contentType: 'advantage', controller: acc,);
+                              }
+                            ),
                           ],
                         ),
                       );

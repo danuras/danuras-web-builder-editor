@@ -1,5 +1,7 @@
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_1.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/card_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
@@ -7,8 +9,14 @@ class Card1 extends StatelessWidget {
   const Card1({
     super.key,
     required this.cm,
+    required this.cc,
+    required this.delete,
+    required this.updateComplete,
   });
   final CardModel cm;
+  final CardController cc;
+  final Function() delete;
+  final Function(CardModel cm) updateComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -48,14 +56,14 @@ class Card1 extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  /* Navigator.of(context).pushNamed(
+                  Navigator.of(context).pushNamed(
                     EditCard1.routeName,
                     arguments: <String, dynamic>{
-                      'ofc': ofc,
+                      'cc': cc,
                       'action': updateComplete,
-                      'order_flow': orderFlow,
+                      'cm': cm,
                     },
-                  ); */
+                  ); 
                 },
                 child: Container(
                   width: 35,
@@ -94,10 +102,7 @@ class Card1 extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () async {
-                            /* await ofc.delete(
-                                id: orderFlow.id,
-                                context: context,
-                                action: deleteComplete); */
+                            await cc.delete(cm.id!, context, delete);
                             if (context.mounted) {
                               Navigator.of(context).pop();
                             }

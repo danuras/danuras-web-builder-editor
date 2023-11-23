@@ -1,36 +1,39 @@
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
+import 'package:danuras_web_service_editor/src/menu/components/widget/input_cirle_image.dart';
+import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_bar.dart';
+import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_icon.dart';
-import 'package:danuras_web_service_editor/src/model/web_content.dart';
-import 'package:danuras_web_service_editor/src/view_controller/controller/web_content_controller.dart';
+import 'package:danuras_web_service_editor/src/model/advantage_content.dart';
+import 'package:danuras_web_service_editor/src/model/card_model.dart';
+import 'package:danuras_web_service_editor/src/model/testimony.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/advantage_content_controller.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/card_controller.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/testimony_controller.dart';
 import 'package:flutter/material.dart';
 
-class AddSectionTestimony extends StatefulWidget {
-  const AddSectionTestimony({
+class AddCardTestimony extends StatefulWidget {
+  const AddCardTestimony({
     super.key,
-    required this.wcc,
-    required this.rank,
+    required this.tc,
     required this.action,
   });
-  static const routeName = '/web-content/add-section-testimony';
-  final WebContentController wcc;
-  final int rank;
-  final Function(WebContent webContent) action;
+  static const routeName = '/add-card-testimony';
+  final TestimonyController tc;
+  final Function(Testimony t) action;
 
   @override
-  State<AddSectionTestimony> createState() => _AddSectionTestimonyState();
+  State<AddCardTestimony> createState() => _AddCardTestimonyState();
 }
 
-class _AddSectionTestimonyState extends State<AddSectionTestimony> {
+class _AddCardTestimonyState extends State<AddCardTestimony> {
   TextEditingController valueController = TextEditingController(text: '');
   TextEditingController nameController = TextEditingController(text: '');
   TextEditingController jobController = TextEditingController(text: '');
-  File? backgrondTestimonies, photoProfile;
+  File? photoProfile;
 
-  ValueNotifier<String?> btError = ValueNotifier(null);
   ValueNotifier<String?> ptError = ValueNotifier(null);
   ValueNotifier<String?> valueError = ValueNotifier(null);
   ValueNotifier<String?> nameError = ValueNotifier(null);
@@ -47,7 +50,7 @@ class _AddSectionTestimonyState extends State<AddSectionTestimony> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Testimoni'),
+          title: const Text('Tambah Testimoni'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(
@@ -127,27 +130,15 @@ class _AddSectionTestimonyState extends State<AddSectionTestimony> {
                   const SizedBox(
                     height: 8.0,
                   ),
-                  InputSquareImage(
-                    action: (out) {
-                      backgrondTestimonies = out;
-                    },
-                    imageError: btError,
-                    label: 'Gambar background tampilan testimoni',
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
                   CustomButton(
                     text: 'Simpan',
                     action: () async {
                       resetError();
-                      await widget.wcc.createTestimony(
-                        rank: widget.rank,
+                      await widget.tc.create(
                         value: valueController.text,
                         name: nameController.text,
                         job: jobController.text,
                         photoProfile: photoProfile,
-                        backgroundTestimonies: backgrondTestimonies,
                         context: context,
                         action: widget.action,
                         action400: (errors) {
@@ -166,7 +157,6 @@ class _AddSectionTestimonyState extends State<AddSectionTestimony> {
   }
 
   void resetError() {
-    btError.value = null;
     ptError.value = null;
     valueError.value = null;
     nameError.value = null;
@@ -174,9 +164,6 @@ class _AddSectionTestimonyState extends State<AddSectionTestimony> {
   }
 
   void checkError(errors) {
-    if (errors.containsKey('background_testimonies')) {
-      btError.value = errors['background_testimonies'][0];
-    }
     if (errors.containsKey('photo_profiles')) {
       ptError.value = errors['photo_profiles'][0];
     }

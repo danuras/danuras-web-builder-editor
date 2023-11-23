@@ -28,7 +28,7 @@ class EmailServiceApiController extends BaseController {
     final response = await http.get(
       uri,
       headers: <String, String>{
-        'Content-Type': 'application/json; charset-UTF-8',
+        'Content-Type': 'application/json; charset=UTF-8',
         'Authorization': 'Bearer ${Auth.accessToken}',
       },
     );

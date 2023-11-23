@@ -242,8 +242,9 @@ class _WebSkeletonState extends State<WebSkeleton> {
                                                               .round()]
                                                       .cardType,
                                                   'action': (cardBox) {
-                                                    lwc[((index - 1) / 2)
-                                                        .round()] = cardBox;
+                                                    lwc[((index - 1) / 2).round()].title = cardBox.title;
+                                                    refresherResult.value = !refresherResult.value;
+                                                    Navigator.of(context).pop();
                                                   }
                                                 },
                                               );

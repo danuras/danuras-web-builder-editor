@@ -1,13 +1,21 @@
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_3.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/card_controller.dart';
 import 'package:flutter/material.dart';
 
 class Card3 extends StatelessWidget {
   const Card3({
     super.key,
     required this.cm,
+    required this.cc,
+    required this.delete,
+    required this.updateComplete,
   });
   final CardModel cm;
+  final CardController cc;
+  final Function() delete;
+  final Function(CardModel cm) updateComplete;
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +34,14 @@ class Card3 extends StatelessWidget {
             padding: const EdgeInsets.all(10.0),
             child: Column(
               children: [
-                const SizedBox(height: 40,),
+                const SizedBox(
+                  height: 40,
+                ),
                 Image.network(EndPoint.simple + cm.imageUrl!),
                 const SizedBox(
                   height: 8,
                 ),
                 const Divider(
-                  
                   color: Colors.white,
                 ),
                 const SizedBox(
@@ -49,14 +58,14 @@ class Card3 extends StatelessWidget {
             children: [
               GestureDetector(
                 onTap: () {
-                  /* Navigator.of(context).pushNamed(
-                    EditCard1.routeName,
+                  Navigator.of(context).pushNamed(
+                    EditCard3.routeName,
                     arguments: <String, dynamic>{
-                      'ofc': ofc,
+                      'cm': cm,
                       'action': updateComplete,
-                      'order_flow': orderFlow,
+                      'cc': cc,
                     },
-                  ); */
+                  );
                 },
                 child: Container(
                   width: 35,
@@ -95,10 +104,8 @@ class Card3 extends StatelessWidget {
                         ),
                         TextButton(
                           onPressed: () async {
-                            /* await ofc.delete(
-                                id: orderFlow.id,
-                                context: context,
-                                action: deleteComplete); */
+                            await cc.delete(cm.id!, context, delete);
+
                             if (context.mounted) {
                               Navigator.of(context).pop();
                             }

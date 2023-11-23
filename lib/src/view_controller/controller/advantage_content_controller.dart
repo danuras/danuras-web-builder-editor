@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/model/advantage_content.dart';
@@ -28,6 +29,9 @@ class AdvantageContentController extends BaseController {
 
       if (response.statusCode == 200) {
         action(AdvantageContent.fromJson(result['data']));
+        if(context.mounted){
+          Navigator.of(context).pop();
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -70,6 +74,9 @@ class AdvantageContentController extends BaseController {
 
       if (response.statusCode == 200) {
         action(AdvantageContent.fromJson(result['data']));
+        if(context.mounted){
+          Navigator.of(context).pop();
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
