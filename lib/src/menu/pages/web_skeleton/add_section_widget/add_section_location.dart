@@ -1,35 +1,37 @@
-import 'dart:developer';
-
+import 'package:danuras_web_service_editor/src/menu/components/http/custom_future_builder.dart';
+import 'package:danuras_web_service_editor/src/menu/components/widget/card/list_card.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_bar.dart';
+import 'package:danuras_web_service_editor/src/model/contact_model.dart';
 import 'package:danuras_web_service_editor/src/model/web_content.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/contact_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/web_content_controller.dart';
 import 'package:flutter/material.dart';
 
-class AddSectionCard extends StatefulWidget {
-  const AddSectionCard({
+class AddSectionLocation extends StatefulWidget {
+  const AddSectionLocation({
     super.key,
     required this.rank,
-    required this.cardType,
     required this.wcc,
     required this.action,
   });
-  static const routeName = '/web-content/add-section-card';
-  final int rank;
-  final String cardType;
+  static const routeName = '/web-content/add-section-location';
   final WebContentController wcc;
+  final int rank;
   final Function(WebContent webContent) action;
 
   @override
-  State<AddSectionCard> createState() => _AddSectionCardState();
+  State<AddSectionLocation> createState() => AddSectionLocationState();
 }
 
-class _AddSectionCardState extends State<AddSectionCard> {
-  TextEditingController titleController = TextEditingController(text: '');
-  TextEditingController infoController = TextEditingController(text: '');
+class AddSectionLocationState extends State<AddSectionLocation> {
+  TextEditingController infoLocationController =
+      TextEditingController(text: '');
+  TextEditingController embededMapUrlController =
+      TextEditingController(text: '');
 
-  ValueNotifier<String?> titleError = ValueNotifier(null);
-  ValueNotifier<String?> infoError = ValueNotifier(null);
+  ValueNotifier<String?> infoLocationError = ValueNotifier(null);
+  ValueNotifier<String?> embededMapUrlError = ValueNotifier(null);
 
   @override
   void initState() {
@@ -42,7 +44,7 @@ class _AddSectionCardState extends State<AddSectionCard> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Kartu'),
+          title: const Text('Edit Bagian Lokasi'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(
@@ -68,19 +70,21 @@ class _AddSectionCardState extends State<AddSectionCard> {
                     height: 10,
                   ),
                   InputTypeBar(
-                    labelText: 'Judul',
-                    tooltip: 'Masukan judul bagian yang menampilkan kartu',
-                    errorText: titleError,
-                    controller: titleController,
+                    labelText: 'Info lokasi',
+                    tooltip: 'Masukan keterangan tambahan lokasi usaha anda.',
+                    errorText: infoLocationError,
+                    controller: infoLocationController,
                   ),
                   const SizedBox(
                     height: 8.0,
                   ),
                   InputTypeBar(
-                    labelText: 'Info',
-                    tooltip: 'Masukan informasi tambahan untuk bagian ini',
-                    errorText: infoError,
-                    controller: infoController,
+                    labelText: 'Link Embeded Map',
+                    maxLines: 4,
+                    tooltip:
+                        'Masukan link embeded map dari google map sesuai dengan lokasi usaha anda.',
+                    errorText: embededMapUrlError,
+                    controller: embededMapUrlController,
                   ),
                   const SizedBox(
                     height: 8.0,
@@ -89,17 +93,15 @@ class _AddSectionCardState extends State<AddSectionCard> {
                     text: 'Simpan',
                     action: () async {
                       resetError();
-                      await widget.wcc.createCard(
-                        title: titleController.text,
-                        info: infoController.text,
+                      await widget.wcc.createMaps(
+                        infoLocation: infoLocationController.text,
+                        embededMapUrl: embededMapUrlController.text,
                         context: context,
                         action: widget.action,
-                        rank: widget.rank,
                         action400: (errors) {
-                          log(errors.toString());
                           checkError(errors);
                         },
-                        cardType: widget.cardType,
+                        rank: widget.rank,
                       );
                     },
                   ),
@@ -113,16 +115,16 @@ class _AddSectionCardState extends State<AddSectionCard> {
   }
 
   void resetError() {
-    infoError.value = null;
-    titleError.value = null;
+    embededMapUrlError.value = null;
+    infoLocationError.value = null;
   }
 
   void checkError(errors) {
-    if (errors.containsKey('info')) {
-      infoError.value = errors['info'][0];
+    if (errors.containsKey('embeded_map_url')) {
+      embededMapUrlError.value = errors['embeded_map_url'][0];
     }
-    if (errors.containsKey('title')) {
-      titleError.value = errors['title'][0];
+    if (errors.containsKey('info_location')) {
+      infoLocationError.value = errors['info_location'][0];
     }
   }
 }

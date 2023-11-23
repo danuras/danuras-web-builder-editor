@@ -1,7 +1,9 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/web_skeleton.dart';
 import 'package:danuras_web_service_editor/src/model/company_profile_model.dart';
 import 'package:danuras_web_service_editor/src/model/contact_model.dart';
 import 'package:danuras_web_service_editor/src/model/order_flow.dart';
@@ -16,7 +18,6 @@ import 'package:flutter/material.dart';
 class WebContentController extends BaseController {
   final _wcac = WebContentApiController();
   Future<void> createCard({
-    required String contentType,
     required int rank,
     required String cardType,
     required String title,
@@ -27,17 +28,20 @@ class WebContentController extends BaseController {
   }) async {
     try {
       var response = await _wcac.createCard(
-        contentType,
         rank,
         cardType,
         title,
         info,
       );
 
+
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         action(WebContent.fromJson(result['data']));
+        if(context.mounted){
+          Navigator.of(context).popUntil(ModalRoute.withName(WebSkeleton.routeName));
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -60,18 +64,16 @@ class WebContentController extends BaseController {
   }
 
   Future<void> createAdvantage({
-    required String contentType,
     required int rank,
     required String description,
     required String title,
-    required File imageUrl,
+    required File? imageUrl,
     required BuildContext context,
     required Function(WebContent webContent) action,
     required Function(dynamic errors) action400,
   }) async {
     try {
       var response = await _wcac.createAdvantage(
-        contentType,
         rank,
         description,
         title,
@@ -82,6 +84,9 @@ class WebContentController extends BaseController {
 
       if (response.statusCode == 200) {
         action(WebContent.fromJson(result['data']));
+        if(context.mounted){
+          Navigator.of(context).popUntil(ModalRoute.withName(WebSkeleton.routeName));
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -104,7 +109,6 @@ class WebContentController extends BaseController {
   }
 
   Future<void> createMaps({
-    required String contentType,
     required int rank,
     required String infoLocation,
     required String embededMapUrl,
@@ -114,7 +118,6 @@ class WebContentController extends BaseController {
   }) async {
     try {
       var response = await _wcac.createMaps(
-        contentType,
         rank,
         infoLocation,
         embededMapUrl,
@@ -124,6 +127,59 @@ class WebContentController extends BaseController {
 
       if (response.statusCode == 200) {
         action(WebContent.fromJson(result['data']));
+        if(context.mounted){
+          Navigator.of(context).popUntil(ModalRoute.withName(WebSkeleton.routeName));
+        }
+      } else if (response.statusCode == 400) {
+        action400(result['errors']);
+      } else if (response.statusCode == 401) {
+        if (context.mounted) {
+          revoke(context);
+        }
+      } else {
+        if (context.mounted) {
+          failed(context, null);
+        }
+      }
+    } catch (e) {
+      if (e is TimeoutException) {
+        // menangani koneksi timeout
+        timeout(context);
+      } else {
+        error(context, 'Error: $e');
+      }
+    }
+  }
+
+  Future<void> createTestimony({
+    required int rank,
+    required String value,
+    required String name,
+    required String job,
+    required File? photoProfile,
+    required File? backgroundTestimonies,
+    required BuildContext context,
+    required Function(WebContent webContent) action,
+    required Function(dynamic errors) action400,
+  }) async {
+    try {
+      var response = await _wcac.createTestimony(
+        rank,
+        value,
+        name,
+        job,
+        photoProfile,
+        backgroundTestimonies,
+      );
+
+
+      var result = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        action(WebContent.fromJson(result['data']));
+        if(context.mounted){
+          Navigator.of(context).popUntil(ModalRoute.withName(WebSkeleton.routeName));
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -146,21 +202,19 @@ class WebContentController extends BaseController {
   }
 
   Future<void> createBlog({
-    required String contentType,
     required int rank,
     required String datePublished,
     required String title,
     required String author,
     required String text,
     required String link,
-    required File imageUrl,
+    required File? imageUrl,
     required BuildContext context,
     required Function(WebContent webContent) action,
     required Function(dynamic errors) action400,
   }) async {
     try {
       var response = await _wcac.createBlog(
-        contentType,
         rank,
         datePublished,
         title,
@@ -174,6 +228,9 @@ class WebContentController extends BaseController {
 
       if (response.statusCode == 200) {
         action(WebContent.fromJson(result['data']));
+        if(context.mounted){
+          Navigator.of(context).popUntil(ModalRoute.withName(WebSkeleton.routeName));
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -274,6 +331,7 @@ class WebContentController extends BaseController {
         id,
       );
 
+
       if (response.statusCode == 200) {
         action();
       } else if (response.statusCode == 401) {
@@ -304,6 +362,7 @@ class WebContentController extends BaseController {
       var response = await _wcac.deleteMaps(
         id,
       );
+
 
       if (response.statusCode == 200) {
         action();

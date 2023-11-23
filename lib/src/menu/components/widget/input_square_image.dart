@@ -57,82 +57,67 @@ class _InputSquareImageState extends State<InputSquareImage> {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Stack(
-              children: [
-                SizedBox(
-                  child: ValueListenableBuilder(
-                    valueListenable: refreshInput,
-                    builder: (context, ri, child) {
+            ValueListenableBuilder(
+              valueListenable: refreshInput,
+              builder: (context, ri, child) {
+                return GestureDetector(
+                  onTap: () async {
+                    FilePickerResult? result = await PickImage.pickImage();
+
+                    if (result != null) {
+                      imagePath = result.files.single.path!;
+
+                      image = File(imagePath);
+                      widget.action(image!);
+                      refreshInput.value = !refreshInput.value;
+                    }
+                  },
+                  child: Builder(
+                    builder: (context) {
                       if (widget.imageUrl == null && image == null) {
-                        return const Center(
-                          child: Icon(
-                            Icons.add_photo_alternate_outlined,
-                            color: Colors.white,
-                            size: 60,
+                        return DottedBorder(
+                          color: Colors.white,
+                          strokeWidth: 3,
+                          dashPattern: const [7, 7, 7],
+                          child: SizedBox(
+                            height: widget.height,
+                            width: double.infinity,
+                            child: const Center(
+                      child: Icon(
+                        Icons.add_photo_alternate_outlined,
+                        color: Colors.white,
+                        size: 60,
+                      ),
+                    ),
                           ),
                         );
                       } else {
-                        return const SizedBox.shrink();
+                        return Container(
+                          width: double.infinity,
+                          decoration: const BoxDecoration(
+                            color: Colors.transparent,
+                          ),
+                          child: Builder(
+                            builder: (context) {
+                              if (image == null) {
+                                return Image.network(
+                                  EndPoint.simple + widget.imageUrl!,
+                                  fit: BoxFit.fill,
+                                );
+                              } else {
+                                return Image.file(
+                                  image!,
+                                  fit: BoxFit.fill,
+                                );
+                              }
+                            },
+                          ),
+                        );
                       }
                     },
                   ),
-                ),
-                ValueListenableBuilder(
-                  valueListenable: refreshInput,
-                  builder: (context, ri, child) {
-                    return GestureDetector(
-                      onTap: () async {
-                        FilePickerResult? result = await PickImage.pickImage();
-
-                        if (result != null) {
-                          imagePath = result.files.single.path!;
-
-                          image = File(imagePath);
-                          widget.action(image!);
-                          refreshInput.value = !refreshInput.value;
-                        }
-                      },
-                      child: Builder(
-                        builder: (context) {
-                          if (widget.imageUrl == null && image == null) {
-                            return DottedBorder(
-                              color: Colors.white,
-                              strokeWidth: 3,
-                              dashPattern: const [7, 7, 7],
-                              child: SizedBox(
-                                height: widget.height,
-                                width: double.infinity,
-                              ),
-                            );
-                          } else {
-                            return Container(
-                              width: double.infinity,
-                              decoration: const BoxDecoration(
-                                color: Colors.transparent,
-                              ),
-                              child: Builder(
-                                builder: (context) {
-                                  if (image == null) {
-                                    return Image.network(
-                                      EndPoint.simple + widget.imageUrl!,
-                                      fit: BoxFit.fill,
-                                    );
-                                  } else {
-                                    return Image.file(
-                                      image!,
-                                      fit: BoxFit.fill,
-                                    );
-                                  }
-                                },
-                              ),
-                            );
-                          }
-                        },
-                      ),
-                    );
-                  },
-                ),
-              ],
+                );
+              },
             ),
             ValueListenableBuilder(
               valueListenable: widget.imageError,

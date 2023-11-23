@@ -4,6 +4,12 @@ import 'package:danuras_web_service_editor/src/menu/components/widget/custom_but
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_advantage.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_blog.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_card.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_location.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_testimony.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/web_content_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:danuras_web_service_editor/src/model/web_content.dart';
 
@@ -12,9 +18,13 @@ class AddSection extends StatefulWidget {
     super.key,
     required this.rank,
     required this.lwc,
+    required this.wcc,
+    required this.action,
   });
   final int rank;
   final List<String> lwc;
+  final WebContentController wcc;
+  final Function(WebContent webContent) action;
   static const routeName = '/web-skeleton/add-section';
 
   @override
@@ -84,7 +94,17 @@ class _AddSectionState extends State<AddSection> {
                               imagePath:
                                   'assets/images/kerangka/advantage/advantage-1.png',
                               title: 'Keunggulan',
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AddSectionAdvantage.routeName,
+                                  arguments: {
+                                    'rank': widget.rank,
+                                    'wcc': widget.wcc,
+                                    'action': widget.action,
+                                  },
+                                );
+                              },
                             ),
                           )
                         : const SizedBox.shrink(),
@@ -93,7 +113,15 @@ class _AddSectionState extends State<AddSection> {
                       child: WebContentCard(
                         imagePath: 'assets/images/kerangka/card/card-1.png',
                         title: 'Card-1',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, AddSectionCard.routeName,
+                              arguments: {
+                                'rank': widget.rank,
+                                'card_type': 'card-1',
+                                'wcc': widget.wcc,
+                                'action': widget.action,
+                              });
+                        },
                       ),
                     ),
                     Padding(
@@ -101,7 +129,15 @@ class _AddSectionState extends State<AddSection> {
                       child: WebContentCard(
                         imagePath: 'assets/images/kerangka/card/card-2.png',
                         title: 'Card-2',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, AddSectionCard.routeName,
+                              arguments: {
+                                'rank': widget.rank,
+                                'card_type': 'card-2',
+                                'wcc': widget.wcc,
+                                'action': widget.action,
+                              });
+                        },
                       ),
                     ),
                     Padding(
@@ -109,7 +145,15 @@ class _AddSectionState extends State<AddSection> {
                       child: WebContentCard(
                         imagePath: 'assets/images/kerangka/card/card-3.png',
                         title: 'Card-3',
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.pushNamed(context, AddSectionCard.routeName,
+                              arguments: {
+                                'rank': widget.rank,
+                                'card_type': 'card-3',
+                                'wcc': widget.wcc,
+                                'action': widget.action,
+                              });
+                        },
                       ),
                     ),
                     (isTestimony)
@@ -119,7 +163,17 @@ class _AddSectionState extends State<AddSection> {
                               imagePath:
                                   'assets/images/kerangka/testimony/testimony-1.png',
                               title: 'Testimoni',
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AddSectionTestimony.routeName,
+                                  arguments: {
+                                    'rank': widget.rank,
+                                    'wcc': widget.wcc,
+                                    'action': widget.action,
+                                  },
+                                );
+                              },
                             ),
                           )
                         : const SizedBox.shrink(),
@@ -130,7 +184,16 @@ class _AddSectionState extends State<AddSection> {
                               imagePath:
                                   'assets/images/kerangka/blog/blog-1.png',
                               title: 'Blog',
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AddSectionBlog.routeName,
+                                  arguments: {
+                                    'rank': widget.rank,
+                                    'wcc': widget.wcc,
+                                    'action': widget.action,
+                                  },
+                                );},
                             ),
                           )
                         : const SizedBox.shrink(),
@@ -141,7 +204,17 @@ class _AddSectionState extends State<AddSection> {
                               imagePath:
                                   'assets/images/kerangka/location/location-1.png',
                               title: 'Lokasi',
-                              onTap: () {},
+                              onTap: () {
+                                Navigator.pushNamed(
+                                  context,
+                                  AddSectionLocation.routeName,
+                                  arguments: {
+                                    'rank': widget.rank,
+                                    'wcc': widget.wcc,
+                                    'action': widget.action,
+                                  },
+                                );
+                              },
                             ),
                           )
                         : const SizedBox.shrink(),

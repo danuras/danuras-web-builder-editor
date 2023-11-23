@@ -1,35 +1,46 @@
-import 'dart:developer';
+import 'dart:io';
 
+import 'package:danuras_web_service_editor/src/menu/components/http/custom_future_builder.dart';
+import 'package:danuras_web_service_editor/src/menu/components/widget/card/list_card.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
+import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_bar.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
+import 'package:danuras_web_service_editor/src/model/advantage.dart';
+import 'package:danuras_web_service_editor/src/model/advantage_content.dart';
+import 'package:danuras_web_service_editor/src/model/card_box.dart';
+import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/model/web_content.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/advantage_controller.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/auth_controller.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/card_box_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/web_content_controller.dart';
 import 'package:flutter/material.dart';
 
-class AddSectionCard extends StatefulWidget {
-  const AddSectionCard({
+class AddSectionAdvantage extends StatefulWidget {
+  const AddSectionAdvantage({
     super.key,
-    required this.rank,
-    required this.cardType,
     required this.wcc,
+    required this.rank,
     required this.action,
   });
-  static const routeName = '/web-content/add-section-card';
-  final int rank;
-  final String cardType;
+  static const routeName = '/web-content/add-section-advantage';
   final WebContentController wcc;
+  final int rank;
   final Function(WebContent webContent) action;
 
   @override
-  State<AddSectionCard> createState() => _AddSectionCardState();
+  State<AddSectionAdvantage> createState() => AddSectionAdvantageState();
 }
 
-class _AddSectionCardState extends State<AddSectionCard> {
+class AddSectionAdvantageState extends State<AddSectionAdvantage> {
   TextEditingController titleController = TextEditingController(text: '');
-  TextEditingController infoController = TextEditingController(text: '');
+  TextEditingController descriptionController = TextEditingController(text: '');
+  File? image;
 
   ValueNotifier<String?> titleError = ValueNotifier(null);
-  ValueNotifier<String?> infoError = ValueNotifier(null);
+  ValueNotifier<String?> descriptionError = ValueNotifier(null);
+  ValueNotifier<String?> imageError = ValueNotifier(null);
 
   @override
   void initState() {
@@ -42,7 +53,7 @@ class _AddSectionCardState extends State<AddSectionCard> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Kartu'),
+          title: const Text('Edit Bagian Keunggulan'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(
@@ -79,8 +90,18 @@ class _AddSectionCardState extends State<AddSectionCard> {
                   InputTypeBar(
                     labelText: 'Info',
                     tooltip: 'Masukan informasi tambahan untuk bagian ini',
-                    errorText: infoError,
-                    controller: infoController,
+                    errorText: descriptionError,
+                    controller: descriptionController,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  InputSquareImage(
+                    action: (out) {
+                      image = out;
+                    },
+                    imageError: imageError,
+                    label: 'Gambar yang ditampilkan di halaman keunggulan',
                   ),
                   const SizedBox(
                     height: 8.0,
@@ -89,17 +110,16 @@ class _AddSectionCardState extends State<AddSectionCard> {
                     text: 'Simpan',
                     action: () async {
                       resetError();
-                      await widget.wcc.createCard(
+                      await widget.wcc.createAdvantage(
                         title: titleController.text,
-                        info: infoController.text,
+                        description: descriptionController.text,
                         context: context,
+                        imageUrl: image,
                         action: widget.action,
-                        rank: widget.rank,
                         action400: (errors) {
-                          log(errors.toString());
                           checkError(errors);
                         },
-                        cardType: widget.cardType,
+                        rank: widget.rank,
                       );
                     },
                   ),
@@ -113,16 +133,20 @@ class _AddSectionCardState extends State<AddSectionCard> {
   }
 
   void resetError() {
-    infoError.value = null;
+    descriptionError.value = null;
     titleError.value = null;
+    imageError.value = null;
   }
 
   void checkError(errors) {
     if (errors.containsKey('info')) {
-      infoError.value = errors['info'][0];
+      descriptionError.value = errors['info'][0];
     }
     if (errors.containsKey('title')) {
       titleError.value = errors['title'][0];
+    }
+    if (errors.containsKey('image_url')) {
+      imageError.value = errors['image_url'][0];
     }
   }
 }

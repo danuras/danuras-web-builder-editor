@@ -12,6 +12,11 @@ import 'package:danuras_web_service_editor/src/menu/pages/order_flow/edit_order_
 import 'package:danuras_web_service_editor/src/menu/pages/order_flow/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_color.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_advantage.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_blog.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_card.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_location.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_testimony.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_advantage.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_blog.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_card.dart';
@@ -117,6 +122,8 @@ class MyApp extends StatelessWidget {
                     return AddSection(
                       rank: args!['rank'],
                       lwc: args['lwc'],
+                      wcc: args['wcc'],
+                      action: args['action'],
                     );
                   case OrderFlowView.routeName:
                     return const OrderFlowView();
@@ -161,6 +168,37 @@ class MyApp extends StatelessWidget {
                     return const EditSectionBlog();
                   case EditSectionLocation.routeName:
                     return const EditSectionLocation();
+                  case AddSectionCard.routeName:
+                    return AddSectionCard(
+                      cardType: args!['card_type'],
+                      action: args['action'],
+                      wcc: args['wcc'],
+                      rank: args['rank'],
+                    );
+                  case AddSectionAdvantage.routeName:
+                    return AddSectionAdvantage(
+                      action: args!['action'],
+                      wcc: args['wcc'],
+                      rank: args['rank'],
+                    );
+                  case AddSectionTestimony.routeName:
+                    return AddSectionTestimony(
+                      action: args!['action'],
+                      wcc: args['wcc'],
+                      rank: args['rank'],
+                    );
+                  case AddSectionLocation.routeName:
+                    return AddSectionLocation(
+                      action: args!['action'],
+                      wcc: args['wcc'],
+                      rank: args['rank'],
+                    );
+                  case AddSectionBlog.routeName:
+                    return AddSectionBlog(
+                      action: args!['action'],
+                      wcc: args['wcc'],
+                      rank: args['rank'],
+                    );
                   case ListMenu.routeName:
                   default:
                     if (Auth.accessToken == null) {

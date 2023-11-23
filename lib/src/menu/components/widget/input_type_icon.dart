@@ -12,6 +12,7 @@ class InputTypeIcon extends StatefulWidget {
     super.key,
     required this.action,
     required this.label,
+    this.tooltip,
     required this.iconError,
     this.icon,
     this.iconUrl,
@@ -21,6 +22,7 @@ class InputTypeIcon extends StatefulWidget {
   final File? icon;
   final Function(File icon) action;
   final String label;
+  final String? tooltip;
 
   @override
   State<InputTypeIcon> createState() => _InputTypeIconState();
@@ -153,12 +155,32 @@ class _InputTypeIconState extends State<InputTypeIcon> {
             const Divider(
               color: Colors.white,
             ),
-            Text(
-              widget.label,
-              style: const TextStyle(
-                color: Colors.white,
-                fontSize: 20,
-              ),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  widget.label,
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 20,
+                  ),
+                ),
+                const SizedBox(width: 10,),
+                Tooltip(
+                  message: widget.tooltip,
+                  textStyle: const TextStyle(color: Colors.white),
+                  decoration: BoxDecoration(
+                    color: const Color(0xff330033),
+                    border: Border.all(color: Colors.white, width: 2),
+                  ),
+                  triggerMode: TooltipTriggerMode.tap,
+                  child: const Icon(
+                    Icons.help_outline,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
