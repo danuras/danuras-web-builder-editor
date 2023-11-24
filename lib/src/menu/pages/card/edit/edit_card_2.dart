@@ -1,11 +1,14 @@
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/content/add/add_content.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/content/edit/edit_content_1.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/content/edit/edit_content_2.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/card_controller.dart';
+import 'package:danuras_web_service_editor/src/view_controller/controller/card_type_controller.dart';
 import 'package:flutter/material.dart';
 
 class EditCard2 extends StatefulWidget {
@@ -31,11 +34,14 @@ class _EditCard2State extends State<EditCard2> {
 
   ValueNotifier<String?> titleError = ValueNotifier(null);
   ValueNotifier<String?> imageError = ValueNotifier(null);
+  ValueNotifier<bool> refresherResult = ValueNotifier(false);
+
+  CardTypeController ctc = CardTypeController();
 
   @override
   void initState() {
     imageUrl = widget.cm.imageUrl;
-    titleController.text = widget.cm.title??'';
+    titleController.text = widget.cm.title ?? '';
     super.initState();
   }
 
@@ -45,7 +51,7 @@ class _EditCard2State extends State<EditCard2> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tambah Data'),
+          title: const Text('Ubah Data'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(
@@ -83,8 +89,7 @@ class _EditCard2State extends State<EditCard2> {
                   ),
                   InputTypeBar(
                     labelText: 'Judul',
-                    tooltip:
-                        'Masukan judul dari kartu.',
+                    tooltip: 'Masukan judul dari kartu.',
                     errorText: titleError,
                     controller: titleController,
                   ),
@@ -107,6 +112,71 @@ class _EditCard2State extends State<EditCard2> {
                           checkError(errors);
                         },
                       );
+                    },
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  ValueListenableBuilder(
+                    valueListenable: refresherResult,
+                    builder: (context, rr, child) {
+                      if (widget.cm.isClickable) {
+                        return CustomButton(
+                          text: 'Ubah Isi Kartu',
+                          action: () async {
+                            if (widget.cm.contentType == 'content-1') {
+                              Navigator.of(context).pushNamed(
+                                EditContent1.routeName,
+                                arguments: {
+                                  'action': () {
+                                    widget.cm.isClickable = false;
+                                    widget.cm.contentType = null;
+                                    refresherResult.value =
+                                        !refresherResult.value;
+                                  },
+                                  'ctc': ctc,
+                                  'ct': widget.cm.contentType,
+                                  'card_id': widget.cm.id,
+                                },
+                              );
+                            } else {
+                              Navigator.of(context).pushNamed(
+                                EditContent2.routeName,
+                                arguments: {
+                                  'action': () {
+                                    widget.cm.isClickable = false;
+                                    widget.cm.contentType = null;
+                                    refresherResult.value =
+                                        !refresherResult.value;
+                                  },
+                                  'ct': widget.cm.contentType,
+                                  'ctc': ctc,
+                                  'card_id': widget.cm.id,
+                                },
+                              );
+                            }
+                          },
+                        );
+                      } else {
+                        return CustomButton(
+                          text: 'Tambah Isi Kartu',
+                          action: () async {
+                            Navigator.of(context).pushNamed(
+                              AddContent.routeName,
+                              arguments: {
+                                'action': (contentType) {
+                                  widget.cm.isClickable = true;
+                                  widget.cm.contentType = contentType;
+                                  refresherResult.value =
+                                      !refresherResult.value;
+                                },
+                                'ctc': ctc,
+                                'card_id': widget.cm.id,
+                              },
+                            );
+                          },
+                        );
+                      }
                     },
                   ),
                   const SizedBox(

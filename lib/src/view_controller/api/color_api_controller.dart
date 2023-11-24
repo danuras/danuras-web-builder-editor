@@ -2,7 +2,6 @@
 import 'dart:convert';
 
 import 'package:danuras_web_service_editor/src/model/color_model.dart';
-import 'package:danuras_web_service_editor/src/model/social_media_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';

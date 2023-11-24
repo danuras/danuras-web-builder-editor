@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
@@ -5,6 +6,7 @@ import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/model/content_type.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:http/http.dart' as http;
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 class ContentTypeApiController extends BaseController {
@@ -16,8 +18,8 @@ class ContentTypeApiController extends BaseController {
     var request = http.MultipartRequest('POST', uri);
     request.headers['Authorization'] = 'Bearer ${Auth.accessToken}';
     request.fields['card_type_id'] = contentType.cardTypeId.toString();
-    request.fields['text'] = contentType.text;
-    request.fields['title'] = contentType.title;
+    request.fields['text'] = contentType.text!;
+    request.fields['title'] = contentType.title!;
     if (imageUrl != null) {
       var streamLi = http.ByteStream.fromBytes(
         await imageUrl.readAsBytes(),
@@ -50,8 +52,8 @@ class ContentTypeApiController extends BaseController {
     var request = http.MultipartRequest('POST', uri);
     request.headers['Authorization'] = 'Bearer ${Auth.accessToken}';
     request.fields['content_id'] = contentType.id.toString();
-    request.fields['text'] = contentType.text;
-    request.fields['title'] = contentType.title;
+    request.fields['text'] = contentType.text!;
+    request.fields['title'] = contentType.title!;
     if (imageUrl != null) {
       var streamLi = http.ByteStream.fromBytes(
         await imageUrl.readAsBytes(),
@@ -73,6 +75,19 @@ class ContentTypeApiController extends BaseController {
 
     http.Response response = await http.Response.fromStream(hasil);
 
+    return response;
+  }
+
+  
+  Future<http.Response> show(int id) async {
+    var uri = Uri.parse('${EndPoint.value}content-type/show/$id');
+    final response = await http.get(
+      uri,
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Authorization': 'Bearer ${Auth.accessToken}',
+      },
+    );
     return response;
   }
 

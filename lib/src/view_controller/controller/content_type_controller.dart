@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/model/content_type.dart';
@@ -26,6 +27,9 @@ class ContentTypeController extends BaseController {
 
       if (response.statusCode == 200) {
         action(ContentType.fromJson(result['data']));
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -60,10 +64,14 @@ class ContentTypeController extends BaseController {
         imageUrl,
       );
 
+
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
         action(ContentType.fromJson(result['data']));
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -82,6 +90,23 @@ class ContentTypeController extends BaseController {
       } else {
         error(context, 'Error: $e');
       }
+    }
+  }
+
+  Future<Map<String, dynamic>?> show(int id) async {
+    try {
+      var response = await _ctac.show(id);
+      var result = jsonDecode(response.body);
+
+      if (response.statusCode == 200) {
+        return successOutput(ContentType.fromJson(result['data']));
+      } else if (response.statusCode == 401) {
+        return needAuthentication();
+      } else {
+        return failOutput();
+      }
+    } catch (e) {
+      return checkError(e);
     }
   }
 

@@ -5,7 +5,6 @@ import 'package:danuras_web_service_editor/src/view_controller/upload_file/pick_
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:file_picker/file_picker.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 
 class InputTypeIcon extends StatefulWidget {
   const InputTypeIcon({

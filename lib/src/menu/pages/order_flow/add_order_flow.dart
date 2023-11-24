@@ -3,8 +3,6 @@ import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_cirle_image.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
 import 'package:danuras_web_service_editor/src/model/order_flow.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/order_flow_controller.dart';

@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart';
@@ -45,7 +44,7 @@ class _EditCard3State extends State<EditCard3> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tambah Data'),
+          title: const Text('Ubah Data'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

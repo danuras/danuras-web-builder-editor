@@ -44,6 +44,7 @@ flutter:
     - assets/images/kerangka/advantage/
     - assets/images/kerangka/blog/
     - assets/images/kerangka/card/
+    - assets/images/kerangka/card/content/
     - assets/images/kerangka/footer/
     - assets/images/kerangka/header/
     - assets/images/kerangka/location/

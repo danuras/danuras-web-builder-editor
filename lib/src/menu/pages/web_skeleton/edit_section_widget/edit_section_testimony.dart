@@ -4,17 +4,8 @@ import 'package:danuras_web_service_editor/src/menu/components/http/custom_futur
 import 'package:danuras_web_service_editor/src/menu/components/widget/card/list_card.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_bar.dart';
-import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_testimony.dart';
-import 'package:danuras_web_service_editor/src/model/advantage.dart';
-import 'package:danuras_web_service_editor/src/model/card_box.dart';
-import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/model/testimony.dart';
-import 'package:danuras_web_service_editor/src/view_controller/api/testimony_api_controller.dart';
-import 'package:danuras_web_service_editor/src/view_controller/controller/advantage_controller.dart';
-import 'package:danuras_web_service_editor/src/view_controller/controller/auth_controller.dart';
-import 'package:danuras_web_service_editor/src/view_controller/controller/card_box_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/testimony_controller.dart';
 import 'package:flutter/material.dart';
 

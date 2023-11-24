@@ -1,8 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:danuras_web_service_editor/src/model/contact_model.dart';
 import 'package:danuras_web_service_editor/src/model/social_media_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/social_media_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';

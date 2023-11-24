@@ -1,16 +1,24 @@
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_1.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_2.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_3.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_advantage.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_blog.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_content_1.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_content_2.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_testimony.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_1.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_2.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_3.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_advantage.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_blog.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_content_1.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_content_2.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_testimony.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/content/add/add_content.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/content/add/add_content_1.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/content/add/add_content_2.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/content/edit/edit_content_1.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/content/edit/edit_content_2.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_token.dart';
@@ -279,6 +287,63 @@ class MyApp extends StatelessWidget {
                       action: args!['action'],
                       bc: args['bc'],
                       b: args['b'],
+                    );
+                  case AddContent.routeName:
+                    return AddContent(
+                      action: args!['action'],
+                      ctc: args['ctc'],
+                      cardId: args['card_id'],
+                    );
+                  case AddContent1.routeName:
+                    return AddContent1(
+                      action: args!['action'],
+                      ctc: args['ctc'],
+                      cardId: args['card_id'],
+                    );
+                  case AddContent2.routeName:
+                    return AddContent2(
+                      action: args!['action'],
+                      ctc: args['ctc'],
+                      cardId: args['card_id'],
+                    );
+                  case EditContent1.routeName:
+                    return EditContent1(
+                      action: args!['action'],
+
+                      ctc: args['ctc'],
+                      cardId: args['card_id'],
+                      contentType: args['ct'],
+                    );
+                  case EditContent2.routeName:
+                    return EditContent2(
+                      action: args!['action'],
+                      ctc: args['ctc'],
+                      cardId: args['card_id'],
+                      contentType: args['ct'],
+                    );
+                  case AddCardContent1.routeName:
+                    return AddCardContent1(
+                      action: args!['action'],
+                      ctc: args['ctc'],
+                      cardTypeId: args['card_type_id'],
+                    );
+                  case AddCardContent2.routeName:
+                    return AddCardContent2(
+                      action: args!['action'],
+                      ctc: args['ctc'],
+                      cardTypeId: args['card_type_id'],
+                    );
+                  case EditCardContent1.routeName:
+                    return EditCardContent1(
+                      action: args!['action'],
+                      ctc: args['ctc'],
+                      contentTypeId: args['content_type_id'],
+                    );
+                  case EditCardContent2.routeName:
+                    return EditCardContent2(
+                      action: args!['action'],
+                      ctc: args['ctc'],
+                      contentTypeId: args['content_type_id'],
                     );
                   case ListMenu.routeName:
                   default:

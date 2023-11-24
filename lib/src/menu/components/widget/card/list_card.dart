@@ -1,4 +1,3 @@
-import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/menu/components/widget/card/advantage_card.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/card/blog_card.dart';
@@ -6,8 +5,6 @@ import 'package:danuras_web_service_editor/src/menu/components/widget/card/card_
 import 'package:danuras_web_service_editor/src/menu/components/widget/card/card_2.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/card/card_3.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/card/testimony_card.dart';
-import 'package:danuras_web_service_editor/src/model/card_model.dart';
-import 'package:danuras_web_service_editor/src/view_controller/controller/card_controller.dart';
 import 'package:flutter/material.dart';
 
 class ListCard extends StatefulWidget {

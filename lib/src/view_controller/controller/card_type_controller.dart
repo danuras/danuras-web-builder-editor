@@ -15,7 +15,7 @@ class CardTypeController extends BaseController {
     required String contentType,
     File? imageUrl,
     required BuildContext context,
-    required Function(CardType cardType) action,
+    required Function(String ct) action,
     required Function(dynamic errors) action400,
   }) async {
     try {
@@ -28,7 +28,12 @@ class CardTypeController extends BaseController {
       var result = jsonDecode(response.body);
 
       if (response.statusCode == 200) {
-        action(CardType.fromJson(result['data']));
+        action(contentType);
+        if (context.mounted) {
+          Navigator.of(context)
+            ..pop()
+            ..pop();
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -67,6 +72,10 @@ class CardTypeController extends BaseController {
 
       if (response.statusCode == 200) {
         action(CardType.fromJson(result['data']));
+
+        if (context.mounted) {
+          Navigator.of(context).pop();
+        }
       } else if (response.statusCode == 400) {
         action400(result['errors']);
       } else if (response.statusCode == 401) {
@@ -122,9 +131,13 @@ class CardTypeController extends BaseController {
   ) async {
     try {
       var response = await _ctac.delete(id);
-
       if (response.statusCode == 200) {
         action();
+        if (context.mounted) {
+          Navigator.of(context)
+            ..pop()
+            ..pop();
+        }
       } else if (response.statusCode == 401) {
         if (context.mounted) {
           revoke(context);

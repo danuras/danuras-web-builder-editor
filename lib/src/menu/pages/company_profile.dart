@@ -4,7 +4,6 @@ import 'package:danuras_web_service_editor/src/menu/components/http/custom_futur
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_icon.dart';
 import 'package:danuras_web_service_editor/src/model/company_profile_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/company_profile_controller.dart';
 import 'package:flutter/material.dart';
@@ -39,7 +38,6 @@ class _CompanyProfileState extends State<CompanyProfile> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
   }
 

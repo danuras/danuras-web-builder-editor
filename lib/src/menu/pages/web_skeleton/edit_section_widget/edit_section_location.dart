@@ -1,6 +1,5 @@
 
 import 'package:danuras_web_service_editor/src/menu/components/http/custom_future_builder.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/card/list_card.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_bar.dart';
 import 'package:danuras_web_service_editor/src/model/contact_model.dart';

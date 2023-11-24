@@ -1,11 +1,7 @@
-import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/menu/components/http/custom_future_builder.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_color.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_icon.dart';
 import 'package:danuras_web_service_editor/src/model/color_model.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/color_controller.dart';
 import 'package:flutter/material.dart';

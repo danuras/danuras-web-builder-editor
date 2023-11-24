@@ -1,9 +1,4 @@
-import 'dart:io';
 
-import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_html_editor.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_square_image.dart';
-import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_Bar.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_advantage.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_blog.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section_widget/add_section_card.dart';
@@ -32,15 +27,7 @@ class AddSection extends StatefulWidget {
 }
 
 class _AddSectionState extends State<AddSection> {
-  TextEditingController senderController = TextEditingController(text: '');
-  TextEditingController passwordController = TextEditingController(text: '');
-  TextEditingController receiverController = TextEditingController(text: '');
-  ValueNotifier<String?> senderError = ValueNotifier(null);
-  ValueNotifier<String?> passwordError = ValueNotifier(null);
-  ValueNotifier<String?> receiverError = ValueNotifier(null);
-  String? infoContact;
 
-  File? backgroundImageContact;
   @override
   Widget build(BuildContext context) {
     return SafeArea(

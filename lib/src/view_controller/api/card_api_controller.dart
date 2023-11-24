@@ -5,6 +5,7 @@ import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/model/card_model.dart' as c;
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:http/http.dart' as http;
+// ignore: depend_on_referenced_packages
 import 'package:path/path.dart';
 
 class CardApiController extends BaseController {

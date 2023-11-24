@@ -1,4 +1,4 @@
 class EndPoint {
-  static String value = 'https://dbd4-114-10-18-145.ngrok-free.app/api/';
-  static String simple = 'https://dbd4-114-10-18-145.ngrok-free.app/';
+  static String value = 'https://818a-114-10-5-84.ngrok-free.app/api/';
+  static String simple = 'https://818a-114-10-5-84.ngrok-free.app/';
 }

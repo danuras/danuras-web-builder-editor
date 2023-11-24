@@ -1,10 +1,8 @@
 import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_testimony.dart';
-import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:danuras_web_service_editor/src/model/testimony.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/testimony_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 
 class TestimonyCard extends StatelessWidget {
   const TestimonyCard({

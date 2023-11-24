@@ -1,12 +1,9 @@
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'package:path/path.dart';
 
 class UserApiController extends BaseController {
   Future<http.Response> registerUser(

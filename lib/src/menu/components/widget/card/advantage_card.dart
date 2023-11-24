@@ -1,6 +1,5 @@
 import 'package:danuras_web_service_editor/src/menu/pages/card/edit/edit_card_advantage.dart';
 import 'package:danuras_web_service_editor/src/model/advantage_content.dart';
-import 'package:danuras_web_service_editor/src/model/card_model.dart';
 import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/advantage_content_controller.dart';
 import 'package:flutter/material.dart';
