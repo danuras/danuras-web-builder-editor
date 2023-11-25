@@ -56,7 +56,7 @@ class EditCardBlogState extends State<EditCardBlog> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Ubah Blog'),
+          title: const Text('Ubah Data Blog'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

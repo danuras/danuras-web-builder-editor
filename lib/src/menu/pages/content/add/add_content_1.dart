@@ -29,10 +29,12 @@ class _AddContent1State extends State<AddContent1> {
   TextEditingController whatsappMessageController =
       TextEditingController(text: '');
   TextEditingController titleController = TextEditingController(text: '');
+  TextEditingController descriptionController = TextEditingController(text: '');
   TextEditingController subContentController = TextEditingController(text: '');
   File? image;
 
   ValueNotifier<String?> textError = ValueNotifier(null);
+  ValueNotifier<String?> descriptionError = ValueNotifier(null);
   ValueNotifier<String?> whatsappMessageError = ValueNotifier(null);
   ValueNotifier<String?> titleError = ValueNotifier(null);
   ValueNotifier<String?> imageError = ValueNotifier(null);
@@ -43,7 +45,7 @@ class _AddContent1State extends State<AddContent1> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tambah Isian'),
+          title: const Text('Tambah Isian Kartu'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(
@@ -96,6 +98,15 @@ class _AddContent1State extends State<AddContent1> {
                   const SizedBox(
                     height: 8.0,
                   ),
+                  InputTypeBar(
+                    labelText: 'Deskripsi',
+                    tooltip: 'Deskripsikan isi dari kartu.',
+                    errorText: descriptionError,
+                    controller: descriptionController,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
                   InputHtmlEditor(
                     title: 'Teks',
                     tooltip:
@@ -125,6 +136,7 @@ class _AddContent1State extends State<AddContent1> {
                           'card_id': widget.cardId,
                           'text': text,
                           'title': titleController.text,
+                          'description': descriptionController.text,
                           'sub_content_title': subContentController.text,
                           'whatsapp_message': whatsappMessageController.text,
                         }),
@@ -152,6 +164,7 @@ class _AddContent1State extends State<AddContent1> {
 
   void resetError() {
     textError.value = null;
+    descriptionError.value = null;
     titleError.value = null;
     whatsappMessageError.value = null;
     imageError.value = null;
@@ -163,6 +176,9 @@ class _AddContent1State extends State<AddContent1> {
     }
     if (errors.containsKey('title')) {
       titleError.value = errors['title'][0];
+    }
+    if (errors.containsKey('description')) {
+      descriptionError.value = errors['description'][0];
     }
     if (errors.containsKey('whatsapp_message')) {
       whatsappMessageError.value = errors['whatsapp_message'][0];

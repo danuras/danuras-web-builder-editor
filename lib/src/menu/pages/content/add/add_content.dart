@@ -26,7 +26,7 @@ class _AddContentState extends State<AddContent> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tambah Bagian'),
+          title: const Text('Pilih Jenis Isian Kartu'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

@@ -50,7 +50,7 @@ class _EditSectionAdvantageState extends State<EditSectionAdvantage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Keunggulan'),
+          title: const Text('Ubah Bagian Keunggulan'),
           backgroundColor: const Color(0xff110011),
         ),
         floatingActionButton: GestureDetector(

@@ -47,7 +47,7 @@ class _AddSectionTestimonyState extends State<AddSectionTestimony> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Testimoni'),
+          title: const Text('Tambah Bagian Testimoni'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

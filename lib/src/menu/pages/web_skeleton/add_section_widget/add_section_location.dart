@@ -40,7 +40,7 @@ class AddSectionLocationState extends State<AddSectionLocation> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Lokasi'),
+          title: const Text('Tambah Bagian Lokasi'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

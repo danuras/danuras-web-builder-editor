@@ -1,4 +1,3 @@
-import 'dart:developer';
 
 import 'package:danuras_web_service_editor/src/menu/components/http/custom_future_builder.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
@@ -40,7 +39,7 @@ class _EditCardContent2State extends State<EditCardContent2> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Ubah Konten'),
+          title: const Text('Ubah Data Konten'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

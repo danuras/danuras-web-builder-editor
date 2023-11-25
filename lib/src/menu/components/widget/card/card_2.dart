@@ -40,7 +40,7 @@ class Card2 extends StatelessWidget {
                 Stack(
                   children: [
                    
-                    Image.network(EndPoint.simple + cm.imageUrl!),
+                    Image.network(EndPoint.simple! + cm.imageUrl!),
                     Center(
                       child: Text(
                         cm.title!,

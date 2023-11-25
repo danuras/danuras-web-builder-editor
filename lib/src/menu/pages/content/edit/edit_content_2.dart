@@ -31,10 +31,12 @@ class _EditContent2State extends State<EditContent2> {
   TextEditingController whatsappMessageController =
       TextEditingController(text: '');
   TextEditingController titleController = TextEditingController(text: '');
+  TextEditingController descriptionController = TextEditingController(text: '');
   TextEditingController subContentController = TextEditingController(text: '');
 
   ValueNotifier<String?> whatsappMessageError = ValueNotifier(null);
   ValueNotifier<String?> titleError = ValueNotifier(null);
+  ValueNotifier<String?> descriptionError = ValueNotifier(null);
 
   ValueNotifier<bool> refresher = ValueNotifier(false);
   ValueNotifier<bool> refresherResult = ValueNotifier(false);
@@ -78,7 +80,7 @@ class _EditContent2State extends State<EditContent2> {
           ),
         ),
         appBar: AppBar(
-          title: const Text('Ubah Isi Kartu'),
+          title: const Text('Ubah Isian Kartu'),
           actions: [
             IconButton(
               onPressed: () {
@@ -139,6 +141,7 @@ class _EditContent2State extends State<EditContent2> {
                   lct = result['data']['content_types'];
                   whatsappMessageController.text = ct.whatsappMessage!;
                   titleController.text = ct.title!;
+                  descriptionController.text = ct.description!;
                   subContentController.text = ct.subContentTitle ?? '';
                   return ValueListenableBuilder(
                     valueListenable: refresherResult,
@@ -171,6 +174,15 @@ class _EditContent2State extends State<EditContent2> {
                             const SizedBox(
                               height: 8.0,
                             ),
+                              InputTypeBar(
+                                labelText: 'Deskripsi',
+                                tooltip: 'Deskripsikan isi dari kartu.',
+                                errorText: descriptionError,
+                                controller: descriptionController,
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
                             InputTypeBar(
                               labelText: 'Pesan instan',
                               tooltip:
@@ -189,6 +201,7 @@ class _EditContent2State extends State<EditContent2> {
                                   cardType: CardType.fromJson({
                                     'id': ct.id,
                                     'title': titleController.text,
+                                    'description': descriptionController.text,
                                     'sub_content_title': subContentController.text,
                                     'whatsapp_message':
                                         whatsappMessageController.text,
@@ -223,12 +236,16 @@ class _EditContent2State extends State<EditContent2> {
 
   void resetError() {
     titleError.value = null;
+    descriptionError.value = null;
     whatsappMessageError.value = null;
   }
 
   void checkError(errors) {
     if (errors.containsKey('title')) {
       titleError.value = errors['title'][0];
+    }
+    if (errors.containsKey('description')) {
+      descriptionError.value = errors['description'][0];
     }
     if (errors.containsKey('whatsapp_message')) {
       whatsappMessageError.value = errors['whatsapp_message'][0];

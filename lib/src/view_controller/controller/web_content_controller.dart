@@ -1,8 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
 
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/web_skeleton.dart';
+import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:danuras_web_service_editor/src/model/web_content.dart';
 import 'package:danuras_web_service_editor/src/view_controller/api/web_content_api_controller.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller.dart';
@@ -441,6 +443,8 @@ class WebContentController extends BaseController {
   }
 
   Future<Map<String, dynamic>?> show() async {
+        log(EndPoint.value!);
+
     try {
       var response = await _wcac.show();
       var result = jsonDecode(response.body);

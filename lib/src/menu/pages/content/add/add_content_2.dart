@@ -25,10 +25,12 @@ class _AddContent2State extends State<AddContent2> {
   TextEditingController whatsappMessageController =
       TextEditingController(text: '');
   TextEditingController titleController = TextEditingController(text: '');
+  TextEditingController descriptionController = TextEditingController(text: '');
   TextEditingController subContentController = TextEditingController(text: '');
 
   ValueNotifier<String?> whatsappMessageError = ValueNotifier(null);
   ValueNotifier<String?> titleError = ValueNotifier(null);
+  ValueNotifier<String?> descriptionError = ValueNotifier(null);
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +38,7 @@ class _AddContent2State extends State<AddContent2> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tambah Data'),
+          title: const Text('Tambah Isian Kartu'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(
@@ -80,6 +82,15 @@ class _AddContent2State extends State<AddContent2> {
                     height: 8.0,
                   ),
                   InputTypeBar(
+                    labelText: 'Deskripsi',
+                    tooltip: 'Deskripsikan isi dari kartu.',
+                    errorText: descriptionError,
+                    controller: descriptionController,
+                  ),
+                  const SizedBox(
+                    height: 8.0,
+                  ),
+                  InputTypeBar(
                     labelText: 'Pesan instan',
                     tooltip:
                         'Masukan pesan instan yang dapat otomatis dimasukan ketika pengunjung ingin menghubungi anda lewat whatsapp',
@@ -97,6 +108,7 @@ class _AddContent2State extends State<AddContent2> {
                         cardType: CardType.fromJson({
                           'card_id': widget.cardId,
                           'title': titleController.text,
+                          'description': descriptionController.text,
                           'sub_content_title': subContentController.text,
                           'whatsapp_message': whatsappMessageController.text,
                         }),
@@ -123,12 +135,16 @@ class _AddContent2State extends State<AddContent2> {
 
   void resetError() {
     titleError.value = null;
+    descriptionError.value = null;
     whatsappMessageError.value = null;
   }
 
   void checkError(errors) {
     if (errors.containsKey('title')) {
       titleError.value = errors['title'][0];
+    }
+    if (errors.containsKey('description')) {
+      descriptionError.value = errors['description'][0];
     }
     if (errors.containsKey('whatsapp_message')) {
       whatsappMessageError.value = errors['whatsapp_message'][0];

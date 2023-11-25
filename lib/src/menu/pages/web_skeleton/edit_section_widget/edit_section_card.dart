@@ -108,7 +108,7 @@ class _EditSectionCardState extends State<EditSectionCard> {
           ),
         ),
         appBar: AppBar(
-          title: const Text('Edit Bagian Kartu'),
+          title: const Text('Ubah Bagian Kartu'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

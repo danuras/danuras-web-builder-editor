@@ -36,7 +36,7 @@ class _AddCardAdvantageState extends State<AddCardAdvantage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tambah Data'),
+          title: const Text('Tambah Data Keunggulan'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

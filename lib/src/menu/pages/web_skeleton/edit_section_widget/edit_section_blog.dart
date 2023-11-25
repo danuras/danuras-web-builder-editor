@@ -33,7 +33,7 @@ class _EditSectionBlogState extends State<EditSectionBlog> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Blog'),
+          title: const Text('Ubah Bagian Blog'),
           backgroundColor: const Color(0xff110011),
         ),
         floatingActionButton: GestureDetector(

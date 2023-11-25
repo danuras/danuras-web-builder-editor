@@ -111,7 +111,7 @@ class _EmailWebState extends State<EmailWeb> {
                             InputTypeBar(
                               labelText: 'Email Penerima',
                               tooltip:
-                                  'Alamat email yang digunakan untuk menerima pesan yang dikirim dari website https://support.google.com/mail/answer/185833?hl=en',
+                                  'Alamat email yang digunakan untuk menerima pesan yang dikirim dari website',
                               errorText: receiverError,
                               controller: receiverController,
                             ),

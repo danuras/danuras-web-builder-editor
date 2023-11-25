@@ -43,7 +43,7 @@ class AddSectionAdvantageState extends State<AddSectionAdvantage> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Keunggulan'),
+          title: const Text('Tambah Bagian Keunggulan'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

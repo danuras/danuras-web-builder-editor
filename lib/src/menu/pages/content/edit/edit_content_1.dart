@@ -37,12 +37,14 @@ class _EditContent1State extends State<EditContent1> {
   TextEditingController whatsappMessageController =
       TextEditingController(text: '');
   TextEditingController titleController = TextEditingController(text: '');
+  TextEditingController descriptionController = TextEditingController(text: '');
   TextEditingController subContentController = TextEditingController(text: '');
   File? image;
 
   ValueNotifier<String?> textError = ValueNotifier(null);
   ValueNotifier<String?> whatsappMessageError = ValueNotifier(null);
   ValueNotifier<String?> titleError = ValueNotifier(null);
+  ValueNotifier<String?> descriptionError = ValueNotifier(null);
   ValueNotifier<String?> imageError = ValueNotifier(null);
 
   ValueNotifier<bool> refresher = ValueNotifier(false);
@@ -88,7 +90,7 @@ class _EditContent1State extends State<EditContent1> {
           ),
         ),
         appBar: AppBar(
-          title: const Text('Ubah Isi Kartu'),
+          title: const Text('Ubah Isian Kartu'),
           backgroundColor: const Color(0xff110011),
           actions: [
             IconButton(
@@ -152,105 +154,117 @@ class _EditContent1State extends State<EditContent1> {
                   lct = result['data']['content_types'];
                   whatsappMessageController.text = ct.whatsappMessage!;
                   titleController.text = ct.title!;
+                  descriptionController.text = ct.description!;
                   subContentController.text = ct.subContentTitle ?? '';
                   return ValueListenableBuilder(
-                    valueListenable: refresherResult,
-                    builder: (context, rr, child) {
-                      return Padding(
-                        padding: const EdgeInsets.only(
-                          left: 8.0,
-                          right: 8.0,
-                        ),
-                        child: ListView(
-                          children: [
-                            const SizedBox(
-                              height: 10.0,
-                            ),
-                            InputSquareImage(
-                              action: (out) {
-                                image = out;
-                              },
-                              imageUrl: ct.imageUrl,
-                              imageError: imageError,
-                              label: 'Gambar dari isi kartu',
-                            ),
-                            const SizedBox(
-                              height: 8,
-                            ),
-                            InputTypeBar(
-                              labelText: 'Judul',
-                              tooltip: 'Masukan bagian judul dari konten.',
-                              errorText: titleError,
-                              controller: titleController,
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            InputTypeBar(
-                              labelText: 'Sub Judul',
-                              tooltip: 'Masukan bagian sub judul dari konten.',
-                              errorText: ValueNotifier(null),
-                              controller: subContentController,
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            InputHtmlEditor(
-                              title: 'Teks',
-                              tooltip:
-                                  'Masukan informasi tambahan untuk kartu misal nama proyek, spesifikasi produk, dan sebagainya.',
-                              error: textError,
-                              initialString: ct.text,
-                              changeText: ((changed) => text = changed),
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            InputTypeBar(
-                              labelText: 'Pesan instan',
-                              tooltip:
-                                  'Masukan pesan instan yang dapat otomatis dimasukan ketika pengunjung ingin menghubungi anda lewat whatsapp',
-                              errorText: whatsappMessageError,
-                              controller: whatsappMessageController,
-                            ),
-                            const SizedBox(
-                              height: 8.0,
-                            ),
-                            CustomButton(
-                              text: 'Simpan',
-                              action: () async {
-                                resetError();
-                                await widget.ctc.update(
-                                  cardType: CardType.fromJson({
-                                    'id': ct.id,
-                                    'text': text,
-                                    'title': titleController.text,
-                                    'sub_content_title': subContentController.text,
-                                    'whatsapp_message':
-                                        whatsappMessageController.text,
-                                  }),
-                                  imageUrl: image,
-                                  context: context,
-                                  action: (b) {},
-                                  action400: (errors) {
-                                    checkError(errors);
-                                  },
-                                );
-                              },
-                            ),
-                            ListCardContent(
-                              contentType: widget.contentType,
-                              lct: lct,
-                              controller: contentTypeController,
-                            ),
-                            const SizedBox(
-                              height: 32.0,
-                            ),
-                          ],
-                        ),
-                      );
-                    }
-                  );
+                      valueListenable: refresherResult,
+                      builder: (context, rr, child) {
+                        return Padding(
+                          padding: const EdgeInsets.only(
+                            left: 8.0,
+                            right: 8.0,
+                          ),
+                          child: ListView(
+                            children: [
+                              const SizedBox(
+                                height: 10.0,
+                              ),
+                              InputSquareImage(
+                                action: (out) {
+                                  image = out;
+                                },
+                                imageUrl: ct.imageUrl,
+                                imageError: imageError,
+                                label: 'Gambar dari isi kartu',
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              InputTypeBar(
+                                labelText: 'Judul',
+                                tooltip: 'Masukan bagian judul dari konten.',
+                                errorText: titleError,
+                                controller: titleController,
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              InputTypeBar(
+                                labelText: 'Sub Judul',
+                                tooltip:
+                                    'Masukan bagian sub judul dari konten.',
+                                errorText: ValueNotifier(null),
+                                controller: subContentController,
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              InputTypeBar(
+                                labelText: 'Deskripsi',
+                                tooltip: 'Deskripsikan isi dari kartu.',
+                                errorText: descriptionError,
+                                controller: descriptionController,
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              InputHtmlEditor(
+                                title: 'Teks',
+                                tooltip:
+                                    'Masukan informasi tambahan untuk kartu misal nama proyek, spesifikasi produk, dan sebagainya.',
+                                error: textError,
+                                initialString: ct.text,
+                                changeText: ((changed) => text = changed),
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              InputTypeBar(
+                                labelText: 'Pesan instan',
+                                tooltip:
+                                    'Masukan pesan instan yang dapat otomatis dimasukan ketika pengunjung ingin menghubungi anda lewat whatsapp',
+                                errorText: whatsappMessageError,
+                                controller: whatsappMessageController,
+                              ),
+                              const SizedBox(
+                                height: 8.0,
+                              ),
+                              CustomButton(
+                                text: 'Simpan',
+                                action: () async {
+                                  resetError();
+                                  await widget.ctc.update(
+                                    cardType: CardType.fromJson({
+                                      'id': ct.id,
+                                      'text': text,
+                                      'title': titleController.text,
+                                      'description': descriptionController.text,
+                                      'sub_content_title':
+                                          subContentController.text,
+                                      'whatsapp_message':
+                                          whatsappMessageController.text,
+                                    }),
+                                    imageUrl: image,
+                                    context: context,
+                                    action: (b) {},
+                                    action400: (errors) {
+                                      checkError(errors);
+                                    },
+                                  );
+                                },
+                              ),
+                              ListCardContent(
+                                contentType: widget.contentType,
+                                lct: lct,
+                                controller: contentTypeController,
+                              ),
+                              const SizedBox(
+                                height: 32.0,
+                              ),
+                            ],
+                          ),
+                        );
+                      });
                 }),
           ),
         ),
@@ -261,6 +275,7 @@ class _EditContent1State extends State<EditContent1> {
   void resetError() {
     textError.value = null;
     titleError.value = null;
+    descriptionError.value = null;
     whatsappMessageError.value = null;
     imageError.value = null;
   }
@@ -271,6 +286,9 @@ class _EditContent1State extends State<EditContent1> {
     }
     if (errors.containsKey('title')) {
       titleError.value = errors['title'][0];
+    }
+    if (errors.containsKey('description')) {
+      descriptionError.value = errors['description'][0];
     }
     if (errors.containsKey('whatsapp_message')) {
       whatsappMessageError.value = errors['whatsapp_message'][0];

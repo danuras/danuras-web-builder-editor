@@ -92,7 +92,7 @@ class _InputCircleImageState extends State<InputCircleImage> {
                         image: (icon == null)
                             ? DecorationImage(
                                 image: NetworkImage(
-                                  EndPoint.simple+widget.iconUrl!,
+                                  EndPoint.simple!+widget.iconUrl!,
                                 ),
                                 fit: BoxFit.cover,
                               )

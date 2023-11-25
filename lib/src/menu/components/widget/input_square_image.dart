@@ -100,7 +100,7 @@ class _InputSquareImageState extends State<InputSquareImage> {
                             builder: (context) {
                               if (image == null) {
                                 return Image.network(
-                                  EndPoint.simple + widget.imageUrl!,
+                                  EndPoint.simple! + widget.imageUrl!,
                                   fit: BoxFit.fill,
                                 );
                               } else {

@@ -2,6 +2,7 @@
 import 'package:danuras_web_service_editor/src/menu/pages/company_profile.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/contact.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/email_web.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/settings.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/user/list_user.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/order_flow/order_flow_view.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/social_media.dart';
@@ -13,7 +14,6 @@ import 'package:danuras_web_service_editor/src/view_controller/controller/auth_c
 import 'package:flutter/material.dart';
 
 
-/// Displays a list of SampleItems.
 class ListMenu extends StatelessWidget {
   const ListMenu({
     super.key,
@@ -31,7 +31,7 @@ class ListMenu extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () async {
-                showDialog<String>(
+                /* showDialog<String>(
                   context: context,
                   builder: (BuildContext context) => AlertDialog(
                     backgroundColor: const Color(0xff110011),
@@ -62,10 +62,11 @@ class ListMenu extends StatelessWidget {
                       ),
                     ],
                   ),
-                );
+                ); */
+                Navigator.of(context).pushNamed(Setting.routeName);
               },
               icon: const Icon(
-                Icons.logout,
+                Icons.settings,
                 color: Colors.white,
               ),
             ),

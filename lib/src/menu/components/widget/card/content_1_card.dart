@@ -41,7 +41,7 @@ class Content1Card extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                Image.network(EndPoint.simple + ct.imageUrl!, cacheHeight: 512, cacheWidth: 512,),
+                Image.network(EndPoint.simple! + ct.imageUrl!, cacheHeight: 512, cacheWidth: 512,),
                 const Divider(
                   color: Colors.white,
                 ),

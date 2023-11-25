@@ -22,6 +22,7 @@ class CardTypeApiController extends BaseController {
     request.fields['card_id'] = cardType.cardId.toString();
     request.fields['text'] = cardType.text??'';
     request.fields['title'] = cardType.title??'';
+    request.fields['description'] = cardType.description??'';
     request.fields['sub_content_title'] = cardType.subContentTitle??'';
     if (imageUrl != null) {
       var streamLi = http.ByteStream.fromBytes(
@@ -59,6 +60,7 @@ class CardTypeApiController extends BaseController {
     request.fields['card_id'] = cardType.cardId.toString();
     request.fields['text'] = cardType.text??'';
     request.fields['title'] = cardType.title??'';
+    request.fields['description'] = cardType.description??'';
     request.fields['sub_content_title'] = cardType.subContentTitle??'';
     if (imageUrl != null) {
       var streamLi = http.ByteStream.fromBytes(

@@ -48,7 +48,7 @@ class _AddCardBlogState extends State<AddCardBlog> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tambah Bagian Blog'),
+          title: const Text('Tambah Data Blog'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

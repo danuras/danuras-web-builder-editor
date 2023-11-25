@@ -123,7 +123,7 @@ class _InputTypeIconState extends State<InputTypeIcon> {
                                     builder: (context) {
                                       if (icon == null) {
                                         return Image.network(
-                                          EndPoint.simple + widget.iconUrl!,
+                                          EndPoint.simple! + widget.iconUrl!,
                                         );
                                       } else {
                                         return Image.file(icon!);

@@ -1,3 +1,4 @@
+import 'package:danuras_web_service_editor/src/menu/pages/auth/input_endpoint.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_1.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_2.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/card/add/add_card_3.dart';
@@ -19,6 +20,8 @@ import 'package:danuras_web_service_editor/src/menu/pages/content/add/add_conten
 import 'package:danuras_web_service_editor/src/menu/pages/content/add/add_content_2.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/content/edit/edit_content_1.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/content/edit/edit_content_2.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/settings.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/tutorial_deploy.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/add_section.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_token.dart';
@@ -44,6 +47,7 @@ import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_sect
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/edit_section_widget/edit_section_testimony.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/web_skeleton/web_skeleton.dart';
 import 'package:danuras_web_service_editor/src/model/auth.dart';
+import 'package:danuras_web_service_editor/src/model/endpoint.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/order_flow_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -51,7 +55,6 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'menu/pages/email_web.dart';
 import 'menu/pages/web_information.dart';
-import 'menu/sample_item_details_view.dart';
 import 'menu/list_menu.dart';
 import 'settings/settings_controller.dart';
 import 'settings/settings_view.dart';
@@ -118,10 +121,6 @@ class MyApp extends StatelessWidget {
                 Map<String, dynamic>? args =
                     routeSettings.arguments as Map<String, dynamic>?;
                 switch (routeSettings.name) {
-                  case SettingsView.routeName:
-                    return SettingsView(controller: settingsController);
-                  case SampleItemDetailsView.routeName:
-                    return const SampleItemDetailsView();
                   case WebInformation.routeName:
                     return const WebInformation();
                   case EmailWeb.routeName:
@@ -309,7 +308,6 @@ class MyApp extends StatelessWidget {
                   case EditContent1.routeName:
                     return EditContent1(
                       action: args!['action'],
-
                       ctc: args['ctc'],
                       cardId: args['card_id'],
                       contentType: args['ct'],
@@ -345,8 +343,17 @@ class MyApp extends StatelessWidget {
                       ctc: args['ctc'],
                       contentTypeId: args['content_type_id'],
                     );
+                  case Setting.routeName:
+                    return const Setting();
+                  case InputEndpoint.routeName:
+                    return const InputEndpoint();
+                  case TutorialDeploy.routeName:
+                    return const TutorialDeploy();
                   case ListMenu.routeName:
                   default:
+                    if (EndPoint.value == null) {
+                      return const InputEndpoint();
+                    }
                     if (Auth.accessToken == null) {
                       return const Login();
                     }

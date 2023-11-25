@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/* import 'package:flutter/material.dart';
 
 import 'settings_controller.dart';
 
@@ -49,3 +49,4 @@ class SettingsView extends StatelessWidget {
     );
   }
 }
+ */

@@ -1,6 +1,7 @@
 import 'package:danuras_web_service_editor/src/menu/components/widget/custom_button.dart';
 import 'package:danuras_web_service_editor/src/menu/components/widget/input_type_bar.dart';
 import 'package:danuras_web_service_editor/src/menu/pages/auth/input_email.dart';
+import 'package:danuras_web_service_editor/src/menu/pages/auth/input_endpoint.dart';
 import 'package:danuras_web_service_editor/src/view_controller/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -26,7 +27,7 @@ class _LoginState extends State<Login> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Login'),
+          title: const Text('Masuk'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(
@@ -94,6 +95,19 @@ class _LoginState extends State<Login> {
                       },
                       child: const Text(
                         'Lupa Password?',
+                        style: TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomRight,
+                    child: TextButton(
+                      onPressed: () {
+                      Navigator.of(context).pushNamed(InputEndpoint.routeName);
+                        
+                      },
+                      child: const Text(
+                        'Ubah EndPoint?',
                         style: TextStyle(color: Colors.white),
                       ),
                     ),

@@ -42,7 +42,7 @@ class _AddSectionCardState extends State<AddSectionCard> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Kartu'),
+          title: const Text('Tambah Bagian Kartu'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

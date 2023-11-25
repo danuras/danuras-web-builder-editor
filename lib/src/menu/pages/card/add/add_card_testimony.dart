@@ -43,7 +43,7 @@ class _AddCardTestimonyState extends State<AddCardTestimony> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tambah Testimoni'),
+          title: const Text('Tambah Data Testimoni'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

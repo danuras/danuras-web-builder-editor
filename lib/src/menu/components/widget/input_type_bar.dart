@@ -5,6 +5,7 @@ class InputTypeBar extends StatelessWidget {
     super.key,
     required this.labelText,
     this.maxLines = 1,
+    this.hintText,
     required this.errorText,
     required this.controller,
     required this.tooltip,
@@ -15,6 +16,7 @@ class InputTypeBar extends StatelessWidget {
   final int maxLines;
   final String labelText;
   final String tooltip;
+  final String? hintText;
   final bool obscureText;
 
   @override
@@ -30,6 +32,7 @@ class InputTypeBar extends StatelessWidget {
           obscureText: obscureText,
           decoration: InputDecoration(
             labelText: labelText,
+            hintText: hintText,
             suffixIcon: Padding(
               padding: const EdgeInsets.only(top:10.0, right: 10.0,),
               child: Align(

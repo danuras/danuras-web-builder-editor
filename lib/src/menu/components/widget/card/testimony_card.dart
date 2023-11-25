@@ -41,7 +41,7 @@ class TestimonyCard extends StatelessWidget {
                   children: [
                     CircleAvatar(
                       backgroundImage:
-                          NetworkImage(EndPoint.simple + t.photoProfile),
+                          NetworkImage(EndPoint.simple! + t.photoProfile),
                     ),
                     const SizedBox(
                       width: 10,

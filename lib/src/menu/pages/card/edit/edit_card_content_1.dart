@@ -44,7 +44,7 @@ class _EditCardContent1State extends State<EditCardContent1> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Ubah Konten'),
+          title: const Text('Ubah Data Konten'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

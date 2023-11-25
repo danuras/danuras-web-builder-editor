@@ -48,7 +48,7 @@ class _EditCardTestimonyState extends State<EditCardTestimony> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Ubah Testimoni'),
+          title: const Text('Ubah Data Testimoni'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

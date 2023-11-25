@@ -38,7 +38,7 @@ class AdvantageCard extends StatelessWidget {
                   height: 40,
                 ),
                 CircleAvatar(
-                  backgroundImage: NetworkImage(EndPoint.simple + ac.icon),
+                  backgroundImage: NetworkImage(EndPoint.simple! + ac.icon),
                   radius: MediaQuery.of(context).size.width / 8,
                 ),
                 const Divider(

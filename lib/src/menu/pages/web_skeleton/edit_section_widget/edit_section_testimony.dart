@@ -42,7 +42,7 @@ class _EditSectionTestimonyState extends State<EditSectionTestimony> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Edit Bagian Testimoni'),
+          title: const Text('Ubah Bagian Testimoni'),
           backgroundColor: const Color(0xff110011),
         ),
         floatingActionButton: GestureDetector(

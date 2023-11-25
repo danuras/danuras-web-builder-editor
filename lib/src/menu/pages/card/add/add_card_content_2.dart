@@ -35,7 +35,7 @@ class _AddCardContent2State extends State<AddCardContent2> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Tambah Konten'),
+          title: const Text('Tambah Data Konten'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(

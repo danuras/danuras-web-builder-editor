@@ -37,7 +37,7 @@ class Card3 extends StatelessWidget {
                 const SizedBox(
                   height: 40,
                 ),
-                Image.network(EndPoint.simple + cm.imageUrl!),
+                Image.network(EndPoint.simple! + cm.imageUrl!),
                 const SizedBox(
                   height: 8,
                 ),

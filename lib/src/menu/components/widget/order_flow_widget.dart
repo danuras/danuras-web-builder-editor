@@ -44,7 +44,7 @@ class OrderFlowWidget extends StatelessWidget {
                     border: Border.all(width: 2, color: Colors.white),
                     borderRadius: const BorderRadius.all(Radius.circular(50)),
                     image: DecorationImage(
-                      image: NetworkImage(EndPoint.simple + orderFlow.icon),
+                      image: NetworkImage(EndPoint.simple! + orderFlow.icon),
                       fit: BoxFit.cover,
                     ),
                   ),

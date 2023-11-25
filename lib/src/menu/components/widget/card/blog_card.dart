@@ -38,7 +38,7 @@ class BlogCard extends StatelessWidget {
                   height: 40,
                 ),
                 CircleAvatar(
-                  backgroundImage: NetworkImage(EndPoint.simple + b.imageUrl),
+                  backgroundImage: NetworkImage(EndPoint.simple! + b.imageUrl),
                   radius: MediaQuery.of(context).size.width/8,
                 ),
                 const Divider(

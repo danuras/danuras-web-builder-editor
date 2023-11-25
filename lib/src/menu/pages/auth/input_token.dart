@@ -35,7 +35,7 @@ class _SaveNewPasswordState extends State<SaveNewPassword> {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
-          title: const Text('Masukan token yang telah dikirim'),
+          title: const Text('Masukan token yang telah dikirim dan password baru'),
           backgroundColor: const Color(0xff110011),
         ),
         body: Container(
